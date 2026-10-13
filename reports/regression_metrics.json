@@ -1,0 +1,157 @@
+{
+    "winning_model": "Naive Previous-Close",
+    "validation_metrics": {
+        "mae": 945.1131,
+        "mse": 2151234.348,
+        "rmse": 1466.7087,
+        "mape_pct": 1.735,
+        "r2_score": 0.995169,
+        "formatted": {
+            "MAE": "$945.11",
+            "RMSE": "$1,466.71",
+            "MAPE": "1.74%",
+            "R\u00b2": "0.9952"
+        }
+    },
+    "test_metrics": {
+        "mae": 1392.031,
+        "mse": 3876732.9517,
+        "rmse": 1968.9421,
+        "mape_pct": 1.5899,
+        "r2_score": 0.987454,
+        "formatted": {
+            "MAE": "$1,392.03",
+            "RMSE": "$1,968.94",
+            "MAPE": "1.59%",
+            "R\u00b2": "0.9875"
+        }
+    },
+    "leaderboard": [
+        {
+            "Model": "Naive Previous-Close",
+            "Val_RMSE_USD": 1466.7087,
+            "Val_MAE_USD": 945.1131,
+            "Val_MAPE_Pct": 1.735,
+            "Val_R2": 0.995169,
+            "Test_RMSE_USD": 1968.9421,
+            "Test_MAE_USD": 1392.031,
+            "Test_MAPE_Pct": 1.5899,
+            "Test_R2": 0.987454,
+            "Train_RMSE_USD": 803.7096,
+            "Train_R2": 0.997517
+        },
+        {
+            "Model": "Linear Regression",
+            "Val_RMSE_USD": 1491.6635,
+            "Val_MAE_USD": 970.0777,
+            "Val_MAPE_Pct": 1.7987,
+            "Val_R2": 0.995003,
+            "Test_RMSE_USD": 2030.4292,
+            "Test_MAE_USD": 1461.5011,
+            "Test_MAPE_Pct": 1.6672,
+            "Test_R2": 0.986658,
+            "Train_RMSE_USD": 792.8937,
+            "Train_R2": 0.997583
+        },
+        {
+            "Model": "Ridge Regression",
+            "Val_RMSE_USD": 1578.919,
+            "Val_MAE_USD": 1037.556,
+            "Val_MAPE_Pct": 1.891,
+            "Val_R2": 0.994401,
+            "Test_RMSE_USD": 2119.6903,
+            "Test_MAE_USD": 1551.2777,
+            "Test_MAPE_Pct": 1.7633,
+            "Test_R2": 0.985459,
+            "Train_RMSE_USD": 845.856,
+            "Train_R2": 0.997249
+        },
+        {
+            "Model": "XGBoost Regressor (Residual Delta)",
+            "Val_RMSE_USD": 1799.3951,
+            "Val_MAE_USD": 1177.9079,
+            "Val_MAPE_Pct": 2.0457,
+            "Val_R2": 0.992728,
+            "Test_RMSE_USD": 2589.595,
+            "Test_MAE_USD": 2072.0205,
+            "Test_MAPE_Pct": 2.3459,
+            "Test_R2": 0.978297,
+            "Train_RMSE_USD": 578.2812,
+            "Train_R2": 0.998714
+        },
+        {
+            "Model": "Random Forest Regressor",
+            "Val_RMSE_USD": 9764.8749,
+            "Val_MAE_USD": 4277.2501,
+            "Val_MAPE_Pct": 5.8386,
+            "Val_R2": 0.785849,
+            "Test_RMSE_USD": 30913.7697,
+            "Test_MAE_USD": 25579.0952,
+            "Test_MAPE_Pct": 25.8088,
+            "Test_R2": -2.092821,
+            "Train_RMSE_USD": 424.1194,
+            "Train_R2": 0.999308
+        },
+        {
+            "Model": "Extra Trees Regressor",
+            "Val_RMSE_USD": 10244.7981,
+            "Val_MAE_USD": 4655.0991,
+            "Val_MAPE_Pct": 6.3503,
+            "Val_R2": 0.764282,
+            "Test_RMSE_USD": 32497.9313,
+            "Test_MAE_USD": 27349.4381,
+            "Test_MAPE_Pct": 27.8146,
+            "Test_R2": -2.417923,
+            "Train_RMSE_USD": 435.5566,
+            "Train_R2": 0.999271
+        },
+        {
+            "Model": "HistGradientBoosting Regressor",
+            "Val_RMSE_USD": 10607.5502,
+            "Val_MAE_USD": 4938.8776,
+            "Val_MAPE_Pct": 6.6653,
+            "Val_R2": 0.747294,
+            "Test_RMSE_USD": 32918.4874,
+            "Test_MAE_USD": 27834.2218,
+            "Test_MAPE_Pct": 28.3732,
+            "Test_R2": -2.506958,
+            "Train_RMSE_USD": 537.2972,
+            "Train_R2": 0.99889
+        },
+        {
+            "Model": "LightGBM Regressor",
+            "Val_RMSE_USD": 10619.6342,
+            "Val_MAE_USD": 4950.939,
+            "Val_MAPE_Pct": 6.9006,
+            "Val_R2": 0.746718,
+            "Test_RMSE_USD": 32758.2236,
+            "Test_MAE_USD": 27585.0077,
+            "Test_MAPE_Pct": 28.0629,
+            "Test_R2": -2.472894,
+            "Train_RMSE_USD": 537.792,
+            "Train_R2": 0.998888
+        },
+        {
+            "Model": "XGBoost Regressor (Raw Price)",
+            "Val_RMSE_USD": 10812.9242,
+            "Val_MAE_USD": 5142.3038,
+            "Val_MAPE_Pct": 6.9198,
+            "Val_R2": 0.737414,
+            "Test_RMSE_USD": 33940.9011,
+            "Test_MAE_USD": 28905.5773,
+            "Test_MAPE_Pct": 29.5827,
+            "Test_R2": -2.728186,
+            "Train_RMSE_USD": 452.2427,
+            "Train_R2": 0.999214
+        }
+    ],
+    "best_xgb_hyperparameters": {
+        "subsample": 0.8,
+        "reg_lambda": 1.0,
+        "reg_alpha": 0.0,
+        "n_estimators": 100,
+        "max_depth": 4,
+        "learning_rate": 0.1,
+        "colsample_bytree": 1.0
+    }
+}

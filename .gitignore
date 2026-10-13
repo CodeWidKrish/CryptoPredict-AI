@@ -1,0 +1,18 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Environments
+venv/
+env/
+.env
+
+# Streamlit
+.streamlit/
+
+# OS specific
+Thumbs.db
+.DS_Store

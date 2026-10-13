@@ -1,0 +1,212 @@
+{
+    "winning_model": "LightGBM Classifier",
+    "validation_metrics": {
+        "confusion_matrix": {
+            "TN": 217,
+            "FP": 99,
+            "FN": 210,
+            "TP": 122,
+            "total": 648
+        },
+        "raw": {
+            "accuracy": 0.5231481481481481,
+            "precision": 0.5520361990950227,
+            "sensitivity": 0.3674698795180723,
+            "specificity": 0.6867088607594937,
+            "f1_score": 0.4412296564195298,
+            "error_rate": 0.47685185185185186,
+            "roc_auc": null
+        },
+        "percentages": {
+            "accuracy_pct": 52.31,
+            "precision_pct": 55.2,
+            "sensitivity_pct": 36.75,
+            "specificity_pct": 68.67,
+            "f1_score_pct": 44.12,
+            "error_rate_pct": 47.69,
+            "roc_auc_pct": null
+        },
+        "formatted": {
+            "Accuracy": "52.31%",
+            "Precision": "55.20%",
+            "Recall / Sensitivity": "36.75%",
+            "Specificity": "68.67%",
+            "F1-Score": "44.12%",
+            "Error Rate": "47.69%",
+            "ROC-AUC": "N/A"
+        }
+    },
+    "test_metrics": {
+        "confusion_matrix": {
+            "TN": 273,
+            "FP": 57,
+            "FN": 266,
+            "TP": 52,
+            "total": 648
+        },
+        "raw": {
+            "accuracy": 0.5015432098765432,
+            "precision": 0.47706422018348627,
+            "sensitivity": 0.16352201257861634,
+            "specificity": 0.8272727272727273,
+            "f1_score": 0.24355971896955506,
+            "error_rate": 0.4984567901234568,
+            "roc_auc": 0.4880693729750334
+        },
+        "percentages": {
+            "accuracy_pct": 50.15,
+            "precision_pct": 47.71,
+            "sensitivity_pct": 16.35,
+            "specificity_pct": 82.73,
+            "f1_score_pct": 24.36,
+            "error_rate_pct": 49.85,
+            "roc_auc_pct": 48.81
+        },
+        "formatted": {
+            "Accuracy": "50.15%",
+            "Precision": "47.71%",
+            "Recall / Sensitivity": "16.35%",
+            "Specificity": "82.73%",
+            "F1-Score": "24.36%",
+            "Error Rate": "49.85%",
+            "ROC-AUC": "0.4881"
+        }
+    },
+    "leaderboard": [
+        {
+            "Model": "LightGBM Classifier",
+            "Val_F1_Pct": 44.12,
+            "Val_Accuracy_Pct": 52.31,
+            "Val_Precision_Pct": 55.2,
+            "Val_Recall_Pct": 36.75,
+            "Val_Specificity_Pct": 68.67,
+            "Val_ErrorRate_Pct": 47.69,
+            "Val_ROC_AUC": 0.5397380661888058,
+            "Test_F1_Pct": 24.36,
+            "Test_Accuracy_Pct": 50.15,
+            "Test_Precision_Pct": 47.71,
+            "Test_Recall_Pct": 16.35,
+            "Test_Specificity_Pct": 82.73,
+            "Test_ErrorRate_Pct": 49.85,
+            "Test_ROC_AUC": 0.4880693729750334,
+            "Train_Accuracy_Pct": 76.03
+        },
+        {
+            "Model": "HistGradientBoosting Classifier",
+            "Val_F1_Pct": 42.59,
+            "Val_Accuracy_Pct": 52.16,
+            "Val_Precision_Pct": 55.29,
+            "Val_Recall_Pct": 34.64,
+            "Val_Specificity_Pct": 70.57,
+            "Val_ErrorRate_Pct": 47.84,
+            "Val_ROC_AUC": 0.531788546591429,
+            "Test_F1_Pct": 18.58,
+            "Test_Accuracy_Pct": 48.61,
+            "Test_Precision_Pct": 41.76,
+            "Test_Recall_Pct": 11.95,
+            "Test_Specificity_Pct": 83.94,
+            "Test_ErrorRate_Pct": 51.39,
+            "Test_ROC_AUC": 0.4774442538593482,
+            "Train_Accuracy_Pct": 76.72
+        },
+        {
+            "Model": "Dummy Baseline (Most Frequent)",
+            "Val_F1_Pct": 67.76,
+            "Val_Accuracy_Pct": 51.23,
+            "Val_Precision_Pct": 51.23,
+            "Val_Recall_Pct": 100.0,
+            "Val_Specificity_Pct": 0.0,
+            "Val_ErrorRate_Pct": 48.77,
+            "Val_ROC_AUC": 0.5,
+            "Test_F1_Pct": 65.84,
+            "Test_Accuracy_Pct": 49.07,
+            "Test_Precision_Pct": 49.07,
+            "Test_Recall_Pct": 100.0,
+            "Test_Specificity_Pct": 0.0,
+            "Test_ErrorRate_Pct": 50.93,
+            "Test_ROC_AUC": 0.5,
+            "Train_Accuracy_Pct": 53.41
+        },
+        {
+            "Model": "XGBoost Classifier (Tuned)",
+            "Val_F1_Pct": 55.28,
+            "Val_Accuracy_Pct": 50.31,
+            "Val_Precision_Pct": 51.29,
+            "Val_Recall_Pct": 59.94,
+            "Val_Specificity_Pct": 40.19,
+            "Val_ErrorRate_Pct": 49.69,
+            "Val_ROC_AUC": 0.5243346804941283,
+            "Test_F1_Pct": 51.43,
+            "Test_Accuracy_Pct": 47.53,
+            "Test_Precision_Pct": 47.12,
+            "Test_Recall_Pct": 56.6,
+            "Test_Specificity_Pct": 38.79,
+            "Test_ErrorRate_Pct": 52.47,
+            "Test_ROC_AUC": 0.47913093196112055,
+            "Train_Accuracy_Pct": 67.29
+        },
+        {
+            "Model": "Extra Trees Classifier",
+            "Val_F1_Pct": 32.78,
+            "Val_Accuracy_Pct": 50.0,
+            "Val_Precision_Pct": 52.67,
+            "Val_Recall_Pct": 23.8,
+            "Val_Specificity_Pct": 77.53,
+            "Val_ErrorRate_Pct": 50.0,
+            "Val_ROC_AUC": 0.5167759646179655,
+            "Test_F1_Pct": 0.63,
+            "Test_Accuracy_Pct": 51.08,
+            "Test_Precision_Pct": 100.0,
+            "Test_Recall_Pct": 0.31,
+            "Test_Specificity_Pct": 100.0,
+            "Test_ErrorRate_Pct": 48.92,
+            "Test_ROC_AUC": 0.5165618448637317,
+            "Train_Accuracy_Pct": 64.15
+        },
+        {
+            "Model": "Random Forest Classifier",
+            "Val_F1_Pct": 40.0,
+            "Val_Accuracy_Pct": 49.54,
+            "Val_Precision_Pct": 51.17,
+            "Val_Recall_Pct": 32.83,
+            "Val_Specificity_Pct": 67.09,
+            "Val_ErrorRate_Pct": 50.46,
+            "Val_ROC_AUC": 0.5139068933963703,
+            "Test_F1_Pct": 12.9,
+            "Test_Accuracy_Pct": 50.0,
+            "Test_Precision_Pct": 44.44,
+            "Test_Recall_Pct": 7.55,
+            "Test_Specificity_Pct": 90.91,
+            "Test_ErrorRate_Pct": 50.0,
+            "Test_ROC_AUC": 0.50494568324757,
+            "Train_Accuracy_Pct": 74.54
+        },
+        {
+            "Model": "Logistic Regression",
+            "Val_F1_Pct": 42.58,
+            "Val_Accuracy_Pct": 49.23,
+            "Val_Precision_Pct": 50.62,
+            "Val_Recall_Pct": 36.75,
+            "Val_Specificity_Pct": 62.34,
+            "Val_ErrorRate_Pct": 50.77,
+            "Val_ROC_AUC": 0.5037841238371207,
+            "Test_F1_Pct": 14.52,
+            "Test_Accuracy_Pct": 50.93,
+            "Test_Precision_Pct": 50.0,
+            "Test_Recall_Pct": 8.49,
+            "Test_Specificity_Pct": 91.82,
+            "Test_ErrorRate_Pct": 49.07,
+            "Test_ROC_AUC": 0.5223937488088432,
+            "Train_Accuracy_Pct": 55.95
+        }
+    ],
+    "best_xgb_hyperparameters": {
+        "subsample": 0.8,
+        "reg_lambda": 5.0,
+        "reg_alpha": 1.0,
+        "n_estimators": 50,
+        "max_depth": 4,
+        "learning_rate": 0.03,
+        "colsample_bytree": 0.8
+    }
+}
