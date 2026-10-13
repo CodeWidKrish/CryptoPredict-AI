@@ -23,15 +23,17 @@ if str(PROJECT_ROOT) not in sys.path:
 from config.config import FIGURES_DIR
 
 
-# Dark terminal palette
-COLOR_BG = "#0B101D"
-COLOR_CARD = "#151C2C"
-COLOR_TEXT = "#E2E8F0"
-COLOR_GREEN = "#00F5A0"
-COLOR_RED = "#FF4B72"
-COLOR_BLUE = "#00D2FF"
-COLOR_PURPLE = "#7928CA"
-COLOR_ACCENT = "#F59E0B"
+# Premium Terminal Color Tokens
+COLOR_BG = "#080D1A"
+COLOR_CARD = "#111A2E"
+COLOR_BORDER = "#1E293B"
+COLOR_TEXT = "#F8FAFC"
+COLOR_MUTED = "#94A3B8"
+COLOR_GREEN = "#10B981"
+COLOR_RED = "#F43F5E"
+COLOR_BLUE = "#38BDF8"
+COLOR_AMBER = "#F59E0B"
+COLOR_PURPLE = "#8B5CF6"
 
 
 # ==========================================
@@ -39,15 +41,15 @@ COLOR_ACCENT = "#F59E0B"
 # ==========================================
 
 def plot_interactive_candlestick(df: pd.DataFrame, days: int = 180) -> go.Figure:
-    """Creates a high-performance interactive candlestick chart with volume."""
+    """Creates a high-performance interactive candlestick chart with volume and MA overlays."""
     recent_df = df.tail(days).copy()
 
     fig = make_subplots(
         rows=2, cols=1,
         shared_xaxes=True,
-        vertical_spacing=0.04,
-        row_heights=[0.75, 0.25],
-        subplot_titles=("Bitcoin (BTC/USD) Daily Candlestick", "Volume")
+        vertical_spacing=0.03,
+        row_heights=[0.72, 0.28],
+        subplot_titles=("", "")
     )
 
     # Candlestick
@@ -59,17 +61,47 @@ def plot_interactive_candlestick(df: pd.DataFrame, days: int = 180) -> go.Figure
             low=recent_df["Low"],
             close=recent_df["Close"],
             increasing_line_color=COLOR_GREEN,
+            increasing_fillcolor=COLOR_GREEN,
             decreasing_line_color=COLOR_RED,
-            name="BTC-USD"
+            decreasing_fillcolor=COLOR_RED,
+            name="BTC-USD Daily",
+            hoverlabel=dict(bgcolor=COLOR_CARD, font=dict(family="JetBrains Mono", size=12, color=COLOR_TEXT))
         ),
         row=1, col=1
     )
 
-    # Moving averages if present
+    # Moving averages
     if "MA_7" in recent_df.columns:
-        fig.add_trace(go.Scatter(x=recent_df["Date"], y=recent_df["MA_7"], line=dict(color=COLOR_BLUE, width=1.5), name="7-day SMA"), row=1, col=1)
+        fig.add_trace(go.Scatter(
+            x=recent_df["Date"], y=recent_df["MA_7"],
+            line=dict(color=COLOR_BLUE, width=1.75),
+            name="7D SMA",
+            hovertemplate="7D SMA: $%{y:,.2f}<extra></extra>"
+        ), row=1, col=1)
     if "MA_30" in recent_df.columns:
-        fig.add_trace(go.Scatter(x=recent_df["Date"], y=recent_df["MA_30"], line=dict(color=COLOR_ACCENT, width=1.5), name="30-day SMA"), row=1, col=1)
+        fig.add_trace(go.Scatter(
+            x=recent_df["Date"], y=recent_df["MA_30"],
+            line=dict(color=COLOR_AMBER, width=1.75),
+            name="30D SMA",
+            hovertemplate="30D SMA: $%{y:,.2f}<extra></extra>"
+        ), row=1, col=1)
+
+    # Bollinger Bands if available
+    if "Bollinger_Upper" in recent_df.columns and "Bollinger_Lower" in recent_df.columns:
+        fig.add_trace(go.Scatter(
+            x=recent_df["Date"], y=recent_df["Bollinger_Upper"],
+            line=dict(color="rgba(148, 163, 184, 0.35)", width=1, dash="dot"),
+            name="Upper Bollinger (20,2)",
+            hoverinfo="skip"
+        ), row=1, col=1)
+        fig.add_trace(go.Scatter(
+            x=recent_df["Date"], y=recent_df["Bollinger_Lower"],
+            line=dict(color="rgba(148, 163, 184, 0.35)", width=1, dash="dot"),
+            fill="tonexty",
+            fillcolor="rgba(56, 189, 248, 0.03)",
+            name="Lower Bollinger (20,2)",
+            hoverinfo="skip"
+        ), row=1, col=1)
 
     # Volume Bar Chart
     colors = [COLOR_GREEN if c >= o else COLOR_RED for c, o in zip(recent_df["Close"], recent_df["Open"])]
@@ -79,19 +111,50 @@ def plot_interactive_candlestick(df: pd.DataFrame, days: int = 180) -> go.Figure
             y=recent_df["Volume"],
             marker_color=colors,
             name="Volume",
-            opacity=0.8
+            opacity=0.75,
+            hovertemplate="Volume: $%{y:,.0f}<extra></extra>"
         ),
         row=2, col=1
     )
 
     fig.update_layout(
         template="plotly_dark",
-        plot_bgcolor=COLOR_CARD,
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
-        font=dict(color=COLOR_TEXT, family="Inter, sans-serif"),
+        font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, Inter, sans-serif"),
         xaxis_rangeslider_visible=False,
-        margin=dict(l=40, r=40, t=50, b=40),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        margin=dict(l=20, r=20, t=20, b=20),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="left",
+            x=0,
+            bgcolor="rgba(17, 26, 46, 0.6)",
+            bordercolor=COLOR_BORDER,
+            borderwidth=1,
+            font=dict(size=11)
+        ),
+        height=520
+    )
+    fig.update_xaxes(
+        gridcolor="rgba(255, 255, 255, 0.05)",
+        linecolor=COLOR_BORDER,
+        tickfont=dict(family="JetBrains Mono", size=10, color=COLOR_MUTED)
+    )
+    fig.update_yaxes(
+        gridcolor="rgba(255, 255, 255, 0.05)",
+        linecolor=COLOR_BORDER,
+        tickprefix="$",
+        tickformat=",.0f",
+        tickfont=dict(family="JetBrains Mono", size=10, color=COLOR_MUTED),
+        row=1, col=1
+    )
+    fig.update_yaxes(
+        gridcolor="rgba(255, 255, 255, 0.03)",
+        linecolor=COLOR_BORDER,
+        tickfont=dict(family="JetBrains Mono", size=9, color=COLOR_MUTED),
+        row=2, col=1
     )
     return fig
 
@@ -102,7 +165,7 @@ def plot_interactive_actual_vs_predicted(
     predicted: pd.Series,
     model_name: str
 ) -> go.Figure:
-    """Plots actual test prices vs model predicted prices."""
+    """Plots actual test prices vs model predicted prices with error tracking."""
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
@@ -110,7 +173,8 @@ def plot_interactive_actual_vs_predicted(
         y=actual,
         mode="lines",
         name="Actual Next-Day Close",
-        line=dict(color="#94A3B8", width=2)
+        line=dict(color="#E2E8F0", width=2.2),
+        hovertemplate="Actual: $%{y:,.2f}<extra></extra>"
     ))
 
     fig.add_trace(go.Scatter(
@@ -118,38 +182,67 @@ def plot_interactive_actual_vs_predicted(
         y=predicted,
         mode="lines",
         name=f"Predicted ({model_name})",
-        line=dict(color=COLOR_BLUE, width=2, dash="dash")
+        line=dict(color=COLOR_BLUE, width=1.8, dash="dash"),
+        hovertemplate="Predicted: $%{y:,.2f}<extra></extra>"
     ))
 
     fig.update_layout(
-        title=f"Actual vs Predicted Bitcoin Next-Day Close ({model_name})",
+        title=dict(
+            text=f"Out-of-Sample Performance: Actual vs Predicted Next-Day Close",
+            font=dict(size=14, color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif")
+        ),
         template="plotly_dark",
-        plot_bgcolor=COLOR_CARD,
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT),
-        xaxis_title="Date",
-        yaxis_title="Price (USD)",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-        margin=dict(l=40, r=40, t=60, b=40)
+        xaxis=dict(
+            gridcolor="rgba(255, 255, 255, 0.05)",
+            tickfont=dict(family="JetBrains Mono", size=10, color=COLOR_MUTED)
+        ),
+        yaxis=dict(
+            gridcolor="rgba(255, 255, 255, 0.05)",
+            tickprefix="$",
+            tickformat=",.0f",
+            tickfont=dict(family="JetBrains Mono", size=10, color=COLOR_MUTED)
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            bgcolor="rgba(17, 26, 46, 0.6)",
+            bordercolor=COLOR_BORDER,
+            borderwidth=1
+        ),
+        margin=dict(l=20, r=20, t=50, b=20),
+        height=420
     )
     return fig
 
 
 def plot_interactive_confusion_matrix(cm_dict: dict, model_name: str) -> go.Figure:
-    """Plots interactive heatmap for classification confusion matrix."""
+    """Plots interactive heatmap for classification confusion matrix with quantitative descriptors."""
     tn, fp, fn, tp = cm_dict["TN"], cm_dict["FP"], cm_dict["FN"], cm_dict["TP"]
     z = [[tn, fp], [fn, tp]]
     x_labels = ["Predicted Down (0)", "Predicted Up (1)"]
     y_labels = ["Actual Down (0)", "Actual Up (1)"]
 
+    cell_labels = [
+        [f"<b>TN = {tn}</b><br><span style='font-size:11px'>Dips Avoided</span>",
+         f"<b>FP = {fp}</b><br><span style='font-size:11px'>False Breakouts</span>"],
+        [f"<b>FN = {fn}</b><br><span style='font-size:11px'>Missed Rallies</span>",
+         f"<b>TP = {tp}</b><br><span style='font-size:11px'>Rallies Captured</span>"]
+    ]
+
     annotations = []
-    for i, row in enumerate(z):
-        for j, val in enumerate(row):
+    for i, row in enumerate(cell_labels):
+        for j, text in enumerate(row):
             annotations.append(dict(
                 x=x_labels[j],
                 y=y_labels[i],
-                text=f"{val}",
-                font=dict(color="white", size=18, family="sans-serif"),
+                text=text,
+                font=dict(color="#FFFFFF", size=14, family="Plus Jakarta Sans, sans-serif"),
                 showarrow=False
             ))
 
@@ -157,25 +250,30 @@ def plot_interactive_confusion_matrix(cm_dict: dict, model_name: str) -> go.Figu
         z=z,
         x=x_labels,
         y=y_labels,
-        colorscale=[[0, "#1E293B"], [0.5, "#0284C7"], [1.0, "#00F5A0"]],
+        colorscale=[[0, "#0F172A"], [0.3, "#1E293B"], [0.7, "#0284C7"], [1.0, "#10B981"]],
         showscale=False
     ))
 
     fig.update_layout(
-        title=f"Confusion Matrix: {model_name}",
+        title=dict(
+            text=f"Direction Confusion Matrix ({model_name})",
+            font=dict(size=14, color=COLOR_TEXT)
+        ),
         annotations=annotations,
         template="plotly_dark",
-        plot_bgcolor=COLOR_CARD,
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT),
-        margin=dict(l=40, r=40, t=50, b=40),
-        height=380
+        xaxis=dict(tickfont=dict(size=12, color=COLOR_TEXT)),
+        yaxis=dict(tickfont=dict(size=12, color=COLOR_TEXT)),
+        margin=dict(l=20, r=20, t=50, b=20),
+        height=360
     )
     return fig
 
 
 def plot_interactive_feature_importance(importances: pd.DataFrame, top_n: int = 15) -> go.Figure:
-    """Creates a horizontal bar chart of top feature importances."""
+    """Creates a horizontal bar chart of top feature importances with electric gradient."""
     top_df = importances.head(top_n).sort_values("Importance", ascending=True)
 
     fig = go.Figure(go.Bar(
@@ -184,20 +282,31 @@ def plot_interactive_feature_importance(importances: pd.DataFrame, top_n: int = 
         orientation="h",
         marker=dict(
             color=top_df["Importance"],
-            colorscale=[[0, "#0284C7"], [1, "#00F5A0"]],
-        )
+            colorscale=[[0, "#0284C7"], [0.5, "#38BDF8"], [1, "#10B981"]],
+            line=dict(color="rgba(255, 255, 255, 0.15)", width=1)
+        ),
+        hovertemplate="<b>%{y}</b><br>Importance: %{x:.4f}<extra></extra>"
     ))
 
     fig.update_layout(
-        title=f"Top {top_n} Most Influential Features",
+        title=dict(
+            text=f"Top {top_n} Predictive Feature Weights",
+            font=dict(size=14, color=COLOR_TEXT)
+        ),
         template="plotly_dark",
-        plot_bgcolor=COLOR_CARD,
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT),
-        xaxis_title="Relative Importance Score",
-        yaxis_title="Feature",
-        margin=dict(l=60, r=40, t=50, b=40),
-        height=450
+        xaxis=dict(
+            title=dict(text="Gini / Split Gain Importance", font=dict(size=11, color=COLOR_MUTED)),
+            gridcolor="rgba(255, 255, 255, 0.05)",
+            tickfont=dict(family="JetBrains Mono", size=10, color=COLOR_MUTED)
+        ),
+        yaxis=dict(
+            tickfont=dict(family="JetBrains Mono", size=11, color=COLOR_TEXT)
+        ),
+        margin=dict(l=20, r=20, t=50, b=20),
+        height=460
     )
     return fig
 
