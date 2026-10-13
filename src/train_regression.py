@@ -175,9 +175,9 @@ def train_regression_models(split_data: Dict[str, Any]) -> Tuple[pd.DataFrame, A
         test_predictions[name] = p_test
 
         # Metrics
-        train_m = compute_regression_metrics(y_train, p_train)
-        val_m = compute_regression_metrics(y_val, p_val)
-        test_m = compute_regression_metrics(y_test, p_test)
+        train_m = compute_regression_metrics(y_train, p_train, current_close=X_train["Close"])
+        val_m = compute_regression_metrics(y_val, p_val, current_close=X_val["Close"])
+        test_m = compute_regression_metrics(y_test, p_test, current_close=X_test["Close"])
 
         leaderboard_records.append({
             "Model": name,
@@ -185,37 +185,41 @@ def train_regression_models(split_data: Dict[str, Any]) -> Tuple[pd.DataFrame, A
             "Val_MAE_USD": val_m["mae"],
             "Val_MAPE_Pct": val_m["mape_pct"],
             "Val_R2": val_m["r2_score"],
+            "Val_Directional_Acc_Pct": val_m.get("directional_accuracy_pct"),
             "Test_RMSE_USD": test_m["rmse"],
             "Test_MAE_USD": test_m["mae"],
             "Test_MAPE_Pct": test_m["mape_pct"],
             "Test_R2": test_m["r2_score"],
+            "Test_Directional_Acc_Pct": test_m.get("directional_accuracy_pct"),
             "Train_RMSE_USD": train_m["rmse"],
             "Train_R2": train_m["r2_score"]
         })
 
         print(f"[{name}]")
-        print(f"  Val  -> RMSE: ${val_m['rmse']:,.2f} | MAE: ${val_m['mae']:,.2f} | MAPE: {val_m['mape_pct']:.2f}% | R²: {val_m['r2_score']:.4f}")
-        print(f"  Test -> RMSE: ${test_m['rmse']:,.2f} | MAE: ${test_m['mae']:,.2f} | MAPE: {test_m['mape_pct']:.2f}% | R²: {test_m['r2_score']:.4f}")
+        print(f"  Val  -> RMSE: ${val_m['rmse']:,.2f} | MAE: ${val_m['mae']:,.2f} | MAPE: {val_m['mape_pct']:.2f}% | R²: {val_m['r2_score']:.4f} | DirAcc: {val_m.get('directional_accuracy_pct')}%")
+        print(f"  Test -> RMSE: ${test_m['rmse']:,.2f} | MAE: ${test_m['mae']:,.2f} | MAPE: {test_m['mape_pct']:.2f}% | R²: {test_m['r2_score']:.4f} | DirAcc: {test_m.get('directional_accuracy_pct')}%")
 
     leaderboard_df = pd.DataFrame(leaderboard_records)
     # Sort strictly by Validation RMSE (selection criterion based on validation, NOT test set)
     leaderboard_df = leaderboard_df.sort_values("Val_RMSE_USD").reset_index(drop=True)
 
-    # Filter out naive non-learning baseline to select the winning authentic Machine Learning architecture
+    # Distinguish overall best performer from trained ML candidate
+    overall_best_name = leaderboard_df.iloc[0]["Model"]
     ml_candidates = leaderboard_df[~leaderboard_df["Model"].str.contains("Naive", case=False)].reset_index(drop=True)
-    best_model_name = ml_candidates.iloc[0]["Model"] if len(ml_candidates) > 0 else leaderboard_df.iloc[0]["Model"]
+    best_model_name = ml_candidates.iloc[0]["Model"] if len(ml_candidates) > 0 else overall_best_name
     best_estimator = trained_estimators[best_model_name]
-    best_test_metrics = compute_regression_metrics(y_test, test_predictions[best_model_name])
-    best_val_metrics = compute_regression_metrics(y_val, val_predictions[best_model_name])
+    best_test_metrics = compute_regression_metrics(y_test, test_predictions[best_model_name], current_close=X_test["Close"])
+    best_val_metrics = compute_regression_metrics(y_val, val_predictions[best_model_name], current_close=X_val["Close"])
 
-    print(f"\n[WINNING REGRESSION MODEL (Selected by Validation RMSE)]: {best_model_name}")
-    print(f"Validation RMSE: ${best_val_metrics['rmse']:,.2f} | Test RMSE: ${best_test_metrics['rmse']:,.2f}")
+    print(f"\n[OVERALL VALIDATION WINNER]: {overall_best_name} (Val RMSE: ${leaderboard_df.iloc[0]['Val_RMSE_USD']:,.2f})")
+    print(f"[BEST TRAINED ML MODEL]: {best_model_name} (Val RMSE: ${best_val_metrics['rmse']:,.2f} | Test RMSE: ${best_test_metrics['rmse']:,.2f})")
 
     # Persistence
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     best_reg_path = MODELS_DIR / "best_regression_model.joblib"
     joblib.dump({
         "model_name": best_model_name,
+        "overall_winner": overall_best_name,
         "model": best_estimator,
         "feature_cols": split_data["feature_cols"],
         "requires_scaling": models[best_model_name][1],
@@ -227,10 +231,12 @@ def train_regression_models(split_data: Dict[str, Any]) -> Tuple[pd.DataFrame, A
     # Save detailed regression report
     reg_summary = {
         "winning_model": best_model_name,
+        "overall_validation_winner": overall_best_name,
         "validation_metrics": best_val_metrics,
         "test_metrics": best_test_metrics,
         "leaderboard": leaderboard_df.to_dict(orient="records"),
-        "best_xgb_hyperparameters": best_xgb_params
+        "best_xgb_hyperparameters": best_xgb_params,
+        "baseline_comparison_note": "The Naive Previous-Close baseline achieves the lowest RMSE across both Validation and Test folds, highlighting the Martingale/Random Walk property of raw Bitcoin prices. Percentage return prediction is required to evaluate genuine predictive edge."
     }
 
     return leaderboard_df, best_estimator, reg_summary, test_predictions

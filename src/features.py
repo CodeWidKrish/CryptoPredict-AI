@@ -27,6 +27,7 @@ from config.config import (
     BOLLINGER_WINDOW,
     BOLLINGER_STD_DEV,
     REGRESSION_TARGET,
+    RETURN_TARGET,
     CLASSIFICATION_TARGET,
     PROCESSED_DATA_FILE
 )
@@ -183,16 +184,20 @@ def build_feature_pipeline(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[str], D
     # TARGETS (Strictly shifted into the future by -1 day)
     # Target regression: Next day's closing price Close[t+1]
     df[REGRESSION_TARGET] = close.shift(-1)
+    # Target return: Next day's percentage return (Close[t+1] - Close[t]) / Close[t]
+    df[RETURN_TARGET] = (df[REGRESSION_TARGET] - close) / close
     # Target classification: 1 if Next day's close > current day close, else 0
     df[CLASSIFICATION_TARGET] = (df[REGRESSION_TARGET] > close).astype(int)
-    # Mark last row's classification target as NaN because future price Close[t+1] is unknown
+    # Mark last row's targets as NaN because future price Close[t+1] is unknown
     df.loc[df[REGRESSION_TARGET].isna(), CLASSIFICATION_TARGET] = np.nan
+    df.loc[df[REGRESSION_TARGET].isna(), RETURN_TARGET] = np.nan
 
     # Identify all feature columns (excluding raw dates, metadata, and targets)
     non_feature_cols = {
         "Date",
         "Adj Close",
         REGRESSION_TARGET,
+        RETURN_TARGET,
         CLASSIFICATION_TARGET
     }
     feature_cols = [c for c in df.columns if c not in non_feature_cols]

@@ -1,16 +1,19 @@
 {
     "winning_model": "Linear Regression",
+    "overall_validation_winner": "Naive Previous-Close",
     "validation_metrics": {
         "mae": 970.0777,
         "mse": 2225060.0321,
         "rmse": 1491.6635,
         "mape_pct": 1.7987,
         "r2_score": 0.995003,
+        "directional_accuracy_pct": 51.23,
         "formatted": {
             "MAE": "$970.08",
             "RMSE": "$1,491.66",
             "MAPE": "1.80%",
-            "R\u00b2": "0.9950"
+            "R\u00b2": "0.9950",
+            "Directional Accuracy": "51.23%"
         }
     },
     "test_metrics": {
@@ -19,11 +22,13 @@
         "rmse": 2030.4292,
         "mape_pct": 1.6672,
         "r2_score": 0.986658,
+        "directional_accuracy_pct": 50.77,
         "formatted": {
             "MAE": "$1,461.50",
             "RMSE": "$2,030.43",
             "MAPE": "1.67%",
-            "R\u00b2": "0.9867"
+            "R\u00b2": "0.9867",
+            "Directional Accuracy": "50.77%"
         }
     },
     "leaderboard": [
@@ -33,10 +38,12 @@
             "Val_MAE_USD": 945.1131,
             "Val_MAPE_Pct": 1.735,
             "Val_R2": 0.995169,
+            "Val_Directional_Acc_Pct": 100.0,
             "Test_RMSE_USD": 1968.9421,
             "Test_MAE_USD": 1392.031,
             "Test_MAPE_Pct": 1.5899,
             "Test_R2": 0.987454,
+            "Test_Directional_Acc_Pct": 100.0,
             "Train_RMSE_USD": 803.7096,
             "Train_R2": 0.997517
         },
@@ -46,10 +53,12 @@
             "Val_MAE_USD": 970.0777,
             "Val_MAPE_Pct": 1.7987,
             "Val_R2": 0.995003,
+            "Val_Directional_Acc_Pct": 51.23,
             "Test_RMSE_USD": 2030.4292,
             "Test_MAE_USD": 1461.5011,
             "Test_MAPE_Pct": 1.6672,
             "Test_R2": 0.986658,
+            "Test_Directional_Acc_Pct": 50.77,
             "Train_RMSE_USD": 792.8937,
             "Train_R2": 0.997583
         },
@@ -59,10 +68,12 @@
             "Val_MAE_USD": 1037.556,
             "Val_MAPE_Pct": 1.891,
             "Val_R2": 0.994401,
+            "Val_Directional_Acc_Pct": 52.93,
             "Test_RMSE_USD": 2119.6903,
             "Test_MAE_USD": 1551.2777,
             "Test_MAPE_Pct": 1.7633,
             "Test_R2": 0.985459,
+            "Test_Directional_Acc_Pct": 49.54,
             "Train_RMSE_USD": 845.856,
             "Train_R2": 0.997249
         },
@@ -72,10 +83,12 @@
             "Val_MAE_USD": 1177.9079,
             "Val_MAPE_Pct": 2.0457,
             "Val_R2": 0.992728,
+            "Val_Directional_Acc_Pct": 52.01,
             "Test_RMSE_USD": 2589.595,
             "Test_MAE_USD": 2072.0205,
             "Test_MAPE_Pct": 2.3459,
             "Test_R2": 0.978297,
+            "Test_Directional_Acc_Pct": 50.77,
             "Train_RMSE_USD": 578.2812,
             "Train_R2": 0.998714
         },
@@ -85,10 +98,12 @@
             "Val_MAE_USD": 4277.2501,
             "Val_MAPE_Pct": 5.8386,
             "Val_R2": 0.785849,
+            "Val_Directional_Acc_Pct": 52.01,
             "Test_RMSE_USD": 30913.7697,
             "Test_MAE_USD": 25579.0952,
             "Test_MAPE_Pct": 25.8088,
             "Test_R2": -2.092821,
+            "Test_Directional_Acc_Pct": 50.62,
             "Train_RMSE_USD": 424.1194,
             "Train_R2": 0.999308
         },
@@ -98,10 +113,12 @@
             "Val_MAE_USD": 4655.0991,
             "Val_MAPE_Pct": 6.3503,
             "Val_R2": 0.764282,
+            "Val_Directional_Acc_Pct": 48.61,
             "Test_RMSE_USD": 32497.9313,
             "Test_MAE_USD": 27349.4381,
             "Test_MAPE_Pct": 27.8146,
             "Test_R2": -2.417923,
+            "Test_Directional_Acc_Pct": 51.23,
             "Train_RMSE_USD": 435.5566,
             "Train_R2": 0.999271
         },
@@ -111,10 +128,12 @@
             "Val_MAE_USD": 4938.8776,
             "Val_MAPE_Pct": 6.6653,
             "Val_R2": 0.747294,
+            "Val_Directional_Acc_Pct": 51.54,
             "Test_RMSE_USD": 32918.4874,
             "Test_MAE_USD": 27834.2218,
             "Test_MAPE_Pct": 28.3732,
             "Test_R2": -2.506958,
+            "Test_Directional_Acc_Pct": 50.93,
             "Train_RMSE_USD": 537.2972,
             "Train_R2": 0.99889
         },
@@ -124,10 +143,12 @@
             "Val_MAE_USD": 4950.939,
             "Val_MAPE_Pct": 6.9006,
             "Val_R2": 0.746718,
+            "Val_Directional_Acc_Pct": 51.39,
             "Test_RMSE_USD": 32758.2236,
             "Test_MAE_USD": 27585.0077,
             "Test_MAPE_Pct": 28.0629,
             "Test_R2": -2.472894,
+            "Test_Directional_Acc_Pct": 51.23,
             "Train_RMSE_USD": 537.792,
             "Train_R2": 0.998888
         },
@@ -137,10 +158,12 @@
             "Val_MAE_USD": 5142.3038,
             "Val_MAPE_Pct": 6.9198,
             "Val_R2": 0.737414,
+            "Val_Directional_Acc_Pct": 53.09,
             "Test_RMSE_USD": 33940.9011,
             "Test_MAE_USD": 28905.5773,
             "Test_MAPE_Pct": 29.5827,
             "Test_R2": -2.728186,
+            "Test_Directional_Acc_Pct": 50.93,
             "Train_RMSE_USD": 452.2427,
             "Train_R2": 0.999214
         }
@@ -153,5 +176,6 @@
         "max_depth": 4,
         "learning_rate": 0.1,
         "colsample_bytree": 1.0
-    }
+    },
+    "baseline_comparison_note": "The Naive Previous-Close baseline achieves the lowest RMSE across both Validation and Test folds, highlighting the Martingale/Random Walk property of raw Bitcoin prices. Percentage return prediction is required to evaluate genuine predictive edge."
 }

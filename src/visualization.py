@@ -475,3 +475,164 @@ def save_static_prediction_figures(
     saved_files.append(p2)
 
     return saved_files
+
+
+def plot_interactive_walk_forward(wf_df: pd.DataFrame) -> go.Figure:
+    """Plots walk-forward performance across historical regimes comparing Naive vs Linear Regression."""
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=True,
+        vertical_spacing=0.08,
+        subplot_titles=("Regression MAPE % (Lower is Better)", "Direction Classification Accuracy % vs Baseline 50%")
+    )
+
+    # Subplot 1: MAPE %
+    fig.add_trace(
+        go.Bar(
+            x=wf_df["Regime_Name"],
+            y=wf_df["Naive_MAPE_Pct"],
+            name="Naive Previous Close MAPE %",
+            marker_color="#38BDF8"
+        ),
+        row=1, col=1
+    )
+    fig.add_trace(
+        go.Bar(
+            x=wf_df["Regime_Name"],
+            y=wf_df["Linear_Regression_MAPE_Pct"],
+            name="Linear Regression MAPE %",
+            marker_color="#F59E0B"
+        ),
+        row=1, col=1
+    )
+
+    # Subplot 2: Classification Accuracy %
+    fig.add_trace(
+        go.Bar(
+            x=wf_df["Regime_Name"],
+            y=wf_df["Classifier_Accuracy_Pct"],
+            name="Classifier Accuracy %",
+            marker_color="#0ECB81"
+        ),
+        row=2, col=1
+    )
+    fig.add_hline(y=50.0, line_dash="dash", line_color="#94A3B8", annotation_text="50% Coin-Flip Baseline", row=2, col=1)
+
+    fig.update_layout(
+        template="plotly_dark",
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
+        paper_bgcolor=COLOR_BG,
+        barmode="group",
+        font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
+        legend=dict(orientation="h", y=1.08, x=0.5, xanchor="center"),
+        margin=dict(l=20, r=20, t=60, b=20),
+        height=480
+    )
+    return fig
+
+
+def plot_interactive_threshold_curve(curve_df: pd.DataFrame) -> go.Figure:
+    """Plots precision, recall, specificity, balanced accuracy, and F1 across decision threshold tau."""
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(
+        x=curve_df["threshold"], y=curve_df["recall_pct"],
+        name="Recall / Sensitivity %", line=dict(color="#0ECB81", width=2.5)
+    ))
+    fig.add_trace(go.Scatter(
+        x=curve_df["threshold"], y=curve_df["specificity_pct"],
+        name="Specificity %", line=dict(color="#38BDF8", width=2.5)
+    ))
+    fig.add_trace(go.Scatter(
+        x=curve_df["threshold"], y=curve_df["precision_pct"],
+        name="Precision %", line=dict(color="#F59E0B", width=2.0, dash="dot")
+    ))
+    fig.add_trace(go.Scatter(
+        x=curve_df["threshold"], y=curve_df["balanced_accuracy_pct"],
+        name="Balanced Accuracy %", line=dict(color="#8B5CF6", width=3)
+    ))
+    fig.add_trace(go.Scatter(
+        x=curve_df["threshold"], y=curve_df["f1_score_pct"],
+        name="F1-Score %", line=dict(color="#F6465D", width=2.0)
+    ))
+
+    # Vertical line at default tau = 0.50
+    fig.add_vline(x=0.50, line_dash="dash", line_color="#EF4444", annotation_text="Default tau = 0.50")
+
+    fig.update_layout(
+        title=dict(text="Classification Threshold Optimization Curve (tau in [0.30, 0.70])", font=dict(size=14, color=COLOR_TEXT)),
+        template="plotly_dark",
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
+        paper_bgcolor=COLOR_BG,
+        font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
+        xaxis=dict(title="Decision Threshold (tau)", gridcolor="rgba(255, 255, 255, 0.05)"),
+        yaxis=dict(title="Metric Score (%)", gridcolor="rgba(255, 255, 255, 0.05)", range=[0, 100]),
+        legend=dict(orientation="h", y=1.08, x=0.5, xanchor="center"),
+        margin=dict(l=20, r=20, t=60, b=20),
+        height=420
+    )
+    return fig
+
+
+def plot_interactive_backtest_equity(equity_df: pd.DataFrame) -> go.Figure:
+    """Plots transaction-cost-aware Strategy Equity vs Buy & Hold Benchmark with logarithmic toggle."""
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(
+        x=equity_df["Date"], y=equity_df["Strategy_Equity"],
+        name="Strategy (0.10% Fee + 0.05% Slippage)",
+        line=dict(color="#0ECB81", width=2.5),
+        fill="tozeroy",
+        fillcolor="rgba(14, 203, 129, 0.06)"
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=equity_df["Date"], y=equity_df["Benchmark_Equity"],
+        name="Buy & Hold Bitcoin Benchmark",
+        line=dict(color="#38BDF8", width=2.0, dash="dash")
+    ))
+
+    fig.update_layout(
+        title=dict(text="Portfolio Growth vs Buy & Hold Benchmark (Starting Capital: $10,000 USD)", font=dict(size=14, color=COLOR_TEXT)),
+        template="plotly_dark",
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
+        paper_bgcolor=COLOR_BG,
+        font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
+        xaxis=dict(gridcolor="rgba(255, 255, 255, 0.05)"),
+        yaxis=dict(title="Portfolio Value ($USD)", tickprefix="$", tickformat=",.0f", gridcolor="rgba(255, 255, 255, 0.05)"),
+        legend=dict(orientation="h", y=1.05, x=0.5, xanchor="center"),
+        margin=dict(l=20, r=20, t=50, b=20),
+        height=440
+    )
+    return fig
+
+
+def plot_interactive_shap_summary(shap_df: pd.DataFrame, top_n: int = 15) -> go.Figure:
+    """Plots top features by Mean |SHAP| value with color graduation."""
+    top_df = shap_df.head(top_n).sort_values("Mean_Abs_SHAP", ascending=True)
+
+    fig = go.Figure(go.Bar(
+        x=top_df["Mean_Abs_SHAP"],
+        y=top_df["Feature"],
+        orientation="h",
+        marker=dict(
+            color=top_df["Mean_Abs_SHAP"],
+            colorscale=[[0, "#1E293B"], [0.5, "#0284C7"], [1.0, "#0ECB81"]],
+            showscale=False
+        ),
+        hovertemplate="Feature: %{y}<br>Mean |SHAP|: %{x:.4f}<extra></extra>"
+    ))
+
+    fig.update_layout(
+        title=dict(text=f"SHAP Global Feature Importance (Top {top_n} Predictors)", font=dict(size=14, color=COLOR_TEXT)),
+        template="plotly_dark",
+        plot_bgcolor="rgba(17, 26, 46, 0.8)",
+        paper_bgcolor=COLOR_BG,
+        font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
+        xaxis=dict(title="Mean Absolute SHAP Value (Impact on Direction)", gridcolor="rgba(255, 255, 255, 0.05)"),
+        yaxis=dict(tickfont=dict(family="JetBrains Mono", size=11, color=COLOR_TEXT)),
+        margin=dict(l=20, r=20, t=50, b=20),
+        height=450
+    )
+    return fig
+

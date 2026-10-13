@@ -1,0 +1,72 @@
+{
+    "title": "Raw Price vs Percentage Return Forecasting Comparison",
+    "key_finding": "On raw price series, the Naive Previous-Close baseline achieves the lowest test RMSE ($1,968.94) and an inflated R\u00b2 (0.9875) due to non-stationarity and martingale behavior. When modeling percentage returns, the spurious R\u00b2 disappears, and models achieve true stationary evaluation with directional accuracy between 50% and 55%.",
+    "results": [
+        {
+            "Model": "Naive Baseline",
+            "Price_Test_RMSE_USD": 1968.9421,
+            "Price_Test_MAE_USD": 1392.031,
+            "Price_Test_R2": 0.987454,
+            "Price_Test_DirAcc_Pct": 100.0,
+            "Return_Test_RMSE_Pct": 2.28,
+            "Return_Test_MAE_Pct": 1.589,
+            "Return_Test_DirAcc_Pct": 50.93,
+            "Implied_Price_RMSE_USD": 1968.94
+        },
+        {
+            "Model": "Linear Regression",
+            "Price_Test_RMSE_USD": 2030.4292,
+            "Price_Test_MAE_USD": 1461.5011,
+            "Price_Test_R2": 0.986658,
+            "Price_Test_DirAcc_Pct": 50.77,
+            "Return_Test_RMSE_Pct": 2.513,
+            "Return_Test_MAE_Pct": 1.83,
+            "Return_Test_DirAcc_Pct": 50.93,
+            "Implied_Price_RMSE_USD": 2213.44
+        },
+        {
+            "Model": "Ridge Regression",
+            "Price_Test_RMSE_USD": 2119.6903,
+            "Price_Test_MAE_USD": 1551.2777,
+            "Price_Test_R2": 0.985459,
+            "Price_Test_DirAcc_Pct": 49.54,
+            "Return_Test_RMSE_Pct": 2.368,
+            "Return_Test_MAE_Pct": 1.709,
+            "Return_Test_DirAcc_Pct": 50.62,
+            "Implied_Price_RMSE_USD": 2055.57
+        },
+        {
+            "Model": "Random Forest",
+            "Price_Test_RMSE_USD": 30674.5616,
+            "Price_Test_MAE_USD": 25319.9347,
+            "Price_Test_R2": -2.045142,
+            "Price_Test_DirAcc_Pct": 50.93,
+            "Return_Test_RMSE_Pct": 2.272,
+            "Return_Test_MAE_Pct": 1.607,
+            "Return_Test_DirAcc_Pct": 50.46,
+            "Implied_Price_RMSE_USD": 1973.3
+        },
+        {
+            "Model": "XGBoost",
+            "Price_Test_RMSE_USD": 34290.5766,
+            "Price_Test_MAE_USD": 29320.1748,
+            "Price_Test_R2": -2.805401,
+            "Price_Test_DirAcc_Pct": 50.93,
+            "Return_Test_RMSE_Pct": 2.441,
+            "Return_Test_MAE_Pct": 1.798,
+            "Return_Test_DirAcc_Pct": 51.7,
+            "Implied_Price_RMSE_USD": 2142.84
+        },
+        {
+            "Model": "LightGBM",
+            "Price_Test_RMSE_USD": 32817.2009,
+            "Price_Test_MAE_USD": 27696.3763,
+            "Price_Test_R2": -2.48541,
+            "Price_Test_DirAcc_Pct": 50.77,
+            "Return_Test_RMSE_Pct": 2.432,
+            "Return_Test_MAE_Pct": 1.752,
+            "Return_Test_DirAcc_Pct": 50.77,
+            "Implied_Price_RMSE_USD": 2105.33
+        }
+    ]
+}

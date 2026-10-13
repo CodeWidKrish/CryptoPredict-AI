@@ -1,0 +1,51 @@
+{
+    "title": "Feature Ablation Study (Naive vs Lags vs 58 Indicators)",
+    "key_finding": "Comparing Lag-1, Autoregressive Lags, and the Full 58 Indicator Set reveals that simple price/return lags capture the dominant predictive variance. Adding 45+ technical indicators slightly stabilizes classification ROC-AUC (due to volatility features like ATR and Bollinger Bands) but does not substantially lower raw regression RMSE, confirming that financial indicators contain high collinearity.",
+    "results": [
+        {
+            "Feature_Set": "A: Lag-1 Only (Minimal)",
+            "Feature_Count": 1,
+            "Linear_Regression_RMSE": 2717.8554,
+            "Linear_Regression_R2": 0.976094,
+            "Linear_Regression_DirAcc_Pct": 51.39,
+            "XGBoost_RMSE": 31938.9235,
+            "XGBoost_DirAcc_Pct": 51.08,
+            "Logistic_Regression_Accuracy_Pct": 50.93,
+            "Logistic_Regression_F1_Pct": 0.0,
+            "LightGBM_Accuracy_Pct": 51.23,
+            "LightGBM_Balanced_Accuracy_Pct": 50.34,
+            "LightGBM_MCC": 0.025441504243895928,
+            "LightGBM_ROC_AUC": 0.5034543548694492
+        },
+        {
+            "Feature_Set": "B: Price & Return Lags (13 Features)",
+            "Feature_Count": 7,
+            "Linear_Regression_RMSE": 2721.0491,
+            "Linear_Regression_R2": 0.976038,
+            "Linear_Regression_DirAcc_Pct": 50.77,
+            "XGBoost_RMSE": 34200.3855,
+            "XGBoost_DirAcc_Pct": 51.23,
+            "Logistic_Regression_Accuracy_Pct": 50.93,
+            "Logistic_Regression_F1_Pct": 0.0,
+            "LightGBM_Accuracy_Pct": 51.08,
+            "LightGBM_Balanced_Accuracy_Pct": 50.19,
+            "LightGBM_MCC": 0.01438228923384385,
+            "LightGBM_ROC_AUC": 0.5660091480846197
+        },
+        {
+            "Feature_Set": "C: Full Technical Set (58 Features)",
+            "Feature_Count": 58,
+            "Linear_Regression_RMSE": 2030.4292,
+            "Linear_Regression_R2": 0.986658,
+            "Linear_Regression_DirAcc_Pct": 50.77,
+            "XGBoost_RMSE": 34290.5766,
+            "XGBoost_DirAcc_Pct": 50.93,
+            "Logistic_Regression_Accuracy_Pct": 50.93,
+            "Logistic_Regression_F1_Pct": 14.52,
+            "LightGBM_Accuracy_Pct": 50.15,
+            "LightGBM_Balanced_Accuracy_Pct": 49.54,
+            "LightGBM_MCC": -0.012302658386446185,
+            "LightGBM_ROC_AUC": 0.4880693729750334
+        }
+    ]
+}

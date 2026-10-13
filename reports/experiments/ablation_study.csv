@@ -1,0 +1,4 @@
+Feature_Set,Feature_Count,Linear_Regression_RMSE,Linear_Regression_R2,Linear_Regression_DirAcc_Pct,XGBoost_RMSE,XGBoost_DirAcc_Pct,Logistic_Regression_Accuracy_Pct,Logistic_Regression_F1_Pct,LightGBM_Accuracy_Pct,LightGBM_Balanced_Accuracy_Pct,LightGBM_MCC,LightGBM_ROC_AUC
+A: Lag-1 Only (Minimal),1,2717.8554,0.976094,51.39,31938.9235,51.08,50.93,0.0,51.23,50.34,0.025441504243895928,0.5034543548694492
+B: Price & Return Lags (13 Features),7,2721.0491,0.976038,50.77,34200.3855,51.23,50.93,0.0,51.08,50.19,0.01438228923384385,0.5660091480846197
+C: Full Technical Set (58 Features),58,2030.4292,0.986658,50.77,34290.5766,50.93,50.93,14.52,50.15,49.54,-0.012302658386446185,0.4880693729750334

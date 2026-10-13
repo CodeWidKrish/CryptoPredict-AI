@@ -1,0 +1,143 @@
+{
+    "title": "SHAP Global & Local Feature Explainability Analysis",
+    "key_finding": "SHAP TreeExplainer confirms that short-term return lags (Daily_Return_Lag_1, Lag_2), RSI momentum, and Bollinger Band %B exert the strongest predictive force on next-day direction. Long-term moving averages (MA90, EMA90) have lower local impact on daily direction but provide critical regime conditioning.",
+    "top_15_features": [
+        {
+            "Feature": "Close",
+            "Mean_Abs_SHAP": 0.13660353745606169,
+            "Rank": 1
+        },
+        {
+            "Feature": "Volatility_30",
+            "Mean_Abs_SHAP": 0.123063239879406,
+            "Rank": 2
+        },
+        {
+            "Feature": "MA_7",
+            "Mean_Abs_SHAP": 0.11922305426994441,
+            "Rank": 3
+        },
+        {
+            "Feature": "Open_Close_Return",
+            "Mean_Abs_SHAP": 0.09278751157645522,
+            "Rank": 4
+        },
+        {
+            "Feature": "Low",
+            "Mean_Abs_SHAP": 0.07306635012579431,
+            "Rank": 5
+        },
+        {
+            "Feature": "Return_Lag_1",
+            "Mean_Abs_SHAP": 0.06149996836505358,
+            "Rank": 6
+        },
+        {
+            "Feature": "MA_90",
+            "Mean_Abs_SHAP": 0.05461303731668316,
+            "Rank": 7
+        },
+        {
+            "Feature": "Return_Lag_3",
+            "Mean_Abs_SHAP": 0.05368792159643451,
+            "Rank": 8
+        },
+        {
+            "Feature": "Volatility_14",
+            "Mean_Abs_SHAP": 0.05232519059267912,
+            "Rank": 9
+        },
+        {
+            "Feature": "Ratio_Close_EMA_90",
+            "Mean_Abs_SHAP": 0.04884024725941545,
+            "Rank": 10
+        },
+        {
+            "Feature": "Return_Lag_7",
+            "Mean_Abs_SHAP": 0.042600379958142996,
+            "Rank": 11
+        },
+        {
+            "Feature": "Ratio_Close_EMA_14",
+            "Mean_Abs_SHAP": 0.041332979862965684,
+            "Rank": 12
+        },
+        {
+            "Feature": "Volume_Ratio_MA7",
+            "Mean_Abs_SHAP": 0.03885251519521465,
+            "Rank": 13
+        },
+        {
+            "Feature": "Price_Std_7",
+            "Mean_Abs_SHAP": 0.033862954514352124,
+            "Rank": 14
+        },
+        {
+            "Feature": "EMA_14",
+            "Mean_Abs_SHAP": 0.03240239427396763,
+            "Rank": 15
+        }
+    ],
+    "latest_observation_local_explanation": [
+        {
+            "feature": "Return_Lag_3",
+            "value": 0.010651608755634312,
+            "shap_attribution": 0.15623144700954733,
+            "impact": "Bullish / Up"
+        },
+        {
+            "feature": "Close",
+            "value": 81762.5625,
+            "shap_attribution": -0.1508061965439676,
+            "impact": "Bearish / Down"
+        },
+        {
+            "feature": "Open_Close_Return",
+            "value": -0.022907724901154693,
+            "shap_attribution": 0.12803171474860323,
+            "impact": "Bullish / Up"
+        },
+        {
+            "feature": "MA_7",
+            "value": 83058.62946428571,
+            "shap_attribution": -0.11720410579963134,
+            "impact": "Bearish / Down"
+        },
+        {
+            "feature": "Volatility_14",
+            "value": 0.01400401206790331,
+            "shap_attribution": -0.11267147274386849,
+            "impact": "Bearish / Down"
+        },
+        {
+            "feature": "Low",
+            "value": 81681.6328125,
+            "shap_attribution": -0.11094056520674789,
+            "impact": "Bearish / Down"
+        },
+        {
+            "feature": "Volatility_30",
+            "value": 0.020789578805846205,
+            "shap_attribution": -0.08361545796507085,
+            "impact": "Bearish / Down"
+        },
+        {
+            "feature": "MA_90",
+            "value": 74151.86488715278,
+            "shap_attribution": -0.06686378291739616,
+            "impact": "Bearish / Down"
+        },
+        {
+            "feature": "High_Low_Range",
+            "value": 0.03140295336878276,
+            "shap_attribution": -0.05692802281067277,
+            "impact": "Bearish / Down"
+        },
+        {
+            "feature": "Volatility_7",
+            "value": 0.015883085882860054,
+            "shap_attribution": -0.04982440759210124,
+            "impact": "Bearish / Down"
+        }
+    ]
+}

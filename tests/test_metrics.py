@@ -81,3 +81,43 @@ def test_classification_zero_division_safety():
     assert res["raw"]["sensitivity"] == 0.0
     assert res["raw"]["f1_score"] == 0.0
     assert res["raw"]["specificity"] == 1.0
+
+
+def test_directional_accuracy():
+    """Verifies directional accuracy against known price delta sign agreement."""
+    y_true = np.array([105.0, 95.0, 110.0, 90.0])  # Actual next closes
+    y_pred = np.array([108.0, 92.0, 98.0, 95.0])   # Predicted next closes
+    base_price = np.array([100.0, 100.0, 100.0, 100.0])  # Current closes
+    # Actual deltas:    +5,  -5, +10, -10  -> signs: +, -, +, -
+    # Predicted deltas: +8,  -8,  -2,  -5  -> signs: +, -, -, -
+    # Agreement: index 0 (yes), index 1 (yes), index 2 (no), index 3 (yes) -> 3 / 4 = 75%
+    m = compute_regression_metrics(y_true, y_pred, base_price=base_price)
+    assert m["directional_accuracy_pct"] == 75.0
+
+
+def test_balanced_accuracy_and_mcc():
+    """Verifies that balanced accuracy is average of sensitivity and specificity, and MCC is computed."""
+    y_true = np.array([0]*60 + [1]*40)
+    # TN=54, FP=6 -> Specificity = 54/60 = 0.90
+    # FN=16, TP=24 -> Sensitivity = 24/40 = 0.60
+    # Balanced Accuracy = (0.90 + 0.60) / 2 = 0.75 (75%)
+    y_pred = np.array([0]*54 + [1]*6 + [0]*16 + [1]*24)
+    res = compute_classification_metrics(y_true, y_pred)
+    assert np.isclose(res["raw"]["balanced_accuracy"], 0.75)
+    assert res["percentages"]["balanced_accuracy_pct"] == 75.0
+    assert res["raw"]["mcc"] > 0.40  # Positive correlation
+
+
+def test_threshold_curve_computation():
+    """Verifies that compute_threshold_curve evaluates precision, recall, and specificity across tau."""
+    from src.evaluation import compute_threshold_curve
+    y_true = np.array([0, 0, 1, 1, 1])
+    y_prob = np.array([0.2, 0.4, 0.45, 0.6, 0.8])
+    thresholds = [0.3, 0.5, 0.7]
+    curve = compute_threshold_curve(y_true, y_prob, thresholds=thresholds)
+    assert len(curve) == 3
+    assert curve[0]["threshold"] == 0.3
+    # At tau=0.3: predictions are [0, 1, 1, 1, 1] -> recall is 3/3 = 100%
+    assert curve[0]["recall_pct"] == 100.0
+    # At tau=0.7: predictions are [0, 0, 0, 0, 1] -> recall is 1/3 = 33.33%
+    assert np.isclose(curve[2]["recall_pct"], 33.33, atol=0.1)

@@ -20,6 +20,7 @@ from config.config import (
     VAL_RATIO,
     TEST_RATIO,
     REGRESSION_TARGET,
+    RETURN_TARGET,
     CLASSIFICATION_TARGET
 )
 
@@ -44,6 +45,8 @@ class DataSplitter:
         df_sorted = df.copy()
         df_sorted["Date"] = pd.to_datetime(df_sorted["Date"])
         df_sorted = df_sorted.sort_values("Date").reset_index(drop=True)
+        if RETURN_TARGET not in df_sorted.columns and REGRESSION_TARGET in df_sorted.columns:
+            df_sorted[RETURN_TARGET] = (df_sorted[REGRESSION_TARGET] - df_sorted["Close"]) / df_sorted["Close"]
         n = len(df_sorted)
 
         train_end_idx = int(n * self.train_ratio)
@@ -106,6 +109,9 @@ class DataSplitter:
             "y_reg_train": train_df[REGRESSION_TARGET],
             "y_reg_val": val_df[REGRESSION_TARGET],
             "y_reg_test": test_df[REGRESSION_TARGET],
+            "y_return_train": train_df[RETURN_TARGET],
+            "y_return_val": val_df[RETURN_TARGET],
+            "y_return_test": test_df[RETURN_TARGET],
             "y_clf_train": train_df[CLASSIFICATION_TARGET].astype(int),
             "y_clf_val": val_df[CLASSIFICATION_TARGET].astype(int),
             "y_clf_test": test_df[CLASSIFICATION_TARGET].astype(int),

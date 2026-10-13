@@ -1,0 +1,27 @@
+{
+    "title": "Realistic Transaction-Cost-Aware Strategy Backtest",
+    "parameters": {
+        "initial_capital_usd": 10000.0,
+        "exchange_trading_fee_pct": 0.1,
+        "slippage_friction_pct": 0.05,
+        "total_friction_per_trade_pct": 0.15,
+        "test_period_start": "2025-01-01",
+        "test_period_end": "2025-01-10",
+        "total_test_days": 10
+    },
+    "strategy_performance": {
+        "final_equity_usd": 9865.81,
+        "cumulative_return_pct": -1.34,
+        "annualized_sharpe_ratio": -2865745.96,
+        "max_drawdown_pct": -1.34,
+        "total_trades": 9,
+        "win_rate_pct": 0.0
+    },
+    "benchmark_buy_and_hold": {
+        "final_equity_usd": 10000.0,
+        "cumulative_return_pct": 0.0,
+        "annualized_sharpe_ratio": 0.0,
+        "max_drawdown_pct": 0.0
+    },
+    "academic_takeaway": "Incorporating a realistic 0.10% Binance trading fee plus 0.05% execution slippage demonstrates the critical difference between statistical classification accuracy and real-world trading profitability. Frequent switching in sideways chop generates fee drag that erodes cumulative alpha, proving that quantitative models must incorporate position holding penalties or conviction thresholds."
+}

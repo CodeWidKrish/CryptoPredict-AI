@@ -13,6 +13,7 @@ DATA_PROCESSED_DIR = DATA_DIR / "processed"
 MODELS_DIR = BASE_DIR / "models"
 REPORTS_DIR = BASE_DIR / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
+EXPERIMENTS_DIR = REPORTS_DIR / "experiments"
 
 # Ensure essential directories exist
 DATA_RAW_DIR.mkdir(parents=True, exist_ok=True)
@@ -20,6 +21,7 @@ DATA_PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+EXPERIMENTS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Data file paths
 RAW_DATA_FILE = DATA_RAW_DIR / "bitcoin_history.csv"
@@ -56,4 +58,5 @@ BOLLINGER_STD_DEV = 2
 
 # Target Variable Names
 REGRESSION_TARGET = "Target_Close_Next"
+RETURN_TARGET = "Target_Return_Next"
 CLASSIFICATION_TARGET = "Target_Direction_Next"

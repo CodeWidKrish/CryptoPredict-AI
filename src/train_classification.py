@@ -141,24 +141,30 @@ def train_classification_models(split_data: Dict[str, Any]) -> Tuple[pd.DataFram
             "Model": name,
             "Val_F1_Pct": val_m["percentages"]["f1_score_pct"],
             "Val_Accuracy_Pct": val_m["percentages"]["accuracy_pct"],
+            "Val_Balanced_Accuracy_Pct": val_m["percentages"]["balanced_accuracy_pct"],
             "Val_Precision_Pct": val_m["percentages"]["precision_pct"],
             "Val_Recall_Pct": val_m["percentages"]["sensitivity_pct"],
             "Val_Specificity_Pct": val_m["percentages"]["specificity_pct"],
+            "Val_MCC": val_m["raw"]["mcc"],
             "Val_ErrorRate_Pct": val_m["percentages"]["error_rate_pct"],
             "Val_ROC_AUC": val_m["raw"]["roc_auc"],
+            "Val_PR_AUC": val_m["raw"]["pr_auc"],
             "Test_F1_Pct": test_m["percentages"]["f1_score_pct"],
             "Test_Accuracy_Pct": test_m["percentages"]["accuracy_pct"],
+            "Test_Balanced_Accuracy_Pct": test_m["percentages"]["balanced_accuracy_pct"],
             "Test_Precision_Pct": test_m["percentages"]["precision_pct"],
             "Test_Recall_Pct": test_m["percentages"]["sensitivity_pct"],
             "Test_Specificity_Pct": test_m["percentages"]["specificity_pct"],
+            "Test_MCC": test_m["raw"]["mcc"],
             "Test_ErrorRate_Pct": test_m["percentages"]["error_rate_pct"],
             "Test_ROC_AUC": test_m["raw"]["roc_auc"],
+            "Test_PR_AUC": test_m["raw"]["pr_auc"],
             "Train_Accuracy_Pct": train_m["percentages"]["accuracy_pct"]
         })
 
         print(f"[{name}]")
-        print(f"  Val  -> Acc: {val_m['percentages']['accuracy_pct']}% | F1: {val_m['percentages']['f1_score_pct']}% | Prec: {val_m['percentages']['precision_pct']}% | Spec: {val_m['percentages']['specificity_pct']}% | ErrRate: {val_m['percentages']['error_rate_pct']}%")
-        print(f"  Test -> Acc: {test_m['percentages']['accuracy_pct']}% | F1: {test_m['percentages']['f1_score_pct']}% | Prec: {test_m['percentages']['precision_pct']}% | Spec: {test_m['percentages']['specificity_pct']}% | ErrRate: {test_m['percentages']['error_rate_pct']}%")
+        print(f"  Val  -> Acc: {val_m['percentages']['accuracy_pct']}% | BalAcc: {val_m['percentages']['balanced_accuracy_pct']}% | MCC: {val_m['raw']['mcc']:.4f} | F1: {val_m['percentages']['f1_score_pct']}% | Spec: {val_m['percentages']['specificity_pct']}% | Sens: {val_m['percentages']['sensitivity_pct']}%")
+        print(f"  Test -> Acc: {test_m['percentages']['accuracy_pct']}% | BalAcc: {test_m['percentages']['balanced_accuracy_pct']}% | MCC: {test_m['raw']['mcc']:.4f} | F1: {test_m['percentages']['f1_score_pct']}% | Spec: {test_m['percentages']['specificity_pct']}% | Sens: {test_m['percentages']['sensitivity_pct']}%")
 
     leaderboard_df = pd.DataFrame(leaderboard_records)
     # Sort candidate models by Validation Accuracy (and Validation F1)
