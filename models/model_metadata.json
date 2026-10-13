@@ -1,6 +1,6 @@
 {
     "project": "CryptoPredict AI",
-    "created_at": "2026-10-13T13:03:31.963312+00:00",
+    "created_at": "2026-10-13T13:26:10.444918+00:00",
     "data_source": "Local Cache (C:\\Users\\Niral Hingu\\OneDrive\\Desktop\\MLT SLA\\data\\raw\\bitcoin_history.csv)",
     "dataset_rows": 4320,
     "date_range": {

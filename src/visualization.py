@@ -575,7 +575,7 @@ def plot_interactive_threshold_curve(curve_df: pd.DataFrame) -> go.Figure:
 
 
 def plot_interactive_backtest_equity(equity_df: pd.DataFrame) -> go.Figure:
-    """Plots transaction-cost-aware Strategy Equity vs Buy & Hold Benchmark with logarithmic toggle."""
+    """Plots transaction-cost-aware Strategy Equity vs Buy & Hold Benchmark with range selector."""
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
@@ -583,13 +583,15 @@ def plot_interactive_backtest_equity(equity_df: pd.DataFrame) -> go.Figure:
         name="Strategy (0.10% Fee + 0.05% Slippage)",
         line=dict(color="#0ECB81", width=2.5),
         fill="tozeroy",
-        fillcolor="rgba(14, 203, 129, 0.06)"
+        fillcolor="rgba(14, 203, 129, 0.06)",
+        hovertemplate="Strategy: $%{y:,.2f}<extra></extra>"
     ))
 
     fig.add_trace(go.Scatter(
         x=equity_df["Date"], y=equity_df["Benchmark_Equity"],
         name="Buy & Hold Bitcoin Benchmark",
-        line=dict(color="#38BDF8", width=2.0, dash="dash")
+        line=dict(color="#38BDF8", width=2.0, dash="dash"),
+        hovertemplate="Buy & Hold: $%{y:,.2f}<extra></extra>"
     ))
 
     fig.update_layout(
@@ -598,11 +600,27 @@ def plot_interactive_backtest_equity(equity_df: pd.DataFrame) -> go.Figure:
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
-        xaxis=dict(gridcolor="rgba(255, 255, 255, 0.05)"),
+        xaxis=dict(
+            gridcolor="rgba(255, 255, 255, 0.05)",
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=1, label="1M", step="month", stepmode="backward"),
+                    dict(count=3, label="3M", step="month", stepmode="backward"),
+                    dict(count=6, label="6M", step="month", stepmode="backward"),
+                    dict(count=1, label="1Y", step="year", stepmode="backward"),
+                    dict(step="all", label="All")
+                ]),
+                bgcolor="#141B29",
+                activecolor="#0284C7",
+                font=dict(color="#FFFFFF", size=11)
+            ),
+            rangeslider=dict(visible=False),
+            type="date"
+        ),
         yaxis=dict(title="Portfolio Value ($USD)", tickprefix="$", tickformat=",.0f", gridcolor="rgba(255, 255, 255, 0.05)"),
-        legend=dict(orientation="h", y=1.05, x=0.5, xanchor="center"),
-        margin=dict(l=20, r=20, t=50, b=20),
-        height=440
+        legend=dict(orientation="h", y=1.08, x=0.5, xanchor="center"),
+        margin=dict(l=20, r=20, t=65, b=20),
+        height=450
     )
     return fig
 

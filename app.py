@@ -61,20 +61,87 @@ st.set_page_config(
 # ==========================================
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
 
-/* Global Reset & Typography */
-html, body, [class*="css"], [class*="st-"] {
+/* Global Reset & Typography (Selective to prevent breaking icon ligatures) */
+html, body, p, h1, h2, h3, h4, h5, h6, label, div.stMarkdown, .stSelectbox, .stSlider, .stMultiSelect, div[data-testid="stMarkdownContainer"] {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     color: #FFFFFF;
 }
 
 /* Hide Streamlit Default Chrome for Native App Look */
 #MainMenu {visibility: hidden;}
-header {visibility: hidden;}
 footer {visibility: hidden;}
 .stDeployButton {display: none;}
 [data-testid="stToolbar"] {visibility: hidden;}
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    color: #94A3B8 !important;
+}
+
+/* Bulletproof Material Icon & Sidebar Collapse Button Fix */
+/* Completely prevents raw text strings like 'keyboard_double_arrow_left' from leaking */
+[data-testid="stSidebarCollapseButton"],
+[data-testid="collapsedControl"] [data-testid="stSidebarCollapseButton"],
+button[data-testid="baseButton-headerNoPadding"] {
+    position: relative !important;
+    overflow: hidden !important;
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+    border-radius: 8px !important;
+    border: 1px solid #1E293B !important;
+    background: #0F141F !important;
+    color: #94A3B8 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+}
+
+[data-testid="stSidebarCollapseButton"]:hover,
+[data-testid="collapsedControl"] [data-testid="stSidebarCollapseButton"]:hover,
+button[data-testid="baseButton-headerNoPadding"]:hover {
+    color: #38BDF8 !important;
+    border-color: #38BDF8 !important;
+    background: #141B29 !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25) !important;
+}
+
+/* Force zero font size on raw ligature text to hide 'keyboard_double_arrow_left' */
+[data-testid="stSidebarCollapseButton"] span,
+[data-testid="collapsedControl"] [data-testid="stSidebarCollapseButton"] span,
+button[data-testid="baseButton-headerNoPadding"] span {
+    font-size: 0px !important;
+    line-height: 0 !important;
+    color: transparent !important;
+}
+
+/* Inject clean, universally supported double chevron unicode symbol */
+[data-testid="stSidebarCollapseButton"] span::after,
+button[data-testid="baseButton-headerNoPadding"] span::after {
+    content: "«" !important;
+    font-size: 18px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    color: #94A3B8 !important;
+    display: block !important;
+}
+
+[data-testid="collapsedControl"] [data-testid="stSidebarCollapseButton"] span::after {
+    content: "»" !important;
+    font-size: 18px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    color: #38BDF8 !important;
+    display: block !important;
+}
+
+[data-testid="stSidebarCollapseButton"]:hover span::after,
+button[data-testid="baseButton-headerNoPadding"]:hover span::after {
+    color: #38BDF8 !important;
+}
 
 /* Main Canvas Background */
 .stApp {
