@@ -570,6 +570,20 @@ def main():
         unsafe_allow_html=True
     )
 
+    NAV_PAGES = [
+        "📊 Trading Terminal",
+        "🎯 Model Leaderboard & Baseline Audit",
+        "🔬 Walk-Forward & Ablation Lab",
+        "💡 Explainable AI (SHAP Lab)",
+        "🧪 What-If Market Lab",
+        "📜 Strategy Backtest & Evidence Export"
+    ]
+
+    if "show_menu_tab" not in st.session_state:
+        st.session_state.show_menu_tab = True
+    if "selected_page" not in st.session_state:
+        st.session_state.selected_page = NAV_PAGES[0]
+
     # ========================================================
     # SIDEBAR NAVIGATION & PIPELINE CONTROLS
     # ========================================================
@@ -588,18 +602,46 @@ def main():
             unsafe_allow_html=True
         )
 
-        app_page = st.radio(
-            "Terminal Navigation",
-            [
-                "📊 Trading Terminal",
-                "🎯 Model Leaderboard & Baseline Audit",
-                "🔬 Walk-Forward & Ablation Lab",
-                "💡 Explainable AI (SHAP Lab)",
-                "🧪 What-If Market Lab",
-                "📜 Strategy Backtest & Evidence Export"
-            ],
-            label_visibility="collapsed"
-        )
+        # Toggle Button for Menu Options inside Sidebar
+        sb_col_label, sb_col_btn = st.columns([7, 5])
+        with sb_col_label:
+            st.markdown(
+                """
+                <div style="padding-top: 6px; font-size: 11px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Menu Tabs
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        with sb_col_btn:
+            sb_toggle_text = "👁️ Hide" if st.session_state.show_menu_tab else "☰ View"
+            if st.button(sb_toggle_text, key="sb_toggle_menu_btn", use_container_width=True):
+                st.session_state.show_menu_tab = not st.session_state.show_menu_tab
+                st.rerun()
+
+        # Conditionally render menu options based on toggle state
+        if st.session_state.show_menu_tab:
+            current_idx = NAV_PAGES.index(st.session_state.selected_page) if st.session_state.selected_page in NAV_PAGES else 0
+            app_page = st.radio(
+                "Terminal Navigation",
+                NAV_PAGES,
+                index=current_idx,
+                key="terminal_nav_radio",
+                label_visibility="collapsed"
+            )
+            st.session_state.selected_page = app_page
+        else:
+            app_page = st.session_state.selected_page
+            st.markdown(
+                f"""
+<div style="background: rgba(56, 189, 248, 0.08); border: 1px dashed rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 10px 12px; margin: 8px 0 14px 0;">
+    <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Active Screen</div>
+    <div style="font-size: 12px; color: #38BDF8; font-weight: 700; margin-top: 2px;">{app_page}</div>
+    <div style="font-size: 10px; color: #64748B; margin-top: 3px;">Menu options hidden. Click '☰ View' above to expand.</div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         st.markdown("---")
         st.markdown("#### 🛡️ Active Machine Learning Setup")
@@ -617,7 +659,47 @@ def main():
                 st.cache_data.clear()
                 st.rerun()
 
-        st.caption("Engineered for Final Year Machine Learning Academic Project Defense.")
+    # ========================================================
+    # TOP NAVIGATION BAR & MENU VISIBILITY CONTROLS
+    # ========================================================
+    top_nav_col1, top_nav_col2 = st.columns([8, 4])
+    with top_nav_col1:
+        st.markdown(
+            f"""
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                <span style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.6px;">Active Screen:</span>
+                <span style="font-size: 13px; font-weight: 800; color: #38BDF8; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); padding: 4px 12px; border-radius: 6px;">
+                    {app_page}
+                </span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    with top_nav_col2:
+        top_btn_text = "👁️ Hide Menu Tab" if st.session_state.show_menu_tab else "☰ View Menu Tab"
+        if st.button(top_btn_text, key="main_top_toggle_menu_btn", use_container_width=True):
+            st.session_state.show_menu_tab = not st.session_state.show_menu_tab
+            st.rerun()
+
+    # When Menu Tab is visible, provide horizontal quick-switch pills on the main screen too!
+    if st.session_state.show_menu_tab:
+        pill_cols = st.columns(6)
+        pill_labels = [
+            ("📊 Trading", NAV_PAGES[0]),
+            ("🎯 Leaderboard", NAV_PAGES[1]),
+            ("🔬 Walk-Forward", NAV_PAGES[2]),
+            ("💡 SHAP Lab", NAV_PAGES[3]),
+            ("🧪 What-If Lab", NAV_PAGES[4]),
+            ("📜 Backtest", NAV_PAGES[5])
+        ]
+        for col, (short_label, full_page) in zip(pill_cols, pill_labels):
+            with col:
+                is_active = (app_page == full_page)
+                btn_type = "primary" if is_active else "secondary"
+                if st.button(short_label, key=f"top_pill_{short_label}", type=btn_type, use_container_width=True):
+                    st.session_state.selected_page = full_page
+                    st.rerun()
+        st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
     # ========================================================
     # 1. LIVE TRADING TERMINAL
