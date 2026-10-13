@@ -88,7 +88,7 @@
 
 ### Slide 9: Institutional Terminal Architecture & Quality Control
 - **Streamlit Dashboard (6 Tabs):** Trading Terminal, Model Leaderboard, Walk-Forward Lab, SHAP Lab, What-If Lab, and Backtest Export.
-- **Automated Testing:** 27 passing unit and integration tests in `pytest` verifying data integrity, zero future leakage, metric formulas, pipeline serialization, and UI state stability.
+- **Automated Testing:** 28 passing unit and integration tests in `pytest` verifying data integrity, zero future leakage, metric formulas, pipeline serialization, and UI state stability.
 
 ### Slide 10: Conclusion, Academic Limitations & Future Work
 - **Core Conclusion:** Proved that rigorous financial ML requires residual/return modeling, baseline auditing, and transaction-cost reality checks.
@@ -206,7 +206,7 @@ This drag reduced net strategy return from an otherwise flat return to -39.38% (
 | **5** | Explainable AI (SHAP) & Conformal Intervals | **PASSED** | Computed Mean \|SHAP\| rankings in `exp5_shap_importance.csv` and calibrated 80%, 90%, 95% bands in `exp6_conformal_intervals.json`. |
 | **6** | Transaction-cost-aware backtest | **PASSED** | Simulated Binance 0.10% fee + 0.05% slippage across 648 test days in `exp7_backtest_summary.json`. |
 | **7** | Institutional 6-Tab Streamlit Dashboard | **PASSED** | Implemented dark `#080B11` terminal in `app.py`, verified running on `http://localhost:8501`. |
-| **8** | Automated Test Suite (27/27 passing) | **PASSED** | Verified 27 unit and integration tests passing cleanly in `pytest -v tests` (zero failures). |
+| **8** | Automated Test Suite (28/28 passing) | **PASSED** | Verified 28 unit and integration tests passing cleanly in `pytest -v tests` (zero failures). |
 
 ---
 *Ready for submission, viva voce defense, and faculty presentation.*

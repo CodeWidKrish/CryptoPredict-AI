@@ -712,17 +712,6 @@ def main():
         st.session_state.show_menu_tab = True
     if "selected_page" not in st.session_state:
         st.session_state.selected_page = NAV_PAGES[0]
-    if "terminal_nav_radio" not in st.session_state or st.session_state.terminal_nav_radio != st.session_state.selected_page:
-        st.session_state.terminal_nav_radio = st.session_state.selected_page
-
-    # Callback when sidebar radio is changed
-    def on_sidebar_nav_change():
-        st.session_state.selected_page = st.session_state.terminal_nav_radio
-
-    # Callback when top navigation button is clicked
-    def on_pill_nav_click(target_page):
-        st.session_state.selected_page = target_page
-        st.session_state.terminal_nav_radio = target_page
 
     # Callback when menu toggle button is clicked
     def on_toggle_menu_click():
@@ -763,13 +752,20 @@ def main():
 
         # Conditionally render menu options based on toggle state
         if st.session_state.show_menu_tab:
-            st.radio(
-                "Terminal Navigation",
-                NAV_PAGES,
-                key="terminal_nav_radio",
-                on_change=on_sidebar_nav_change,
-                label_visibility="collapsed"
+            st.markdown(
+                """
+                <div style="font-size: 10px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.6px; margin: 8px 0 6px 0;">
+                    Select Terminal Screen
+                </div>
+                """,
+                unsafe_allow_html=True
             )
+            for page_name in NAV_PAGES:
+                is_active = (st.session_state.selected_page == page_name)
+                btn_type = "primary" if is_active else "secondary"
+                if st.button(page_name, key=f"sb_nav_btn_{page_name}", type=btn_type, use_container_width=True):
+                    st.session_state.selected_page = page_name
+                    st.rerun()
         else:
             st.markdown(
                 f"""
@@ -860,14 +856,9 @@ def main():
         with col:
             is_active = (app_page == full_page)
             btn_type = "primary" if is_active else "secondary"
-            st.button(
-                short_label,
-                key=f"top_pill_{short_label}",
-                type=btn_type,
-                use_container_width=True,
-                on_click=on_pill_nav_click,
-                args=(full_page,)
-            )
+            if st.button(short_label, key=f"top_pill_{short_label}", type=btn_type, use_container_width=True):
+                st.session_state.selected_page = full_page
+                st.rerun()
     st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
     # ========================================================

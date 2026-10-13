@@ -56,4 +56,14 @@ def test_app_menu_toggle(app_runner):
     app_runner.button(key="main_top_toggle_menu_btn").click().run()
     assert len(app_runner.exception) == 0
     assert app_runner.session_state.show_menu_tab is True
-    assert app_runner.session_state.terminal_nav_radio == "Model Leaderboard & Baseline Audit"
+    assert app_runner.session_state.selected_page == "Model Leaderboard & Baseline Audit"
+
+
+def test_app_sidebar_buttons(app_runner):
+    """Verifies that clicking sidebar navigation buttons transitions pages cleanly."""
+    for page in ["Trading Terminal", "Walk-Forward & Ablation Lab", "Explainable AI (SHAP Lab)"]:
+        btn = app_runner.button(key=f"sb_nav_btn_{page}")
+        assert btn is not None
+        btn.click().run()
+        assert len(app_runner.exception) == 0
+        assert app_runner.session_state.selected_page == page
