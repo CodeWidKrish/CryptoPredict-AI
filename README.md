@@ -1,28 +1,40 @@
 <div align="center">
 
-# CryptoPredict AI
-### *Bitcoin Price Prediction & Market Direction Quantitative Intelligence Terminal*
+<!-- HEADER BANNER -->
+<table width="100%" style="border-collapse: collapse; border: 2px solid #38BDF8; background: #0B0F19; border-radius: 12px; margin-bottom: 24px;">
+  <tr>
+    <td align="center" style="padding: 28px 20px 20px 20px;">
+      <div style="font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 3px; color: #38BDF8; text-transform: uppercase; margin-bottom: 8px;">
+        INSTITUTIONAL QUANTITATIVE INTELLIGENCE TERMINAL
+      </div>
+      <h1 align="center" style="font-size: 38px; font-weight: 800; color: #FFFFFF; letter-spacing: -1px; margin: 0; padding: 0;">
+        CryptoPredict AI
+      </h1>
+      <p align="center" style="font-size: 15px; color: #94A3B8; margin: 8px 0 16px 0; max-width: 720px; line-height: 1.5;">
+        Autonomous Machine Learning Research Pipeline & Interactive Terminal for Bitcoin Spot Price Forecasting, Walk-Forward Econometric Auditing, and Zero-Lookahead Market Intelligence
+      </p>
+      <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+        <img src="https://img.shields.io/badge/Python-3.11%20%7C%203.14-38BDF8?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+        <img src="https://img.shields.io/badge/ML-Scikit--Learn%20%7C%20XGBoost%20%7C%20LightGBM-F59E0B?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="ML" />
+        <img src="https://img.shields.io/badge/Pytest-28%2F28%20Passing-10B981?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
+        <img src="https://img.shields.io/badge/Streamlit-6--Screen%20Trading%20Terminal-EF4444?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit" />
+        <img src="https://img.shields.io/badge/Data-Zero%20Paid%20APIs%20(yfinance)-06B6D4?style=for-the-badge" alt="Data" />
+        <img src="https://img.shields.io/badge/Status-100%25%20Viva%20Ready-8B5CF6?style=for-the-badge" alt="Status" />
+      </div>
+      <table width="92%" style="background: #111827; border: 1px solid #1E293B; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; color: #E2E8F0; text-align: center;">
+        <tr>
+          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>TARGET:</b> BTC-USD Daily</td>
+          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>FEATURES:</b> 58 Causal Signals</td>
+          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>MODELS:</b> 15 Benchmarked</td>
+          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>TEST SET:</b> 648 Days</td>
+          <td style="padding: 10px;"><b>LEAKAGE:</b> Formally 0.00%</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 
-[![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Machine Learning](https://img.shields.io/badge/ML-Scikit--Learn%20%7C%20XGBoost%20%7C%20LightGBM-F7931A?style=for-the-badge&logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
-[![Automated Tests](https://img.shields.io/badge/Pytest-28%2F28%20Passing-00E676?style=for-the-badge&logo=pytest&logoColor=white)]()
-[![Terminal UI](https://img.shields.io/badge/Streamlit-6--Tab%20Dark%20Terminal-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Zero Paid APIs](https://img.shields.io/badge/Data-Free%20yfinance%20%2B%20Offline%20Cache-00F0FF?style=for-the-badge&logo=yahoo&logoColor=white)]()
-[![Academic License](https://img.shields.io/badge/License-Academic%20Evaluation-8B5CF6?style=for-the-badge)]()
-
-<br/>
-
-```
-┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│  BITCOIN SPOT INTELLIGENCE     │  CLOSE: $83,273.13  │  FORECAST: $83,147.96  │  BAND: ±$2,302   │
-│  7 EXPERIMENTS  •  58 CAUSAL FEATURES  •  5-REGIME WALK-FORWARD  •  ZERO LOOKAHEAD LEAKAGE  │
-└─────────────────────────────────────────────────────────────────────────────────────────────┘
-```
-
-<p align="center">
-  <b>A Rigorous, Explainable, Production-Grade Machine Learning Mini-Project & Research Laboratory for College Submission & Viva Voce Defense.</b><br/>
-  <i>Engineered with strict zero-lookahead chronological validation, Martingale baseline audits, conformal error bounds, SHAP explainability, and transaction-cost-aware backtesting.</i>
-</p>
+</div>
 
 ---
 
@@ -434,6 +446,33 @@ Open your browser at: **`http://localhost:8501`**
 
 ---
 
+<!-- FOOTER BANNER -->
 <div align="center">
-  <sub>CryptoPredict AI was engineered strictly for academic evaluation and machine learning mini-project submission. It does not constitute investment or financial trading advice.</sub>
+
+<table width="100%" style="border-collapse: collapse; border: 2px solid #1E293B; background: #0B0F19; border-radius: 12px; margin-top: 32px;">
+  <tr>
+    <td align="center" style="padding: 28px 20px;">
+      <div style="font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 3px; color: #38BDF8; text-transform: uppercase; margin-bottom: 6px;">
+        CRYPTOPREDICT AI RESEARCH PROJECT
+      </div>
+      <div style="font-size: 18px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; margin-bottom: 8px;">
+        Engineered for Academic Defense & Institutional Rigor
+      </div>
+      <p style="font-size: 13px; color: #94A3B8; max-width: 680px; margin: 0 auto 16px auto; line-height: 1.6;">
+        Developed with strict chronological train/validation/test partitions, Martingale random-walk baseline audits, decision threshold calibration, SHAP explainability, and transaction-cost friction modeling.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+        <img src="https://img.shields.io/badge/Repository-CodeWidKrish%2FCryptoPredict--AI-38BDF8?style=for-the-badge&logo=github&logoColor=white" alt="Repo" />
+        <img src="https://img.shields.io/badge/Branch-main-10B981?style=for-the-badge&logo=git&logoColor=white" alt="Branch" />
+        <img src="https://img.shields.io/badge/Test%20Suite-28%20Passed-10B981?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
+        <img src="https://img.shields.io/badge/License-Academic%20Evaluation-8B5CF6?style=for-the-badge" alt="License" />
+      </div>
+      <div style="font-size: 11px; color: #64748B; border-top: 1px solid #1E293B; padding-top: 14px; margin-top: 12px;">
+        Built strictly for academic demonstration, faculty examination, and Viva Voce defense. Not financial or trading advice.<br/>
+        Copyright (c) 2026 CodeWidKrish. All rights reserved.
+      </div>
+    </td>
+  </tr>
+</table>
+
 </div>
