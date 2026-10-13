@@ -1,27 +1,37 @@
 <div align="center">
 
-<!-- HEADER BANNER -->
-<table width="100%" style="border-collapse: collapse; border: 2px solid #38BDF8; background: #0B0F19; border-radius: 12px; margin-bottom: 24px;">
+<!-- HERO SECTION: ANIMATED CAPSULE HEADER -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B0F19,50:0F172A,100:38BDF8&height=220&section=header&text=CryptoPredict%20AI&fontSize=48&fontColor=ffffff&fontAlignY=38&desc=Institutional%20Bitcoin%20Quantitative%20Intelligence%20%26%20ML%20Terminal&descFontSize=17&descAlignY=62&descAlign=50" width="100%" alt="CryptoPredict AI Header Banner" />
+
+<!-- INSTITUTIONAL HERO CONTAINER -->
+<table width="100%" style="border-collapse: collapse; border: 2px solid #38BDF8; background: #0B0F19; border-radius: 12px; margin-top: -10px; margin-bottom: 24px;">
   <tr>
-    <td align="center" style="padding: 28px 20px 20px 20px;">
+    <td align="center" style="padding: 24px 20px 20px 20px;">
       <div style="font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 3px; color: #38BDF8; text-transform: uppercase; margin-bottom: 8px;">
         INSTITUTIONAL QUANTITATIVE INTELLIGENCE TERMINAL
       </div>
-      <h1 align="center" style="font-size: 38px; font-weight: 800; color: #FFFFFF; letter-spacing: -1px; margin: 0; padding: 0;">
+      <h1 align="center" style="font-size: 36px; font-weight: 800; color: #FFFFFF; letter-spacing: -1px; margin: 0; padding: 0;">
         CryptoPredict AI
       </h1>
-      <p align="center" style="font-size: 15px; color: #94A3B8; margin: 8px 0 16px 0; max-width: 720px; line-height: 1.5;">
+      <p align="center" style="font-size: 15px; color: #94A3B8; margin: 8px 0 16px 0; max-width: 740px; line-height: 1.5;">
         Autonomous Machine Learning Research Pipeline & Interactive Terminal for Bitcoin Spot Price Forecasting, Walk-Forward Econometric Auditing, and Zero-Lookahead Market Intelligence
       </p>
       <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
         <img src="https://img.shields.io/badge/Python-3.11%20%7C%203.14-38BDF8?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-        <img src="https://img.shields.io/badge/ML-Scikit--Learn%20%7C%20XGBoost%20%7C%20LightGBM-F59E0B?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="ML" />
+        <img src="https://img.shields.io/badge/ML%20Core-Scikit--Learn%20%7C%20XGBoost%20%7C%20LightGBM-F59E0B?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="ML" />
         <img src="https://img.shields.io/badge/Pytest-28%2F28%20Passing-10B981?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
         <img src="https://img.shields.io/badge/Streamlit-6--Screen%20Trading%20Terminal-EF4444?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit" />
-        <img src="https://img.shields.io/badge/Data-Zero%20Paid%20APIs%20(yfinance)-06B6D4?style=for-the-badge" alt="Data" />
+        <img src="https://img.shields.io/badge/Data%20Source-Zero%20Paid%20APIs%20(yfinance)-06B6D4?style=for-the-badge" alt="Data" />
         <img src="https://img.shields.io/badge/Status-100%25%20Viva%20Ready-8B5CF6?style=for-the-badge" alt="Status" />
       </div>
-      <table width="92%" style="background: #111827; border: 1px solid #1E293B; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; color: #E2E8F0; text-align: center;">
+      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
+        <a href="#10-installation--execution-guide"><img src="https://img.shields.io/badge/Action-Launch%20Terminal-38BDF8?style=flat-square&logo=terminal&logoColor=white" alt="Launch Terminal" /></a>
+        <a href="#5-live-benchmark-leaderboard"><img src="https://img.shields.io/badge/Audit-View%20Leaderboard-F59E0B?style=flat-square&logo=googlecloud&logoColor=white" alt="Leaderboard" /></a>
+        <a href="#4-the-seven-academic-research-experiments"><img src="https://img.shields.io/badge/Research-7%20Experiments-10B981?style=flat-square&logo=codeforces&logoColor=white" alt="Experiments" /></a>
+        <a href="#9-college-viva-voce-defense-guide"><img src="https://img.shields.io/badge/Defense-Viva%20Dossier-8B5CF6?style=flat-square&logo=academia&logoColor=white" alt="Viva" /></a>
+        <a href="https://github.com/CodeWidKrish/CryptoPredict-AI"><img src="https://img.shields.io/badge/GitHub-Repository-111827?style=flat-square&logo=github&logoColor=white" alt="GitHub" /></a>
+      </div>
+      <table width="94%" style="background: #111827; border: 1px solid #1E293B; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; color: #E2E8F0; text-align: center;">
         <tr>
           <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>TARGET:</b> BTC-USD Daily</td>
           <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>FEATURES:</b> 58 Causal Signals</td>
@@ -38,31 +48,35 @@
 
 ---
 
+<div align="center">
+
 [Abstract](#1-project-abstract) •
 [Objectives](#2-aim--key-objectives) •
-[Architecture](#3-system-architecture) •
-[Experiments](#4-the-seven-academic-research-experiments) •
-[Benchmarks](#5-live-benchmark-leaderboard) •
-[Terminal UI](#6-institutional-6-tab-trading-terminal) •
-[Zero-API Policy](#7-api-audit--zero-paid-api-architecture) •
-[Testing](#8-automated-testing-suite-2828-passing) •
-[Viva Prep](#9-college-viva-voce-defense-guide) •
-[Quickstart](#10-installation--execution-guide)
-
----
+[Tech Stack](#3-technology-stack--skills-grid) •
+[System Architecture](#4-system-architecture) •
+[7 Experiments](#5-the-seven-academic-research-experiments) •
+[Leaderboard](#6-live-benchmark-leaderboard) •
+[Terminal UI](#7-institutional-6-screen-trading-terminal) •
+[Zero-API Policy](#8-api-audit--zero-paid-api-architecture) •
+[Test Suite](#9-automated-testing-suite-2828-passing) •
+[Viva Voce Guide](#10-college-viva-voce-defense-guide) •
+[Installation](#11-installation--execution-guide) •
+[Roadmap](#12-project-roadmap--contributions)
 
 </div>
 
+---
+
 ## 1. Project Abstract
 
-Predicting financial asset time series is notoriously difficult due to non-stationarity, regime shifts, and extremely low signal-to-noise ratios. Many academic student projects suffer from fatal methodological flaws: randomly shuffling time-series rows (causing catastrophic future-data leakage), evaluating solely on in-sample data, or celebrating deceptive $R^2 \approx 0.99$ scores on non-stationary price series without comparing against trivial baselines.
+Predicting financial asset time series is notoriously difficult due to non-stationarity, regime shifts, and low signal-to-noise ratios. A widespread flaw across academic mini-projects is methodological invalidity: randomly shuffling time-series rows (causing catastrophic future-data leakage), evaluating solely on in-sample data, or celebrating deceptive $R^2 \approx 0.99$ scores on non-stationary price series without comparing against trivial baselines.
 
-**CryptoPredict AI** is an authentic, scientifically defensible machine learning laboratory designed to forecast Bitcoin (`BTC-USD`) market movements. The project:
+**CryptoPredict AI** is an authentic, scientifically defensible quantitative machine learning laboratory designed to forecast Bitcoin (`BTC-USD`) market movements. The project:
 1. **Ingests Authentic Market Data:** Collects 4,410 daily candles directly from Yahoo Finance (`yfinance`) spanning September 2014 through the current trading day, backed by an automatic offline caching fallback (`data/raw/bitcoin_history.csv`).
 2. **Enforces Strict Causal Feature Engineering:** Constructs 58 leakage-free features strictly using data available up to timestamp $t$ to forecast day $t+1$.
 3. **Conducts an Honest Baseline Audit:** Transparently reveals that the **Naive Previous-Close Baseline ($1,968.94 RMSE)** outperforms Linear Regression ($2,030.43) and Residual XGBoost ($2,589.59) on raw prices due to the financial **Martingale / Random Walk Property** ($P_{t+1} = P_t + \epsilon_t$).
 4. **Delivers Deep Experimental Evidence:** Executes an academic 7-experiment research suite covering stationary return forecasting ($R_{t+1}$), 3-tier feature ablation, 5-cycle walk-forward validation across historical macro regimes, classification threshold calibration ($\tau = 0.42$), SHAP explainability, conformal prediction intervals, and realistic backtesting with exchange fees (0.10%) and slippage (0.05%).
-5. **Serves an Institutional 6-Tab Terminal:** Deploys a Bloomberg/TradingView-inspired dark terminal (`#080B11`) with interactive Plotly charts, point-in-time historical prediction replay, and 1-click artifact downloads.
+5. **Serves an Institutional 6-Screen Terminal:** Deploys a Bloomberg/TradingView-inspired dark terminal (`#080B11`) with interactive Plotly charts, point-in-time historical prediction replay, and 1-click artifact downloads.
 
 ---
 
@@ -85,7 +99,32 @@ To construct, train, optimize, validate, and explain dual machine learning archi
 
 ---
 
-## 3. System Architecture
+## 3. Technology Stack & Skills Grid
+
+<div align="center">
+
+### Core Engineering & Modeling Ecosystem
+<a href="https://skillicons.dev">
+  <img src="https://skillicons.dev/icons?i=python,sklearn,git,github,linux,bash,vscode,md" alt="Tech Stack Skills Grid" />
+</a>
+
+</div>
+
+| Layer | Technology | Version | Purpose in Architecture |
+| :--- | :--- | :--- | :--- |
+| **Language Runtime** | Python | 3.11 / 3.14 | Core language for statistical modeling and C-binding ML acceleration. |
+| **Machine Learning Core** | Scikit-Learn | 1.4+ | Linear, Ridge, Lasso, Logistic Regression, Scalers, Metrics, TimeSeriesSplit. |
+| **Gradient Boosting** | LightGBM & XGBoost | 4.x / 2.x | High-performance histogram decision trees for probability and residual modeling. |
+| **Data Processing** | NumPy & Pandas | 2.x / 2.x | Vectorized calculation of 58 causal features with zero lookahead indexing. |
+| **Data Ingestion** | `yfinance` | 0.2.x | Automated retrieval of daily Bitcoin spot OHLCV data directly from Yahoo Finance. |
+| **Terminal Frontend** | Streamlit | 1.42+ | 6-screen institutional trading terminal with decoupled session-state routing. |
+| **Financial Visualization** | Plotly WebGL | 5.24+ | Interactive candlestick series, moving average overlays, and conformal bounds. |
+| **Model Persistence** | Joblib | 1.4+ | Serialization of trained models, fitted scalers, and metric registries. |
+| **Quality & Assurance** | Pytest | 8.x | 28 automated tests verifying data integrity, zero leakage, and UI stability. |
+
+---
+
+## 4. System Architecture
 
 ```mermaid
 flowchart TD
@@ -130,19 +169,19 @@ flowchart TD
 
     subgraph SERVING ["6. Serving & Interactive Terminal"]
         L1 & L2 & L3 & L4 & L5 & L6 & L7 --> M["Model Persistence (joblib) & Metadata (JSON)"]
-        M --> N["Streamlit 6-Tab Trading Terminal (app.py)"]
-        N --> O1["Live Trading Terminal"]
-        N --> O2["Model Leaderboard & Baseline Audit"]
-        N --> O3["Walk-Forward & Ablation Lab"]
-        N --> O4["Explainable AI (SHAP Lab)"]
-        N --> O5["What-If Market Lab (OOD Alerts)"]
-        N --> O6["Backtest & Evidence Export"]
+        M --> N["Streamlit 6-Screen Trading Terminal (app.py)"]
+        N --> O1["Screen 1: Terminal Overview"]
+        N --> O2["Screen 2: Data & Causal Features"]
+        N --> O3["Screen 3: ML Experiments Lab"]
+        N --> O4["Screen 4: Walk-Forward Econometrics"]
+        N --> O5["Screen 5: Strategy Backtest & Friction"]
+        N --> O6["Screen 6: Research Audit & Export"]
     end
 ```
 
 ---
 
-## 4. The Seven Academic Research Experiments
+## 5. The Seven Academic Research Experiments
 
 All experiments are executed autonomously via [`src/experiments.py`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/src/experiments.py) and output reproducible data artifacts to [`reports/experiments/`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/reports/experiments/).
 
@@ -213,7 +252,6 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
   3. `volatility_7d` — Short-term volatility clustering signal.
   4. `bb_bandwidth` — Bollinger Band volatility compression indicator.
   5. `volume_change_1d` — Volume expansion confirmation.
-- **Local Waterfall Attributions:** The terminal decomposes candle-by-candle predictions, displaying exact feature contribution vectors for any chosen historical trading day.
 
 ---
 
@@ -240,7 +278,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-## 5. Benchmark Leaderboard
+## 6. Live Benchmark Leaderboard
 
 ### Chronological Dataset Splits
 - **Training Set (70%):** 3,024 observations (`2014-12-15` to `2023-03-26`)
@@ -273,14 +311,14 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-## 6. Institutional 6-Tab Trading Terminal
+## 7. Institutional 6-Screen Trading Terminal
 
 The application ([`app.py`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/app.py)) provides an institutional trading terminal interface styled after Bloomberg and TradingView (`#080B11`, `#141B29`, `#00F0FF`, `#0ECB81`):
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
 │ CryptoPredict AI ── Quantitative ML Terminal                                              │
-│ [Trading Terminal] [Leaderboard] [Walk-Forward] [SHAP] [What-If] [Backtest]               │
+│ [Overview] [Data & Features] [ML Experiments] [Walk-Forward] [Backtest] [Research Audit]  │
 ├───────────────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                           │
 │  BITCOIN SPOT INTELLIGENCE (BTC-USD)  •  NORMAL VOLATILITY                                │
@@ -297,19 +335,102 @@ The application ([`app.py`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%
 └───────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Detailed Tab Capabilities
-1. **Trading Terminal:** Real-time market metrics, latest candle timestamp, dual forecast banner with 90% and 95% conformal bounds, interactive candlestick chart with volume, and honest baseline comparison card.
-2. **Model Leaderboard & Baseline Audit:** Next-day price regression leaderboard, stationary return regression table ($R_{t+1}$), direction classification table with exact percentages, and confusion matrix heatmap.
-3. **Walk-Forward & Ablation Lab:** 5-cycle historical walk-forward chart, 3-tier feature ablation study bar chart, and interactive threshold optimization curve with slider inspection.
-4. **Explainable AI (SHAP Lab):** Global Mean |SHAP| feature rankings, local waterfall decomposition for the latest candle, and conformal coverage validation table.
-5. **What-If Market Lab:** Interactive simulation sliders for Price, RSI, Volatility, and Volume with automated **Out-of-Distribution (OOD)** distance warning alerts.
-6. **Strategy Backtest & Evidence Export:** Friction-aware equity curve vs Buy & Hold with range selectors (`1M`, `3M`, `6M`, `1Y`, `All`), historical point-in-time prediction date replay, and 1-click artifact downloads.
+### Empirical Evaluation Visualizations
+
+<div align="center">
+
+<p><b>Out-of-Sample Actual vs Predicted Price Test Series</b></p>
+<img src="reports/figures/test_actual_vs_predicted.png" width="92%" alt="Test Set Actual vs Predicted" />
+
+<table width="100%">
+  <tr>
+    <td width="50%" align="center">
+      <b>Confusion Matrix (Direction Classification)</b><br/>
+      <img src="reports/figures/test_confusion_matrix.png" width="95%" alt="Confusion Matrix" />
+    </td>
+    <td width="50%" align="center">
+      <b>Rolling Historical Volatility Regime</b><br/>
+      <img src="reports/figures/eda_rolling_volatility.png" width="95%" alt="Rolling Volatility" />
+    </td>
+  </tr>
+</table>
+
+</div>
+
+### Detailed Screen Capabilities
+
+| Screen Name | Core Features | Quantitative Output |
+| :--- | :--- | :--- |
+| **1. Terminal Overview** | Live spot ticker, interactive WebGL candlesticks, overlay indicators, next-day forecast cone. | Target forecast, 90% & 95% conformal bounds, probability delta. |
+| **2. Data & Features** | 58 causal features inspection, rolling correlations, data distributions, stationary transform checks. | Zero-leakage verification, feature variance, autocorrelation metrics. |
+| **3. ML Experiments** | Complete 15-model leaderboard, stationary return regression, threshold optimization curve slider. | Test RMSE, MAE, MAPE, balanced accuracy, F1-score, MCC. |
+| **4. Walk-Forward** | 5-regime expanding-window cross-validation across 2017 to 2026 macro cycles. | Regime stability, out-of-sample alpha decay, dollar RMSE scaling. |
+| **5. Strategy Backtest** | Friction-aware trading simulation with 0.10% Binance fee and 0.05% slippage. | Net strategy return, Buy & Hold benchmark, -18.63% fee drag. |
+| **6. Research Audit** | Point-in-time historical prediction replay, SHAP feature rankings, 1-click artifact export. | CSV export, JSON metadata download, LaTeX summary tables. |
 
 ---
 
-## 7. API Audit & Zero-Paid-API Architecture
+## 8. Deep Technical & Econometric Specifications
 
-### Codebase API Audit Summary
+<details>
+<summary><b>View Econometric Configuration Parameters (Pipeline Constants)</b></summary>
+
+```json
+{
+  "dataset": {
+    "symbol": "BTC-USD",
+    "interval": "1d",
+    "start_date": "2014-09-17",
+    "total_bars": 4410
+  },
+  "partitions": {
+    "train_ratio": 0.70,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "chronological": true,
+    "shuffle": false
+  },
+  "friction_model": {
+    "exchange_fee_taker": 0.0010,
+    "execution_slippage": 0.0005,
+    "total_friction_per_trade": 0.0015
+  },
+  "decision_threshold": {
+    "default": 0.50,
+    "calibrated_optimal": 0.42,
+    "optimization_target": "macro_f1"
+  },
+  "conformal_prediction": {
+    "method": "split_conformal_residual_quantile",
+    "nominal_levels": [0.80, 0.90, 0.95]
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><b>View 58 Causal Technical Indicator Formulas & Lookbacks</b></summary>
+
+| Signal Family | Feature Names | Mathematical Lookback Formula | Stationarity Status |
+| :--- | :--- | :--- | :--- |
+| **Autoregressive Lags** | `close_lag_1` to `close_lag_30` | $P_{t-k}$ for $k \in \{1, 2, 3, 7, 14, 30\}$ | Non-Stationary |
+| **Percentage Returns** | `return_lag_1` to `return_lag_14` | $R_{t-k} = \frac{P_{t-k} - P_{t-k-1}}{P_{t-k-1}}$ | Stationary $I(0)$ |
+| **Exponential Averages**| `ema_9`, `ema_21`, `ema_50`, `ema_200` | $\text{EMA}_t = \alpha P_t + (1-\alpha) \text{EMA}_{t-1}$ | Non-Stationary |
+| **MACD Oscillator** | `macd`, `macd_signal`, `macd_hist` | $\text{EMA}_{12}(P) - \text{EMA}_{26}(P)$ | Stationary $I(0)$ |
+| **Momentum RSI** | `rsi_14` | $100 - \frac{100}{1 + \text{RS}_{14}}$ | Stationary $I(0) \in [0, 100]$ |
+| **Bollinger Bands** | `bb_upper`, `bb_lower`, `bb_width` | $\mu_{20} \pm 2\sigma_{20}, \quad \text{Width} = \frac{\text{Upper} - \text{Lower}}{\mu_{20}}$ | Width is Stationary |
+| **Volatility Measures**| `volatility_7d`, `volatility_30d` | $\text{StdDev}(R_t, k) \cdot \sqrt{365}$ | Stationary $I(0)$ |
+| **Normalized ATR** | `natr_14` | $\frac{\text{ATR}_{14}}{P_t} \cdot 100$ | Stationary $I(0)$ |
+| **Volume Momentum** | `obv_zscore`, `vol_change_1d` | $\frac{V_t - \mu_V(14)}{\sigma_V(14)}$ | Stationary $I(0)$ |
+| **Calendar Proxies** | `day_of_week`, `month`, `quarter` | Cyclical calendar indices | Stationary |
+
+</details>
+
+---
+
+## 9. API Audit & Zero-Paid-API Architecture
+
 Before modifying or running code, a full audit of all network calls and imports was conducted across `src/` and `app.py`:
 - **Current APIs in Use:** Yahoo Finance via `yfinance` (`BTC-USD` daily market data).
 - **Paid APIs Required:** **None (0).**
@@ -317,12 +438,12 @@ Before modifying or running code, a full audit of all network calls and imports 
 - **Offline Resilience:** If the network is unavailable or Yahoo Finance rate-limits, `data_loader.py` automatically falls back to the bundled local cache: [`data/raw/bitcoin_history.csv`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/data/raw/bitcoin_history.csv) containing 4,410 authentic daily candles.
 - **Local Compute:** Scikit-learn, XGBoost, LightGBM, and SHAP train and infer 100% locally on CPU without sending data to external endpoints.
 
-> **Faculty Evaluation Clarification:**  
+> **Institutional Evaluation Note:**  
 > CryptoPredict AI is dedicated to mathematical price prediction, stationary return modeling, and ML classification algorithms. It does not use external generative AI chatbot APIs or third-party paid news scrapers. This guarantees **zero running costs, zero API rate limits, complete data privacy, and 100% offline reproducibility**.
 
 ---
 
-## 8. Automated Testing Suite (28/28 Passing)
+## 10. Automated Testing Suite (28/28 Passing)
 
 Execute the full automated test suite using `pytest`:
 ```bash
@@ -368,7 +489,7 @@ tests/test_ui.py::test_app_sidebar_buttons PASSED                        [100%]
 
 ---
 
-## 9. College Viva Voce Defense Guide
+## 11. College Viva Voce Defense Guide
 
 A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/VIVA_QUESTIONS_AND_PRESENTATION.md)) contains the 10-slide presentation deck outline, 5-stage live demo script, and answers to the top 10 external examiner questions:
 
@@ -385,22 +506,13 @@ A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Ni
 
 ---
 
-## 10. Presentation Readiness Checklist (8/8 Verified)
+## 12. Installation & Execution Guide
 
-| Status | Verification Item | Proof in Repository |
-| :-: | :--- | :--- |
-| **[x]** | **Application starts without errors** | Streamlit running on port 8501, verified returning HTTP 200. |
-| **[x]** | **Market data loads, with fallback for failures** | `src/data_loader.py` fetches `yfinance` with fallback to `data/raw/bitcoin_history.csv`. |
-| **[x]** | **Predictions generated by actual trained models** | `src/predict.py` loads `models/best_regression_model.joblib` & `models/best_classification_model.joblib`. |
-| **[x]** | **Evaluation metrics match saved predictions** | `reports/model_comparison.csv` and `reports/regression_metrics.json` match `test_predictions.csv`. |
-| **[x]** | **Baseline comparisons & walk-forward work** | Naive baseline benchmarked; 5-regime walk-forward verified in `reports/experiments/`. |
-| **[x]** | **Charts, filters, and dashboard controls work** | All 6 tabs interactive in `app.py` with Plotly WebGL visualizations and date replays. |
-| **[x]** | **Tests run successfully and understood** | `pytest -v tests` executes **28 passed** unit and integration tests with zero failures. |
-| **[x]** | **README, report, and viva defense ready** | Full documentation in `README.md`, `PROJECT_CONTEXT.md`, and `VIVA_QUESTIONS_AND_PRESENTATION.md`. |
-
----
-
-## 11. Installation & Execution Guide
+### Prerequisites
+- Python 3.11 or higher (Tested on 3.11 and 3.14)
+- Git 2.30+
+- 4GB RAM minimum (8GB recommended for SHAP calculations)
+- Modern web browser (Chrome, Edge, Firefox, Safari)
 
 ### Step 1: Clone Repository
 ```bash
@@ -432,17 +544,32 @@ Open your browser at: **`http://localhost:8501`**
 
 ---
 
-## 12. References
-1. GeeksforGeeks: *Bitcoin Price Prediction using Machine Learning in Python*  
-   [https://www.geeksforgeeks.org/machine-learning/bitcoin-price-prediction-using-machine-learning-in-python/](https://www.geeksforgeeks.org/machine-learning/bitcoin-price-prediction-using-machine-learning-in-python/)
-2. Scikit-learn Documentation: *Time Series Split and Preprocessing Pipelines*  
-   [https://scikit-learn.org/stable/modules/cross_validation.html#time-series-split](https://scikit-learn.org/stable/modules/cross_validation.html#time-series-split)
-3. Chen, T., & Guestrin, C. (2016). *XGBoost: A Scalable Tree Boosting System*. ACM SIGKDD.
-4. Ke, G., et al. (2017). *LightGBM: A Highly Efficient Gradient Boosting Decision Tree*. NeurIPS.
-5. Lundberg, S. M., & Lee, S. I. (2017). *A Unified Approach to Interpreting Model Predictions*. NeurIPS (SHAP).
-6. Fama, E. F. (1970). *Efficient Capital Markets: A Review of Theory and Empirical Work*. The Journal of Finance.
-7. Yahoo Finance Python API (`yfinance`):  
-   [https://github.com/ranaroussi/yfinance](https://github.com/ranaroussi/yfinance)
+## 13. Project Roadmap & Contributions
+
+### Completed Milestones
+- [x] Zero-lookahead feature engineering with 58 causal technical indicators.
+- [x] Strict chronological train/val/test data partitions (70% / 15% / 15%).
+- [x] Empirical baseline audit documenting the Martingale random walk property.
+- [x] Residual Delta XGBoost formulation recovering tree extrapolation ($R^2 = 0.9783$).
+- [x] Post-hoc validation decision threshold calibration ($\tau = 0.42$).
+- [x] Split conformal uncertainty prediction bands (80%, 90%, 95%).
+- [x] Realistic transaction fee and execution slippage backtester.
+- [x] Decoupled session-state Streamlit terminal with zero widget collision exceptions.
+- [x] 28/28 automated unit and integration tests passing.
+
+### Future Roadmap
+- [ ] Multi-asset cross-sectional momentum modeling (ETH, SOL, Macro Yields).
+- [ ] Intraday hourly bar ingestion with order book depth features.
+- [ ] Conformal quantile regression with asymmetric upside/downside risk bounds.
+- [ ] Reinforcement learning position sizer with dynamic Kelly Criterion constraints.
+
+### Contribution & Academic Contact
+Contributions, issue reports, and academic reviews are welcome:
+1. Fork the Project at `https://github.com/CodeWidKrish/CryptoPredict-AI`.
+2. Create your Feature Branch (`git checkout -b feature/QuantitativeImprovement`).
+3. Commit your Changes (`git commit -m 'feat: Add asymmetric loss function'`).
+4. Push to the Branch (`git push origin feature/QuantitativeImprovement`).
+5. Open a Pull Request.
 
 ---
 
