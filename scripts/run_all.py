@@ -12,8 +12,11 @@ import json
 import numpy as np
 import pandas as pd
 
-if hasattr(sys.stdout, "buffer"):
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+try:
+    if hasattr(sys.stdout, "buffer") and hasattr(sys.stdout.buffer, "writable") and sys.stdout.buffer.writable():
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
 # Ensure project root is in sys.path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
