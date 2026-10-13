@@ -49,7 +49,7 @@ from scripts.run_all import run_pipeline
 # PAGE CONFIGURATION & METADATA
 # ==========================================
 st.set_page_config(
-    page_title="CryptoPredict AI | Institutional Bitcoin Trading & Research Terminal",
+    page_title="CryptoPredict AI — Bitcoin Price Prediction & Market Direction Intelligence",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -409,6 +409,32 @@ td {
     box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2) !important;
 }
 
+/* Active Screen Pill Button Styling */
+.stButton > button[kind="primary"],
+.stButton > button[data-testid="baseButton-primary"] {
+    background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
+    color: #FFFFFF !important;
+    border: 1.5px solid #38BDF8 !important;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.5) !important;
+    font-weight: 800 !important;
+}
+
+.stButton > button[kind="secondary"],
+.stButton > button[data-testid="baseButton-secondary"] {
+    background: #0F141F !important;
+    color: #94A3B8 !important;
+    border: 1px solid #1E293B !important;
+    font-weight: 600 !important;
+}
+
+.stButton > button[kind="secondary"]:hover,
+.stButton > button[data-testid="baseButton-secondary"]:hover {
+    color: #FFFFFF !important;
+    border-color: #38BDF8 !important;
+    background: #141B29 !important;
+    box-shadow: 0 2px 10px rgba(56, 189, 248, 0.25) !important;
+}
+
 .stDownloadButton > button {
     background: #141B29 !important;
     color: #0ECB81 !important;
@@ -583,6 +609,12 @@ def main():
         st.session_state.show_menu_tab = True
     if "selected_page" not in st.session_state:
         st.session_state.selected_page = NAV_PAGES[0]
+    if "terminal_nav_radio" not in st.session_state:
+        st.session_state.terminal_nav_radio = st.session_state.selected_page
+
+    # Callback when sidebar radio is changed
+    def on_sidebar_nav_change():
+        st.session_state.selected_page = st.session_state.terminal_nav_radio
 
     # ========================================================
     # SIDEBAR NAVIGATION & PIPELINE CONTROLS
@@ -622,21 +654,20 @@ def main():
         # Conditionally render menu options based on toggle state
         if st.session_state.show_menu_tab:
             current_idx = NAV_PAGES.index(st.session_state.selected_page) if st.session_state.selected_page in NAV_PAGES else 0
-            app_page = st.radio(
+            st.radio(
                 "Terminal Navigation",
                 NAV_PAGES,
                 index=current_idx,
                 key="terminal_nav_radio",
+                on_change=on_sidebar_nav_change,
                 label_visibility="collapsed"
             )
-            st.session_state.selected_page = app_page
         else:
-            app_page = st.session_state.selected_page
             st.markdown(
                 f"""
 <div style="background: rgba(56, 189, 248, 0.08); border: 1px dashed rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 10px 12px; margin: 8px 0 14px 0;">
     <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Active Screen</div>
-    <div style="font-size: 12px; color: #38BDF8; font-weight: 700; margin-top: 2px;">{app_page}</div>
+    <div style="font-size: 12px; color: #38BDF8; font-weight: 700; margin-top: 2px;">{st.session_state.selected_page}</div>
     <div style="font-size: 10px; color: #64748B; margin-top: 3px;">Menu options hidden. Click '☰ View' above to expand.</div>
 </div>
 """,
@@ -658,6 +689,34 @@ def main():
                 run_pipeline()
                 st.cache_data.clear()
                 st.rerun()
+
+    # Active page variable is strictly controlled by session state
+    app_page = st.session_state.selected_page
+
+    # Dynamic Browser Tab Title updating in the DOM
+    screen_title_map = {
+        "📊 Trading Terminal": "CryptoPredict AI — Live Trading Terminal",
+        "🎯 Model Leaderboard & Baseline Audit": "CryptoPredict AI — Model Leaderboard & Baselines",
+        "🔬 Walk-Forward & Ablation Lab": "CryptoPredict AI — Walk-Forward & Ablation Lab",
+        "💡 Explainable AI (SHAP Lab)": "CryptoPredict AI — SHAP Explainability Lab",
+        "🧪 What-If Market Lab": "CryptoPredict AI — What-If Market Simulation",
+        "📜 Strategy Backtest & Evidence Export": "CryptoPredict AI — Strategy Backtest & Evidence"
+    }
+    active_browser_title = screen_title_map.get(app_page, "CryptoPredict AI — Bitcoin Price Prediction & Market Direction Intelligence")
+
+    st.markdown(
+        f"""
+        <script>
+            try {{
+                document.title = "{active_browser_title}";
+                if (window.parent && window.parent.document) {{
+                    window.parent.document.title = "{active_browser_title}";
+                }}
+            }} catch(e) {{}}
+        </script>
+        """,
+        unsafe_allow_html=True
+    )
 
     # ========================================================
     # TOP NAVIGATION BAR & MENU VISIBILITY CONTROLS
@@ -698,6 +757,7 @@ def main():
                 btn_type = "primary" if is_active else "secondary"
                 if st.button(short_label, key=f"top_pill_{short_label}", type=btn_type, use_container_width=True):
                     st.session_state.selected_page = full_page
+                    st.session_state.terminal_nav_radio = full_page
                     st.rerun()
         st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
