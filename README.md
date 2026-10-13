@@ -5,7 +5,7 @@
 
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Machine Learning](https://img.shields.io/badge/ML-Scikit--Learn%20%7C%20XGBoost%20%7C%20LightGBM-F7931A?style=for-the-badge&logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
-[![Automated Tests](https://img.shields.io/badge/Pytest-24%2F24%20Passing-00E676?style=for-the-badge&logo=pytest&logoColor=white)]()
+[![Automated Tests](https://img.shields.io/badge/Pytest-27%2F27%20Passing-00E676?style=for-the-badge&logo=pytest&logoColor=white)]()
 [![Terminal UI](https://img.shields.io/badge/Streamlit-6--Tab%20Dark%20Terminal-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Zero Paid APIs](https://img.shields.io/badge/Data-Free%20yfinance%20%2B%20Offline%20Cache-00F0FF?style=for-the-badge&logo=yahoo&logoColor=white)]()
 [![Academic License](https://img.shields.io/badge/License-Academic%20Evaluation-8B5CF6?style=for-the-badge)]()
@@ -33,7 +33,7 @@
 [Benchmarks](#5-live-benchmark-leaderboard) •
 [Terminal UI](#6-institutional-6-tab-trading-terminal) •
 [Zero-API Policy](#7-api-audit--zero-paid-api-architecture) •
-[Testing](#8-automated-testing-suite-2424-passing) •
+[Testing](#8-automated-testing-suite-2727-passing) •
 [Viva Prep](#9-college-viva-voce-defense-guide) •
 [Quickstart](#10-installation--execution-guide)
 
@@ -69,7 +69,7 @@ To construct, train, optimize, validate, and explain dual machine learning archi
 - [x] **Walk-Forward Validation:** Validating performance across 5 distinct historical market regimes (2017 Bubble, 2020 COVID, 2021 Bull Run, 2022 Bear, 2025 ETF Era).
 - [x] **Conformal Uncertainty Bands:** Calibrating empirical validation residual quantiles to output 80%, 90%, and 95% error bands.
 - [x] **Real-World Trading Friction:** Proving that high-frequency daily switching erodes **~18.6% of capital** in exchange fees and slippage.
-- [x] **Automated Testing:** 24 unit tests passing cleanly in `pytest`.
+- [x] **Automated Testing:** 27 unit and integration tests passing cleanly in `pytest`.
 
 ---
 
@@ -310,7 +310,7 @@ Before modifying or running code, a full audit of all network calls and imports 
 
 ---
 
-## 8. Automated Testing Suite (24/24 Passing)
+## 8. Automated Testing Suite (27/27 Passing)
 
 Execute the full automated test suite using `pytest`:
 ```bash
@@ -342,12 +342,15 @@ tests/test_metrics.py::test_classification_zero_division_safety PASSED   [ 70%]
 tests/test_metrics.py::test_directional_accuracy PASSED                  [ 75%]
 tests/test_metrics.py::test_balanced_accuracy_and_mcc PASSED             [ 79%]
 tests/test_metrics.py::test_threshold_curve_computation PASSED           [ 83%]
-tests/test_pipeline.py::test_chronological_split_strict_ordering PASSED  [ 87%]
-tests/test_pipeline.py::test_scaler_isolation PASSED                     [ 91%]
-tests/test_pipeline.py::test_model_artifact_reloading PASSED             [ 95%]
-tests/test_pipeline.py::test_cryptopredictor_inference PASSED            [100%]
+tests/test_pipeline.py::test_chronological_split_strict_ordering PASSED  [ 85%]
+tests/test_pipeline.py::test_scaler_isolation PASSED                     [ 88%]
+tests/test_pipeline.py::test_model_artifact_reloading PASSED             [ 92%]
+tests/test_pipeline.py::test_cryptopredictor_inference PASSED            [ 96%]
+tests/test_ui.py::test_app_initial_render_no_exceptions PASSED           [ 97%]
+tests/test_ui.py::test_app_navigation_pills PASSED                       [ 98%]
+tests/test_ui.py::test_app_menu_toggle PASSED                            [100%]
 
-======================= 24 passed, 1 warning in 11.14s ========================
+============================== 27 passed in 14.50s ==============================
 ```
 
 ---
@@ -379,7 +382,7 @@ A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Ni
 | **[x]** | **Evaluation metrics match saved predictions** | `reports/model_comparison.csv` and `reports/regression_metrics.json` match `test_predictions.csv`. |
 | **[x]** | **Baseline comparisons & walk-forward work** | Naive baseline benchmarked; 5-regime walk-forward verified in `reports/experiments/`. |
 | **[x]** | **Charts, filters, and dashboard controls work** | All 6 tabs interactive in `app.py` with Plotly WebGL visualizations and date replays. |
-| **[x]** | **Tests run successfully and understood** | `pytest -v tests` executes **24 passed** unit tests with zero failures. |
+| **[x]** | **Tests run successfully and understood** | `pytest -v tests` executes **27 passed** unit and integration tests with zero failures. |
 | **[x]** | **README, report, and viva defense ready** | Full documentation in `README.md`, `PROJECT_CONTEXT.md`, and `VIVA_QUESTIONS_AND_PRESENTATION.md`. |
 
 ---

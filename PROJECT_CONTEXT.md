@@ -152,11 +152,12 @@ flowchart TD
 
 ## 6. Verification & Automated Test Suite
 
-CryptoPredict AI maintains **24 automated unit tests** in `tests/`:
+CryptoPredict AI maintains **27 automated unit and integration tests** in `tests/`:
 * `test_data.py` (4 tests): Data schema validation, synthetic rejection, offline fallback caching.
 * `test_features.py` (4 tests): RSI mathematical bounds, Bollinger Band geometry, target forward alignment, strict zero-lookahead invariance.
 * `test_metrics.py` (7 tests): Regression exact formulas, MAPE zero protection, classification exact formulas, zero-division safety, directional accuracy, balanced accuracy, MCC, and threshold curve.
 * `test_experiments.py` (5 tests): Zero-return baseline, previous-close baseline, backtest transaction cost deduction, conformal interval monotonicity, and experiment artifact file verification.
 * `test_pipeline.py` (4 tests): Chronological split strict ordering, fold scaler isolation, model serialization, CryptoPredictor live inference.
+* `test_ui.py` (3 tests): Full Streamlit session state lifecycle, top-pill navigation switching, and sidebar menu hide/show toggle verification.
 
-All 24 tests pass with 100% success via `pytest -v`.
+All 27 tests pass with 100% success via `pytest -v`.

@@ -712,12 +712,21 @@ def main():
         st.session_state.show_menu_tab = True
     if "selected_page" not in st.session_state:
         st.session_state.selected_page = NAV_PAGES[0]
-    if "terminal_nav_radio" not in st.session_state:
+    if "terminal_nav_radio" not in st.session_state or st.session_state.terminal_nav_radio != st.session_state.selected_page:
         st.session_state.terminal_nav_radio = st.session_state.selected_page
 
     # Callback when sidebar radio is changed
     def on_sidebar_nav_change():
         st.session_state.selected_page = st.session_state.terminal_nav_radio
+
+    # Callback when top navigation button is clicked
+    def on_pill_nav_click(target_page):
+        st.session_state.selected_page = target_page
+        st.session_state.terminal_nav_radio = target_page
+
+    # Callback when menu toggle button is clicked
+    def on_toggle_menu_click():
+        st.session_state.show_menu_tab = not st.session_state.show_menu_tab
 
     # ========================================================
     # SIDEBAR NAVIGATION & PIPELINE CONTROLS
@@ -750,17 +759,13 @@ def main():
             )
         with sb_col_btn:
             sb_toggle_text = "Hide Menu" if st.session_state.show_menu_tab else "View Menu"
-            if st.button(sb_toggle_text, key="sb_toggle_menu_btn", use_container_width=True):
-                st.session_state.show_menu_tab = not st.session_state.show_menu_tab
-                st.rerun()
+            st.button(sb_toggle_text, key="sb_toggle_menu_btn", use_container_width=True, on_click=on_toggle_menu_click)
 
         # Conditionally render menu options based on toggle state
         if st.session_state.show_menu_tab:
-            current_idx = NAV_PAGES.index(st.session_state.selected_page) if st.session_state.selected_page in NAV_PAGES else 0
             st.radio(
                 "Terminal Navigation",
                 NAV_PAGES,
-                index=current_idx,
                 key="terminal_nav_radio",
                 on_change=on_sidebar_nav_change,
                 label_visibility="collapsed"
@@ -839,30 +844,31 @@ def main():
         )
     with top_nav_col2:
         top_btn_text = "Hide Menu Tab" if st.session_state.show_menu_tab else "View Menu Tab"
-        if st.button(top_btn_text, key="main_top_toggle_menu_btn", use_container_width=True):
-            st.session_state.show_menu_tab = not st.session_state.show_menu_tab
-            st.rerun()
+        st.button(top_btn_text, key="main_top_toggle_menu_btn", use_container_width=True, on_click=on_toggle_menu_click)
 
-    # When Menu Tab is visible, provide horizontal quick-switch pills on the main screen too!
-    if st.session_state.show_menu_tab:
-        pill_cols = st.columns(6)
-        pill_labels = [
-            ("Trading", NAV_PAGES[0]),
-            ("Leaderboard", NAV_PAGES[1]),
-            ("Walk-Forward", NAV_PAGES[2]),
-            ("SHAP Lab", NAV_PAGES[3]),
-            ("What-If Lab", NAV_PAGES[4]),
-            ("Backtest", NAV_PAGES[5])
-        ]
-        for col, (short_label, full_page) in zip(pill_cols, pill_labels):
-            with col:
-                is_active = (app_page == full_page)
-                btn_type = "primary" if is_active else "secondary"
-                if st.button(short_label, key=f"top_pill_{short_label}", type=btn_type, use_container_width=True):
-                    st.session_state.selected_page = full_page
-                    st.session_state.terminal_nav_radio = full_page
-                    st.rerun()
-        st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
+    # Horizontal quick-switch navigation pills on the main screen
+    pill_cols = st.columns(6)
+    pill_labels = [
+        ("Trading", NAV_PAGES[0]),
+        ("Leaderboard", NAV_PAGES[1]),
+        ("Walk-Forward", NAV_PAGES[2]),
+        ("SHAP Lab", NAV_PAGES[3]),
+        ("What-If Lab", NAV_PAGES[4]),
+        ("Backtest", NAV_PAGES[5])
+    ]
+    for col, (short_label, full_page) in zip(pill_cols, pill_labels):
+        with col:
+            is_active = (app_page == full_page)
+            btn_type = "primary" if is_active else "secondary"
+            st.button(
+                short_label,
+                key=f"top_pill_{short_label}",
+                type=btn_type,
+                use_container_width=True,
+                on_click=on_pill_nav_click,
+                args=(full_page,)
+            )
+    st.markdown("<div style='margin-bottom: 16px;'></div>", unsafe_allow_html=True)
 
     # ========================================================
     # 1. LIVE TRADING TERMINAL
