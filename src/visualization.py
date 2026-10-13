@@ -311,6 +311,54 @@ def plot_interactive_feature_importance(importances: pd.DataFrame, top_n: int = 
     return fig
 
 
+def plot_interactive_probability_gauge(prob: float, direction: int) -> go.Figure:
+    """Creates a semicircular directional conviction gauge meter with high-contrast indicator."""
+    pct = prob * 100.0
+    accent_color = COLOR_GREEN if direction == 1 else COLOR_RED
+
+    fig = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=pct,
+        number=dict(
+            suffix="%",
+            font=dict(size=42, family="JetBrains Mono", color=COLOR_TEXT)
+        ),
+        gauge=dict(
+            axis=dict(
+                range=[0, 100],
+                tickwidth=1,
+                tickcolor=COLOR_MUTED,
+                tickvals=[0, 25, 50, 75, 100],
+                ticktext=["0% Bear", "25%", "50% Neutral", "75%", "100% Bull"],
+                tickfont=dict(family="JetBrains Mono", size=10, color=COLOR_MUTED)
+            ),
+            bar=dict(color=accent_color, thickness=0.32),
+            bgcolor="rgba(17, 26, 46, 0.9)",
+            borderwidth=1,
+            bordercolor=COLOR_BORDER,
+            steps=[
+                dict(range=[0, 45], color="rgba(244, 63, 94, 0.18)"),
+                dict(range=[45, 55], color="rgba(245, 158, 11, 0.18)"),
+                dict(range=[55, 100], color="rgba(16, 185, 129, 0.18)")
+            ],
+            threshold=dict(
+                line=dict(color="#FFFFFF", width=3),
+                thickness=0.8,
+                value=50.0
+            )
+        )
+    ))
+
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
+        margin=dict(l=20, r=20, t=20, b=20),
+        height=240
+    )
+    return fig
+
+
 # ==========================================
 # STATIC MATPLOTLIB FIGURES (For Report)
 # ==========================================
