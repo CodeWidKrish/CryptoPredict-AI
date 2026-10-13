@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ CryptoPredict AI
+# CryptoPredict AI
 ### *Bitcoin Price Prediction & Market Direction Quantitative Intelligence Terminal*
 
 [![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -14,7 +14,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ BITCOIN SPOT INTELLIGENCE  │  CLOSE: $83,273.13  │  FORECAST: $83,147.96  │  BAND: ±$2,302   │
+│  BITCOIN SPOT INTELLIGENCE     │  CLOSE: $83,273.13  │  FORECAST: $83,147.96  │  BAND: ±$2,302   │
 │  7 EXPERIMENTS  •  58 CAUSAL FEATURES  •  5-REGIME WALK-FORWARD  •  ZERO LOOKAHEAD LEAKAGE  │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -26,22 +26,22 @@
 
 ---
 
-[📌 Abstract](#-1-project-abstract) •
-[🎯 Objectives](#-2-aim--key-objectives) •
-[🏗️ Architecture](#-3-system-architecture) •
-[🔬 7 Experiments](#-4-the-7-academic-research-experiments) •
-[📊 Benchmarks](#-5-live-benchmark-leaderboard) •
-[🖥️ Terminal UI](#-6-institutional-6-tab-trading-terminal) •
-[🛡️ Zero-API Policy](#-7-api-audit--zero-paid-api-architecture) •
-[🧪 Testing](#-8-automated-testing-suite-2424-passing) •
-[🎓 Viva Prep](#-9-college-viva-voce-defense-guide) •
-[🚀 Quickstart](#-10-installation--execution-guide)
+[Abstract](#1-project-abstract) •
+[Objectives](#2-aim--key-objectives) •
+[Architecture](#3-system-architecture) •
+[Experiments](#4-the-seven-academic-research-experiments) •
+[Benchmarks](#5-live-benchmark-leaderboard) •
+[Terminal UI](#6-institutional-6-tab-trading-terminal) •
+[Zero-API Policy](#7-api-audit--zero-paid-api-architecture) •
+[Testing](#8-automated-testing-suite-2424-passing) •
+[Viva Prep](#9-college-viva-voce-defense-guide) •
+[Quickstart](#10-installation--execution-guide)
 
 ---
 
 </div>
 
-## 📌 1. Project Abstract
+## 1. Project Abstract
 
 Predicting financial asset time series is notoriously difficult due to non-stationarity, regime shifts, and extremely low signal-to-noise ratios. Many academic student projects suffer from fatal methodological flaws: randomly shuffling time-series rows (causing catastrophic future-data leakage), evaluating solely on in-sample data, or celebrating deceptive $R^2 \approx 0.99$ scores on non-stationary price series without comparing against trivial baselines.
 
@@ -54,7 +54,7 @@ Predicting financial asset time series is notoriously difficult due to non-stati
 
 ---
 
-## 🎯 2. Aim & Key Objectives
+## 2. Aim & Key Objectives
 
 ### Primary Aim
 To construct, train, optimize, validate, and explain dual machine learning architectures—**continuous price/return regression** and **binary market direction classification**—adhering strictly to temporal causality, zero-lookahead constraints, and financial econometric realities.
@@ -73,7 +73,7 @@ To construct, train, optimize, validate, and explain dual machine learning archi
 
 ---
 
-## 🏗️ 3. System Architecture
+## 3. System Architecture
 
 ```mermaid
 flowchart TD
@@ -119,22 +119,22 @@ flowchart TD
     subgraph SERVING ["6. Serving & Interactive Terminal"]
         L1 & L2 & L3 & L4 & L5 & L6 & L7 --> M["Model Persistence (joblib) & Metadata (JSON)"]
         M --> N["Streamlit 6-Tab Trading Terminal (app.py)"]
-        N --> O1["📊 Live Trading Terminal"]
-        N --> O2["🎯 Model Leaderboard & Audit"]
-        N --> O3["🔬 Walk-Forward & Ablation Lab"]
-        N --> O4["💡 Explainable AI (SHAP Lab)"]
-        N --> O5["🧪 What-If Market Lab (OOD Alerts)"]
-        N --> O6["📜 Backtest & Evidence Export"]
+        N --> O1["Live Trading Terminal"]
+        N --> O2["Model Leaderboard & Baseline Audit"]
+        N --> O3["Walk-Forward & Ablation Lab"]
+        N --> O4["Explainable AI (SHAP Lab)"]
+        N --> O5["What-If Market Lab (OOD Alerts)"]
+        N --> O6["Backtest & Evidence Export"]
     end
 ```
 
 ---
 
-## 🔬 4. The 7 Academic Research Experiments
+## 4. The Seven Academic Research Experiments
 
 All experiments are executed autonomously via [`src/experiments.py`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/src/experiments.py) and output reproducible data artifacts to [`reports/experiments/`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/reports/experiments/).
 
-### 🧪 Experiment 1: Raw Price vs Stationary Return Regression
+### Experiment 1: Raw Price vs Stationary Return Regression
 - **Research Question:** Does predicting raw non-stationary prices give a false impression of predictive accuracy compared to modeling daily returns?
 - **Finding:** Raw price models report deceptively high $R^2 \approx 0.98$ due to price autocorrelation. Modeling stationary percentage return $R_{t+1} = \frac{P_{t+1}-P_t}{P_t}$ removes this illusion: Linear Regression achieves a daily return RMSE of 0.0232 (2.32%) and **51.70% directional sign accuracy**, beating the Zero-Return baseline (49.07%).
 
@@ -148,7 +148,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-### 🧪 Experiment 2: Three-Tier Feature Ablation Study
+### Experiment 2: Three-Tier Feature Ablation Study
 - **Research Question:** Do 58 technical indicators actually improve out-of-sample performance over simple autoregressive lags?
 - **Feature Subsets:**
   - **Set A (Minimal):** 1-day lagged close ($Close_{t-1}$).
@@ -164,7 +164,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-### 🧪 Experiment 3: 5-Regime Historical Walk-Forward Validation
+### Experiment 3: 5-Regime Historical Walk-Forward Validation
 - **Research Question:** How stable is model performance across different macroeconomic market cycles?
 - **Finding:** The Naive Previous-Close baseline consistently outperforms Linear Regression across **all 5 historical market cycles**. Dollar RMSE scales with Bitcoin price level ($261 in 2017 vs $2,002 in 2025), but MAPE remains remarkably stable between **1.74% and 3.91%**.
 
@@ -178,7 +178,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-### 🧪 Experiment 4: Classification Threshold Optimization ($\tau \in [0.30, 0.70]$)
+### Experiment 4: Classification Threshold Optimization ($\tau \in [0.30, 0.70]$)
 - **Research Question:** Why did LightGBM report 82.73% specificity but only 16.35% recall at default $\tau = 0.50$, and how can we calibrate it?
 - **Finding:** Under $L_2$ regularization, predicted probabilities cluster near 0.49. At default $\tau = 0.50$, the classifier rarely fires positive predictions. Calibrating the threshold to **$\tau = 0.42$** establishes balanced operating performance:
 
@@ -193,7 +193,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-### 🧪 Experiment 5: Explainable AI with SHAP
+### Experiment 5: Explainable AI with SHAP
 - **Methodology:** TreeExplainer and permutation feature attribution applied to gradient-boosted trees.
 - **Top 5 Global Drivers:**
   1. `return_lag_1` — Most influential short-term momentum factor.
@@ -205,7 +205,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-### 🧪 Experiment 6: Conformal Prediction Error Intervals
+### Experiment 6: Conformal Prediction Error Intervals
 - **Methodology:** Empirical quantiles of absolute residuals $|y_t - \hat{y}_t|$ calculated on the validation set:
   - **80% Confidence Interval:** $\pm \$1,597.02$
   - **90% Confidence Interval:** $\pm \$2,302.00$
@@ -217,7 +217,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-### 🧪 Experiment 7: Transaction-Cost-Aware Backtesting
+### Experiment 7: Transaction-Cost-Aware Backtesting
 - **Simulation Parameters:** Starting Capital: $10,000 USD | Out-of-Sample Test Window: 648 Days (Jan 2025 to Oct 2026).
 - **Execution Friction:** **0.10% Binance spot fee** + **0.05% execution slippage** (0.15% per trade).
 - **Results:**
@@ -228,7 +228,7 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-## 📊 5. Live Benchmark Leaderboard
+## 5. Benchmark Leaderboard
 
 ### Chronological Dataset Splits
 - **Training Set (70%):** 3,024 observations (`2014-12-15` to `2023-03-26`)
@@ -261,14 +261,14 @@ All experiments are executed autonomously via [`src/experiments.py`](file:///c:/
 
 ---
 
-## 🖥️ 6. Institutional 6-Tab Trading Terminal
+## 6. Institutional 6-Tab Trading Terminal
 
 The application ([`app.py`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/app.py)) provides an institutional trading terminal interface styled after Bloomberg and TradingView (`#080B11`, `#141B29`, `#00F0FF`, `#0ECB81`):
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
-│ ⚡ CryptoPredict AI ── Quantitative ML Terminal                                            │
-│ [📊 Trading Terminal] [🎯 Leaderboard] [🔬 Walk-Forward] [💡 SHAP] [🧪 What-If] [📜 Backtest] │
+│ CryptoPredict AI ── Quantitative ML Terminal                                              │
+│ [Trading Terminal] [Leaderboard] [Walk-Forward] [SHAP] [What-If] [Backtest]               │
 ├───────────────────────────────────────────────────────────────────────────────────────────┤
 │                                                                                           │
 │  BITCOIN SPOT INTELLIGENCE (BTC-USD)  •  NORMAL VOLATILITY                                │
@@ -286,16 +286,16 @@ The application ([`app.py`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%
 ```
 
 ### Detailed Tab Capabilities
-1. **📊 Trading Terminal:** Real-time market metrics, latest candle timestamp, dual forecast banner with 90% and 95% conformal bounds, interactive candlestick chart with volume, and honest baseline comparison card.
-2. **🎯 Model Leaderboard & Baseline Audit:** Next-day price regression leaderboard, stationary return regression table ($R_{t+1}$), direction classification table with exact percentages, and confusion matrix heatmap.
-3. **🔬 Walk-Forward & Ablation Lab:** 5-cycle historical walk-forward chart, 3-tier feature ablation study bar chart, and interactive threshold optimization curve with slider inspection.
-4. **💡 Explainable AI (SHAP Lab):** Global Mean |SHAP| feature rankings, local waterfall decomposition for the latest candle, and conformal coverage validation table.
-5. **🧪 What-If Market Lab:** Interactive simulation sliders for Price, RSI, Volatility, and Volume with automated **Out-of-Distribution (OOD)** distance warning alerts.
-6. **📜 Strategy Backtest & Evidence Export:** Friction-aware equity curve vs Buy & Hold with range selectors (`1M`, `3M`, `6M`, `1Y`, `All`), historical point-in-time prediction date replay, and 1-click artifact downloads.
+1. **Trading Terminal:** Real-time market metrics, latest candle timestamp, dual forecast banner with 90% and 95% conformal bounds, interactive candlestick chart with volume, and honest baseline comparison card.
+2. **Model Leaderboard & Baseline Audit:** Next-day price regression leaderboard, stationary return regression table ($R_{t+1}$), direction classification table with exact percentages, and confusion matrix heatmap.
+3. **Walk-Forward & Ablation Lab:** 5-cycle historical walk-forward chart, 3-tier feature ablation study bar chart, and interactive threshold optimization curve with slider inspection.
+4. **Explainable AI (SHAP Lab):** Global Mean |SHAP| feature rankings, local waterfall decomposition for the latest candle, and conformal coverage validation table.
+5. **What-If Market Lab:** Interactive simulation sliders for Price, RSI, Volatility, and Volume with automated **Out-of-Distribution (OOD)** distance warning alerts.
+6. **Strategy Backtest & Evidence Export:** Friction-aware equity curve vs Buy & Hold with range selectors (`1M`, `3M`, `6M`, `1Y`, `All`), historical point-in-time prediction date replay, and 1-click artifact downloads.
 
 ---
 
-## 🛡️ 7. API Audit & Zero-Paid-API Architecture
+## 7. API Audit & Zero-Paid-API Architecture
 
 ### Codebase API Audit Summary
 Before modifying or running code, a full audit of all network calls and imports was conducted across `src/` and `app.py`:
@@ -310,7 +310,7 @@ Before modifying or running code, a full audit of all network calls and imports 
 
 ---
 
-## 🧪 8. Automated Testing Suite (24/24 Passing)
+## 8. Automated Testing Suite (24/24 Passing)
 
 Execute the full automated test suite using `pytest`:
 ```bash
@@ -352,7 +352,7 @@ tests/test_pipeline.py::test_cryptopredictor_inference PASSED            [100%]
 
 ---
 
-## 🎓 9. College Viva Voce Defense Guide
+## 9. College Viva Voce Defense Guide
 
 A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/VIVA_QUESTIONS_AND_PRESENTATION.md)) contains the 10-slide presentation deck outline, 5-stage live demo script, and answers to the top 10 external examiner questions:
 
@@ -369,7 +369,7 @@ A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Ni
 
 ---
 
-## 📋 Presentation Readiness Checklist (8/8 Verified)
+## 10. Presentation Readiness Checklist (8/8 Verified)
 
 | Status | Verification Item | Proof in Repository |
 | :-: | :--- | :--- |
@@ -384,7 +384,7 @@ A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Ni
 
 ---
 
-## 🚀 10. Installation & Execution Guide
+## 11. Installation & Execution Guide
 
 ### Step 1: Clone Repository
 ```bash
@@ -416,7 +416,7 @@ Open your browser at: **`http://localhost:8501`**
 
 ---
 
-## 📚 11. References
+## 12. References
 1. GeeksforGeeks: *Bitcoin Price Prediction using Machine Learning in Python*  
    [https://www.geeksforgeeks.org/machine-learning/bitcoin-price-prediction-using-machine-learning-in-python/](https://www.geeksforgeeks.org/machine-learning/bitcoin-price-prediction-using-machine-learning-in-python/)
 2. Scikit-learn Documentation: *Time Series Split and Preprocessing Pipelines*  

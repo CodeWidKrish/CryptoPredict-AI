@@ -141,12 +141,12 @@ flowchart TD
 
 ## 5. Streamlit Dashboard Architecture (6 Tabs)
 
-1. **📊 Trading Terminal:** Live ticker tape, candlestick and volume chart with 30-730 day timeframe slider, next-day forecast with 90% and 95% conformal prediction intervals, directional conviction gauge, and technical oscillators (RSI, MACD, Bollinger Bands, Volatility).
-2. **🎯 Model Leaderboard & Baseline Audit:** Comprehensive tables for Raw Price Regression, Percentage Return Regression, and Direction Classification. Displays all exact percentage metrics (Accuracy, Balanced Accuracy, MCC, Precision, Recall, Specificity, Error Rate) and interactive confusion matrix heatmap.
-3. **🔬 Walk-Forward & Ablation Lab:** Interactive 5-fold market regime chart, feature ablation scoreboard (Lag-1 vs Lags vs 58 Indicators), and threshold optimization curve ($\tau \in [0.30, 0.70]$).
-4. **💡 Explainable AI (SHAP Lab):** Global SHAP feature importance horizontal bar chart, local feature contribution table for today's forecast, and conformal residual calibration table.
-5. **🧪 What-If Market Lab:** Interactive scenario sliders (Price, 24h Return, RSI, Volatility) with prominent Out-of-Distribution / Extrapolation warnings.
-6. **📜 Strategy Backtest & Evidence Export:** Equity growth curve of transaction-cost backtest vs Buy & Hold, historical point-in-time prediction replay with date picker, and 1-click download buttons for all CSV and Markdown artifacts.
+1. **Trading Terminal:** Live ticker tape, candlestick and volume chart with 30-730 day timeframe slider, next-day forecast with 90% and 95% conformal prediction intervals, directional conviction gauge, and technical oscillators (RSI, MACD, Bollinger Bands, Volatility).
+2. **Model Leaderboard & Baseline Audit:** Comprehensive tables for Raw Price Regression, Percentage Return Regression, and Direction Classification. Displays all exact percentage metrics (Accuracy, Balanced Accuracy, MCC, Precision, Recall, Specificity, Error Rate) and interactive confusion matrix heatmap.
+3. **Walk-Forward & Ablation Lab:** Interactive 5-fold market regime chart, feature ablation scoreboard (Lag-1 vs Lags vs 58 Indicators), and threshold optimization curve ($\tau \in [0.30, 0.70]$).
+4. **Explainable AI (SHAP Lab):** Global SHAP feature importance horizontal bar chart, local feature contribution table for today's forecast, and conformal residual calibration table.
+5. **What-If Market Lab:** Interactive scenario sliders (Price, 24h Return, RSI, Volatility) with prominent Out-of-Distribution / Extrapolation warnings.
+6. **Strategy Backtest & Evidence Export:** Equity growth curve of transaction-cost backtest vs Buy & Hold, historical point-in-time prediction replay with date picker, and 1-click download buttons for all CSV and Markdown artifacts.
 
 ---
 

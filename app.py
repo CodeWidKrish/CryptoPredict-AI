@@ -50,7 +50,6 @@ from scripts.run_all import run_pipeline
 # ==========================================
 st.set_page_config(
     page_title="CryptoPredict AI — Bitcoin Price Prediction & Market Direction Intelligence",
-    page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -61,7 +60,7 @@ st.set_page_config(
 # ==========================================
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
 /* Global Reset & Typography (Selective to prevent breaking icon ligatures) */
 html, body, p, h1, h2, h3, h4, h5, h6, label, div.stMarkdown, .stSelectbox, .stSlider, .stMultiSelect, div[data-testid="stMarkdownContainer"] {
@@ -510,6 +509,107 @@ def get_predictor():
         return None
 
 
+@st.cache_data
+def get_cached_next_day_forecast(date_str: str):
+    predictor = get_predictor()
+    processed_df, _ = load_datasets()
+    if processed_df is None or predictor is None:
+        return None
+    latest_row = processed_df.iloc[[-1]]
+    return predictor.predict_next_day(latest_row)
+
+
+@st.cache_data
+def get_cached_candlestick(days: int):
+    _, raw_df = load_datasets()
+    if raw_df is None:
+        return None
+    return plot_interactive_candlestick(raw_df, days=days)
+
+
+@st.cache_data
+def get_cached_probability_gauge(conf: float, direction: int):
+    return plot_interactive_probability_gauge(conf, direction)
+
+
+@st.cache_data
+def get_cached_actual_vs_predicted():
+    _, test_preds_df, meta, _, _ = load_reports()
+    if test_preds_df is None:
+        return None
+    return plot_interactive_actual_vs_predicted(
+        dates=test_preds_df["Date"],
+        actual=test_preds_df["Actual_Next_Close"],
+        predicted=test_preds_df["Predicted_Next_Close"],
+        model_name=meta.get("winning_regression_model", "Selected Model")
+    )
+
+
+@st.cache_data
+def get_cached_confusion_matrix():
+    _, _, _, _, clf_metrics = load_reports()
+    if not clf_metrics or "test_metrics" not in clf_metrics:
+        return None
+    cm = clf_metrics["test_metrics"]["confusion_matrix"]
+    return plot_interactive_confusion_matrix(cm, clf_metrics.get("winning_model", "Classifier"))
+
+
+@st.cache_data
+def get_cached_walk_forward():
+    exp_data = load_experiments_data()
+    wf_info = exp_data.get("experiment_3_walk_forward_validation", {})
+    if not wf_info or "folds" not in wf_info:
+        return None
+    wf_df = pd.DataFrame(wf_info["folds"])
+    return plot_interactive_walk_forward(wf_df)
+
+
+@st.cache_data
+def get_cached_threshold_curve():
+    exp_data = load_experiments_data()
+    thresh_info = exp_data.get("experiment_4_threshold_analysis", {})
+    if not thresh_info or "threshold_curve" not in thresh_info:
+        return None
+    curve_df = pd.DataFrame(thresh_info["threshold_curve"])
+    return plot_interactive_threshold_curve(curve_df)
+
+
+@st.cache_data
+def get_cached_shap_summary():
+    exp_data = load_experiments_data()
+    shap_info = exp_data.get("experiment_5_shap_explainability", {})
+    if not shap_info or "top_15_features" not in shap_info:
+        return None
+    shap_df = pd.DataFrame(shap_info["top_15_features"])
+    return plot_interactive_shap_summary(shap_df, top_n=15)
+
+
+@st.cache_data
+def get_cached_backtest_equity():
+    equity_curve_path = EXPERIMENTS_DIR / "backtest_equity_curve.csv"
+    if not equity_curve_path.exists():
+        return None
+    eq_df = pd.read_csv(equity_curve_path)
+    eq_df["Date"] = pd.to_datetime(eq_df["Date"])
+    return plot_interactive_backtest_equity(eq_df)
+
+
+@st.cache_data
+def get_cached_simulation_forecast(sim_close: float, sim_return: float, sim_rsi: float, sim_vol: float, latest_date_str: str):
+    predictor = get_predictor()
+    processed_df, _ = load_datasets()
+    if processed_df is None or predictor is None:
+        return None
+    sim_row = processed_df.iloc[[-1]].copy()
+    sim_row["Close"] = float(sim_close)
+    sim_row["Daily_Return"] = float(sim_return / 100.0)
+    sim_row["RSI_14"] = float(sim_rsi)
+    sim_row["Volatility_30"] = float(sim_vol / 100.0)
+    if "Close_Lag_1" in sim_row.columns:
+        sim_row["Close_Lag_1"] = float(sim_close / (1.0 + (sim_return / 100.0)))
+    return predictor.predict_next_day(sim_row)
+
+
 # ==========================================
 # MAIN TRADING TERMINAL CONTROLLER
 # ==========================================
@@ -529,7 +629,10 @@ def main():
     prev_close = float(latest_row["Close_Lag_1"].values[0]) if "Close_Lag_1" in latest_row else latest_close
     pct_change_24h = ((latest_close - prev_close) / prev_close) * 100.0
 
-    forecast = predictor.predict_next_day(latest_row)
+    forecast = get_cached_next_day_forecast(latest_date)
+    if forecast is None:
+        forecast = predictor.predict_next_day(latest_row)
+
     pred_price = forecast["predicted_close_usd"]
     pred_delta = forecast["predicted_delta_usd"]
     pred_pct = forecast["predicted_pct_change"]
@@ -597,12 +700,12 @@ def main():
     )
 
     NAV_PAGES = [
-        "📊 Trading Terminal",
-        "🎯 Model Leaderboard & Baseline Audit",
-        "🔬 Walk-Forward & Ablation Lab",
-        "💡 Explainable AI (SHAP Lab)",
-        "🧪 What-If Market Lab",
-        "📜 Strategy Backtest & Evidence Export"
+        "Trading Terminal",
+        "Model Leaderboard & Baseline Audit",
+        "Walk-Forward & Ablation Lab",
+        "Explainable AI (SHAP Lab)",
+        "What-If Market Lab",
+        "Strategy Backtest & Evidence Export"
     ]
 
     if "show_menu_tab" not in st.session_state:
@@ -624,7 +727,7 @@ def main():
             """
 <div style="padding: 10px 0 16px 0; border-bottom: 1px solid #1E293B; margin-bottom: 16px;">
     <div style="font-size: 18px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px;">
-        ⚡ CryptoPredict AI
+        CryptoPredict AI
     </div>
     <div style="font-size: 11px; font-weight: 600; color: #38BDF8; letter-spacing: 0.8px; text-transform: uppercase;">
         Quantitative ML Research Terminal
@@ -646,7 +749,7 @@ def main():
                 unsafe_allow_html=True
             )
         with sb_col_btn:
-            sb_toggle_text = "👁️ Hide" if st.session_state.show_menu_tab else "☰ View"
+            sb_toggle_text = "Hide Menu" if st.session_state.show_menu_tab else "View Menu"
             if st.button(sb_toggle_text, key="sb_toggle_menu_btn", use_container_width=True):
                 st.session_state.show_menu_tab = not st.session_state.show_menu_tab
                 st.rerun()
@@ -668,14 +771,14 @@ def main():
 <div style="background: rgba(56, 189, 248, 0.08); border: 1px dashed rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 10px 12px; margin: 8px 0 14px 0;">
     <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Active Screen</div>
     <div style="font-size: 12px; color: #38BDF8; font-weight: 700; margin-top: 2px;">{st.session_state.selected_page}</div>
-    <div style="font-size: 10px; color: #64748B; margin-top: 3px;">Menu options hidden. Click '☰ View' above to expand.</div>
+    <div style="font-size: 10px; color: #64748B; margin-top: 3px;">Menu options hidden. Click 'View Menu' above to expand.</div>
 </div>
 """,
                 unsafe_allow_html=True
             )
 
         st.markdown("---")
-        st.markdown("#### 🛡️ Active Machine Learning Setup")
+        st.markdown("#### Active Machine Learning Setup")
         st.caption(f"**Asset:** Bitcoin (`BTC-USD`) Daily Candles")
         st.caption(f"**Regression Model:** `{forecast['regression_model_used']}`")
         st.caption(f"**Direction Classifier:** `{forecast['classification_model_used']}`")
@@ -684,7 +787,7 @@ def main():
         st.caption(f"**Conformal Bounds:** ±${margin_90:,.0f} (90%) | ±${margin_95:,.0f} (95%)")
 
         st.markdown("---")
-        if st.button("🔄 Retrain Full ML Pipeline", use_container_width=True):
+        if st.button("Retrain Full ML Pipeline", use_container_width=True):
             with st.spinner("Retraining all models, walk-forward folds, and experiments..."):
                 run_pipeline()
                 st.cache_data.clear()
@@ -695,12 +798,12 @@ def main():
 
     # Dynamic Browser Tab Title updating in the DOM
     screen_title_map = {
-        "📊 Trading Terminal": "CryptoPredict AI — Live Trading Terminal",
-        "🎯 Model Leaderboard & Baseline Audit": "CryptoPredict AI — Model Leaderboard & Baselines",
-        "🔬 Walk-Forward & Ablation Lab": "CryptoPredict AI — Walk-Forward & Ablation Lab",
-        "💡 Explainable AI (SHAP Lab)": "CryptoPredict AI — SHAP Explainability Lab",
-        "🧪 What-If Market Lab": "CryptoPredict AI — What-If Market Simulation",
-        "📜 Strategy Backtest & Evidence Export": "CryptoPredict AI — Strategy Backtest & Evidence"
+        "Trading Terminal": "CryptoPredict AI — Live Trading Terminal",
+        "Model Leaderboard & Baseline Audit": "CryptoPredict AI — Model Leaderboard & Baselines",
+        "Walk-Forward & Ablation Lab": "CryptoPredict AI — Walk-Forward & Ablation Lab",
+        "Explainable AI (SHAP Lab)": "CryptoPredict AI — SHAP Explainability Lab",
+        "What-If Market Lab": "CryptoPredict AI — What-If Market Simulation",
+        "Strategy Backtest & Evidence Export": "CryptoPredict AI — Strategy Backtest & Evidence"
     }
     active_browser_title = screen_title_map.get(app_page, "CryptoPredict AI — Bitcoin Price Prediction & Market Direction Intelligence")
 
@@ -735,7 +838,7 @@ def main():
             unsafe_allow_html=True
         )
     with top_nav_col2:
-        top_btn_text = "👁️ Hide Menu Tab" if st.session_state.show_menu_tab else "☰ View Menu Tab"
+        top_btn_text = "Hide Menu Tab" if st.session_state.show_menu_tab else "View Menu Tab"
         if st.button(top_btn_text, key="main_top_toggle_menu_btn", use_container_width=True):
             st.session_state.show_menu_tab = not st.session_state.show_menu_tab
             st.rerun()
@@ -744,12 +847,12 @@ def main():
     if st.session_state.show_menu_tab:
         pill_cols = st.columns(6)
         pill_labels = [
-            ("📊 Trading", NAV_PAGES[0]),
-            ("🎯 Leaderboard", NAV_PAGES[1]),
-            ("🔬 Walk-Forward", NAV_PAGES[2]),
-            ("💡 SHAP Lab", NAV_PAGES[3]),
-            ("🧪 What-If Lab", NAV_PAGES[4]),
-            ("📜 Backtest", NAV_PAGES[5])
+            ("Trading", NAV_PAGES[0]),
+            ("Leaderboard", NAV_PAGES[1]),
+            ("Walk-Forward", NAV_PAGES[2]),
+            ("SHAP Lab", NAV_PAGES[3]),
+            ("What-If Lab", NAV_PAGES[4]),
+            ("Backtest", NAV_PAGES[5])
         ]
         for col, (short_label, full_page) in zip(pill_cols, pill_labels):
             with col:
@@ -764,8 +867,8 @@ def main():
     # ========================================================
     # 1. LIVE TRADING TERMINAL
     # ========================================================
-    if app_page == "📊 Trading Terminal":
-        st.subheader("📊 Bitcoin Spot Terminal & Predictive Intelligence")
+    if app_page == "Trading Terminal":
+        st.subheader("Bitcoin Spot Terminal & Predictive Intelligence")
         st.caption("Real-time technical candle charts, algorithmic oscillators, conformal prediction intervals, and forward target predictions.")
 
         # Key Trading Metrics Ribbon
@@ -889,7 +992,7 @@ def main():
             Classifier: <strong style="color: #E2E8F0;">{forecast['classification_model_used']}</strong>
         </div>
         <div style="color: #0ECB81; font-weight: 600;">
-            ✓ 0.00% Lookahead Leakage
+            Verified: 0.00% Lookahead Leakage
         </div>
     </div>
 </div>
@@ -898,14 +1001,14 @@ def main():
             )
 
         with h_right:
-            st.markdown("##### 🧭 Directional Conviction Gauge")
-            gauge_fig = plot_interactive_probability_gauge(conf, direction)
+            st.markdown("##### Directional Conviction Gauge")
+            gauge_fig = get_cached_probability_gauge(conf, direction)
             st.plotly_chart(gauge_fig, use_container_width=True, config={"displayModeBar": False})
 
         # Candlestick Chart with Horizon Control
         c_head, c_filt = st.columns([3, 1])
         with c_head:
-            st.markdown("### 📈 Live Candlestick & Volume Chart")
+            st.markdown("### Live Candlestick & Volume Chart")
         with c_filt:
             days_slider = st.select_slider(
                 "Timeframe",
@@ -914,11 +1017,11 @@ def main():
                 format_func=lambda x: f"{x} Days"
             )
 
-        candlestick_fig = plot_interactive_candlestick(raw_df, days=days_slider)
+        candlestick_fig = get_cached_candlestick(days=days_slider)
         st.plotly_chart(candlestick_fig, use_container_width=True, config={"displayModeBar": False})
 
         # Technical Indicators Grid
-        st.markdown("### 📐 Technical Indicators & Oscillators")
+        st.markdown("### Technical Indicators & Oscillators")
         t1, t2, t3, t4 = st.columns(4)
 
         with t1:
@@ -982,8 +1085,8 @@ def main():
     # ========================================================
     # 2. MODEL LEADERBOARD & BASELINE AUDIT
     # ========================================================
-    elif app_page == "🎯 Model Leaderboard & Baseline Audit":
-        st.subheader("🎯 Model Leaderboard & Baseline Audit")
+    elif app_page == "Model Leaderboard & Baseline Audit":
+        st.subheader("Model Leaderboard & Baseline Audit")
         st.markdown(
             "Rigorous empirical evaluation on **648 out-of-sample trading days** (2025 to 2026). "
             "Includes honest baseline comparisons, percentage return forecasting, and multi-metric classification analysis."
@@ -1008,7 +1111,7 @@ def main():
         st.markdown(
             """
 <div class="academic-callout animate-fade">
-    <strong>🎓 Key Academic Finding: The Martingale Baseline & Random Walk Property</strong><br>
+    <strong>Key Academic Finding: The Martingale Baseline and Random Walk Property</strong><br>
     In raw price forecasting, the <strong>Naive Previous-Close baseline achieves test RMSE $1,968.94</strong>,
     outperforming both <strong>Linear Regression ($2,030.43)</strong> and <strong>Residual XGBoost ($2,589.59)</strong>.<br>
     <em>Why does this happen?</em> Bitcoin daily prices are integrated of order 1 (non-stationary random walk).
@@ -1022,9 +1125,9 @@ def main():
         )
 
         tab_reg, tab_ret, tab_clf = st.tabs([
-            "📉 Raw Price Regression Leaderboard",
-            "📊 Percentage Return Forecasting (Stationary)",
-            "🎯 Market Direction Classification Leaderboard"
+            "Raw Price Regression Leaderboard",
+            "Percentage Return Forecasting (Stationary)",
+            "Market Direction Classification Leaderboard"
         ])
 
         with tab_reg:
@@ -1046,13 +1149,8 @@ def main():
                 st.dataframe(styled_df, use_container_width=True)
 
             if test_preds_df is not None:
-                st.markdown("##### 📉 Out-of-Sample Price Curves (Actual vs Model Predictions)")
-                fig_test = plot_interactive_actual_vs_predicted(
-                    dates=test_preds_df["Date"],
-                    actual=test_preds_df["Actual_Next_Close"],
-                    predicted=test_preds_df["Predicted_Next_Close"],
-                    model_name=meta.get("winning_regression_model", "Selected Model")
-                )
+                st.markdown("##### Out-of-Sample Price Curves (Actual vs Model Predictions)")
+                fig_test = get_cached_actual_vs_predicted()
                 st.plotly_chart(fig_test, use_container_width=True, config={"displayModeBar": False})
 
         with tab_ret:
@@ -1086,12 +1184,12 @@ def main():
 
                 c1, c2 = st.columns([1, 1])
                 with c1:
-                    st.markdown("##### 🧮 Test Confusion Matrix Heatmap")
-                    cm_fig = plot_interactive_confusion_matrix(cm, clf_metrics.get("winning_model", "Classifier"))
+                    st.markdown("##### Test Confusion Matrix Heatmap")
+                    cm_fig = get_cached_confusion_matrix()
                     st.plotly_chart(cm_fig, use_container_width=True, config={"displayModeBar": False})
 
                 with c2:
-                    st.markdown("##### 📊 Metric Mathematical Formulas & Percentages")
+                    st.markdown("##### Metric Mathematical Formulas & Percentages")
                     metrics_table = [
                         {"Metric Name": "Accuracy (Overall Correctness)", "Formula": "(TP + TN) / Total", "Percentage": f"{acc_pct:.2f}%"},
                         {"Metric Name": "Balanced Accuracy", "Formula": "(Sensitivity + Specificity) / 2", "Percentage": f"{bal_acc_pct:.2f}%"},
@@ -1107,17 +1205,17 @@ def main():
     # ========================================================
     # 3. WALK-FORWARD & ABLATION LAB
     # ========================================================
-    elif app_page == "🔬 Walk-Forward & Ablation Lab":
-        st.subheader("🔬 Walk-Forward Validation & Feature Ablation Laboratory")
+    elif app_page == "Walk-Forward & Ablation Lab":
+        st.subheader("Walk-Forward Validation & Feature Ablation Laboratory")
         st.markdown(
             "Empirical investigation of model generalization across multiple historical market regimes, "
             "feature subsets, and decision probability thresholds."
         )
 
         wf_tab1, wf_tab2, wf_tab3 = st.tabs([
-            "📅 Walk-Forward Validation (5 Historical Regimes)",
-            "🧬 Feature Ablation Study (Do 58 Indicators Help?)",
-            "🎚️ Decision Threshold Optimization (tau Sweep)"
+            "Walk-Forward Validation (5 Historical Regimes)",
+            "Feature Ablation Study (58 Technical Indicators)",
+            "Decision Threshold Optimization (tau Sweep)"
         ])
 
         with wf_tab1:
@@ -1127,7 +1225,7 @@ def main():
             wf_info = experiments_data.get("experiment_3_walk_forward_validation", {})
             if wf_info and "folds" in wf_info:
                 wf_df = pd.DataFrame(wf_info["folds"])
-                wf_fig = plot_interactive_walk_forward(wf_df)
+                wf_fig = get_cached_walk_forward()
                 st.plotly_chart(wf_fig, use_container_width=True, config={"displayModeBar": False})
 
                 st.dataframe(wf_df[[
@@ -1179,8 +1277,7 @@ def main():
 
             thresh_info = experiments_data.get("experiment_4_threshold_analysis", {})
             if thresh_info and "threshold_curve" in thresh_info:
-                curve_df = pd.DataFrame(thresh_info["threshold_curve"])
-                t_fig = plot_interactive_threshold_curve(curve_df)
+                t_fig = get_cached_threshold_curve()
                 st.plotly_chart(t_fig, use_container_width=True, config={"displayModeBar": False})
 
                 opt_bal = thresh_info.get("optimal_balanced_accuracy_tau", {})
@@ -1221,17 +1318,17 @@ def main():
     # ========================================================
     # 4. EXPLAINABLE AI (SHAP LAB)
     # ========================================================
-    elif app_page == "💡 Explainable AI (SHAP Lab)":
-        st.subheader("💡 Explainable AI & Uncertainty Quantification")
+    elif app_page == "Explainable AI (SHAP Lab)":
+        st.subheader("Explainable AI & Uncertainty Quantification")
         st.markdown(
             "Shapley Additive exPlanations (SHAP) and conformal residual calibration explain "
             "which features drive predictions and how uncertainty is quantified."
         )
 
         shap_tab1, shap_tab2, shap_tab3 = st.tabs([
-            "📊 Global SHAP Feature Importance",
-            "🔍 Local Candle Explanation (Latest Forecast)",
-            "🛡️ Conformal Prediction Intervals & Uncertainty"
+            "Global SHAP Feature Importance",
+            "Local Candle Explanation (Latest Forecast)",
+            "Conformal Prediction Intervals & Uncertainty"
         ])
 
         with shap_tab1:
@@ -1239,7 +1336,7 @@ def main():
             shap_info = experiments_data.get("experiment_5_shap_explainability", {})
             if shap_info and "top_15_features" in shap_info:
                 shap_df = pd.DataFrame(shap_info["top_15_features"])
-                shap_fig = plot_interactive_shap_summary(shap_df, top_n=15)
+                shap_fig = get_cached_shap_summary()
                 st.plotly_chart(shap_fig, use_container_width=True, config={"displayModeBar": False})
 
                 st.dataframe(shap_df, use_container_width=True)
@@ -1259,7 +1356,7 @@ def main():
             if pi_info:
                 pic1, pic2 = st.columns(2)
                 with pic1:
-                    st.markdown("##### 📏 Calibrated Residual Quantiles (Validation Set)")
+                    st.markdown("##### Calibrated Residual Quantiles (Validation Set)")
                     q_df = pd.DataFrame([
                         {"Confidence Interval": "80% Prediction Band", "USD Margin": f"±${pi_info['quantiles_usd']['q80_usd']:,.2f}", "Empirical Test Coverage": f"{pi_info['empirical_test_coverage']['actual_80_pct']}%"},
                         {"Confidence Interval": "90% Prediction Band", "USD Margin": f"±${pi_info['quantiles_usd']['q90_usd']:,.2f}", "Empirical Test Coverage": f"{pi_info['empirical_test_coverage']['actual_90_pct']}%"},
@@ -1268,7 +1365,7 @@ def main():
                     st.table(q_df)
 
                 with pic2:
-                    st.markdown("##### 🌪️ Volatility & Market Regime Diagnostic")
+                    st.markdown("##### Volatility & Market Regime Diagnostic")
                     st.markdown(
                         f"""
 <div class="trade-metric-card">
@@ -1287,8 +1384,8 @@ def main():
     # ========================================================
     # 5. WHAT-IF MARKET LAB
     # ========================================================
-    elif app_page == "🧪 What-If Market Lab":
-        st.subheader("🧪 Live What-If Market Sensitivity Lab")
+    elif app_page == "What-If Market Lab":
+        st.subheader("Live What-If Market Sensitivity Lab")
         st.markdown(
             "Test hypothetical market scenarios. Adjust sliders for Bitcoin's price, 24h return, RSI, "
             "and volatility to see how the trained machine learning models dynamically update their target and direction."
@@ -1297,7 +1394,7 @@ def main():
         st.markdown(
             """
 <div class="academic-callout" style="border-left-color: #F59E0B;">
-    <strong>⚠️ Out-of-Distribution Warning:</strong><br>
+    <strong>Out-of-Distribution Warning:</strong><br>
     Hypothetical feature perturbations are exploratory simulations. Setting extreme combinations
     (e.g., $150,000 price with 0.5% volatility) moves inputs into regions not observed in historical training data,
     where tree regressors cannot extrapolate and linear coefficients may produce aggressive shifts.
@@ -1309,22 +1406,23 @@ def main():
         sim_col1, sim_col2 = st.columns([1, 1])
 
         with sim_col1:
-            st.markdown("##### 🎛️ Simulation Parameters")
+            st.markdown("##### Simulation Parameters")
             sim_close = st.slider("Today's BTC Price ($)", min_value=10000, max_value=150000, value=int(latest_close), step=500)
             sim_return = st.slider("Today's 24h Change (%)", min_value=-15.0, max_value=15.0, value=float(round(pct_change_24h, 2)), step=0.25)
             sim_rsi = st.slider("14-Day RSI Oscillator", min_value=10.0, max_value=90.0, value=50.0, step=1.0)
             sim_vol = st.slider("30-Day Volatility (%)", min_value=0.5, max_value=10.0, value=2.8, step=0.1)
 
-        # Build simulated sample
-        sim_row = latest_row.copy()
-        sim_row["Close"] = float(sim_close)
-        sim_row["Daily_Return"] = float(sim_return / 100.0)
-        sim_row["RSI_14"] = float(sim_rsi)
-        sim_row["Volatility_30"] = float(sim_vol / 100.0)
-        if "Close_Lag_1" in sim_row.columns:
-            sim_row["Close_Lag_1"] = float(sim_close / (1.0 + (sim_return / 100.0)))
+        sim_forecast = get_cached_simulation_forecast(float(sim_close), float(sim_return), float(sim_rsi), float(sim_vol), latest_date)
+        if sim_forecast is None:
+            sim_row = latest_row.copy()
+            sim_row["Close"] = float(sim_close)
+            sim_row["Daily_Return"] = float(sim_return / 100.0)
+            sim_row["RSI_14"] = float(sim_rsi)
+            sim_row["Volatility_30"] = float(sim_vol / 100.0)
+            if "Close_Lag_1" in sim_row.columns:
+                sim_row["Close_Lag_1"] = float(sim_close / (1.0 + (sim_return / 100.0)))
+            sim_forecast = predictor.predict_next_day(sim_row)
 
-        sim_forecast = predictor.predict_next_day(sim_row)
         sim_pred_price = sim_forecast["predicted_close_usd"]
         sim_pred_delta = sim_forecast["predicted_delta_usd"]
         sim_pred_pct = sim_forecast["predicted_pct_change"]
@@ -1332,7 +1430,7 @@ def main():
         sim_conf = sim_forecast["direction_confidence"] if sim_forecast["direction_confidence"] is not None else 0.50
 
         with sim_col2:
-            st.markdown("##### ⚡ Simulated Model Target")
+            st.markdown("##### Simulated Model Target")
             st.markdown(
                 f"""
 <div class="trade-metric-card animate-fade">
@@ -1360,17 +1458,17 @@ def main():
     # ========================================================
     # 6. STRATEGY BACKTEST & EVIDENCE EXPORT
     # ========================================================
-    elif app_page == "📜 Strategy Backtest & Evidence Export":
-        st.subheader("📜 Realistic Quantitative Backtest & Evidence Exports")
+    elif app_page == "Strategy Backtest & Evidence Export":
+        st.subheader("Realistic Quantitative Backtest & Evidence Exports")
         st.markdown(
             "Evaluation of real-world strategy profitability including trading fees and slippage, "
             "point-in-time prediction inspection, and 1-click artifact downloads."
         )
 
         bt_tab1, bt_tab2, bt_tab3 = st.tabs([
-            "📈 Transaction-Cost Backtest (0.10% Fee + Slippage)",
-            "🕰️ Point-in-Time Prediction Replay",
-            "📥 Project Dataset & Report Downloads"
+            "Transaction-Cost Backtest (0.10% Fee + Slippage)",
+            "Point-in-Time Prediction Replay",
+            "Project Dataset & Report Downloads"
         ])
 
         with bt_tab1:
@@ -1378,11 +1476,8 @@ def main():
             st.caption("Strategy: Long BTC when model predicts Up, Flat/Cash when Down. 0.10% Binance spot fee + 0.05% slippage per trade.")
 
             backtest_info = experiments_data.get("experiment_7_strategy_backtest", {})
-            equity_curve_path = EXPERIMENTS_DIR / "backtest_equity_curve.csv"
-            if equity_curve_path.exists():
-                eq_df = pd.read_csv(equity_curve_path)
-                eq_df["Date"] = pd.to_datetime(eq_df["Date"])
-                eq_fig = plot_interactive_backtest_equity(eq_df)
+            eq_fig = get_cached_backtest_equity()
+            if eq_fig is not None:
                 st.plotly_chart(eq_fig, use_container_width=True, config={"displayModeBar": False})
 
             if backtest_info:
@@ -1426,16 +1521,16 @@ def main():
             b1, b2, b3, b4 = st.columns(4)
             preset_date = all_dates[-5]
             with b1:
-                if st.button("📅 5 Days Ago", use_container_width=True):
+                if st.button("5 Days Ago", use_container_width=True):
                     preset_date = all_dates[-5]
             with b2:
-                if st.button("📅 30 Days Ago", use_container_width=True):
+                if st.button("30 Days Ago", use_container_width=True):
                     preset_date = all_dates[-30]
             with b3:
-                if st.button("📅 90 Days Ago", use_container_width=True):
+                if st.button("90 Days Ago", use_container_width=True):
                     preset_date = all_dates[-90]
             with b4:
-                if st.button("📅 1 Year Ago", use_container_width=True):
+                if st.button("1 Year Ago", use_container_width=True):
                     preset_date = all_dates[-365]
 
             selected_date = st.date_input(
@@ -1514,7 +1609,7 @@ def main():
     <strong style="color: {status_color}; font-size: 14px;">Historical Backtest Result:</strong><br>
     Model Predicted: <strong>{hist_result['direction_label']}</strong> &nbsp;|&nbsp;
     Actual Market Move: <strong>{hist_result['actual_direction_label']}</strong> &nbsp;|&nbsp;
-    Status: <strong style="color: {status_color};">{'SUCCESSFUL CALL ✓' if dir_correct else 'MISMATCH ✗'}</strong>
+    Status: <strong style="color: {status_color};">{'SUCCESSFUL CALL [OK]' if dir_correct else 'MISMATCH [FAIL]'}</strong>
 </div>
 """,
                         unsafe_allow_html=True
@@ -1524,13 +1619,13 @@ def main():
                 st.error(f"Inference error for {date_str}: {e}")
 
         with bt_tab3:
-            st.markdown("#### 📥 1-Click Project Dataset & Report Downloads")
+            st.markdown("#### Project Dataset & Report Downloads")
             d1, d2, d3 = st.columns(3)
             with d1:
                 if PROCESSED_DATA_FILE.exists():
                     with open(PROCESSED_DATA_FILE, "rb") as f:
                         st.download_button(
-                            label="📄 Processed Dataset (58 Features CSV)",
+                            label="Processed Dataset (58 Features CSV)",
                             data=f,
                             file_name="bitcoin_features_dataset.csv",
                             mime="text/csv",
@@ -1540,7 +1635,7 @@ def main():
                 if TEST_PREDICTIONS_FILE.exists():
                     with open(TEST_PREDICTIONS_FILE, "rb") as f:
                         st.download_button(
-                            label="🎯 Test Predictions (Actual vs Predicted CSV)",
+                            label="Test Predictions (Actual vs Predicted CSV)",
                             data=f,
                             file_name="test_predictions_results.csv",
                             mime="text/csv",
@@ -1551,7 +1646,7 @@ def main():
                 if MODEL_COMPARISON_FILE.exists():
                     with open(MODEL_COMPARISON_FILE, "rb") as f:
                         st.download_button(
-                            label="📊 Model Comparison Leaderboard (CSV)",
+                            label="Model Comparison Leaderboard (CSV)",
                             data=f,
                             file_name="model_comparison_leaderboard.csv",
                             mime="text/csv",
@@ -1562,7 +1657,7 @@ def main():
                 if wf_csv.exists():
                     with open(wf_csv, "rb") as f:
                         st.download_button(
-                            label="📅 Walk-Forward Validation Results (CSV)",
+                            label="Walk-Forward Validation Results (CSV)",
                             data=f,
                             file_name="walk_forward_validation.csv",
                             mime="text/csv",
@@ -1574,7 +1669,7 @@ def main():
                     with open(EXPERIMENT_SUMMARY_FILE, "r", encoding="utf-8") as f:
                         report_content = f.read()
                         st.download_button(
-                            label="📑 Official Academic Report (Markdown)",
+                            label="Official Academic Report (Markdown)",
                             data=report_content,
                             file_name="experiment_summary_report.md",
                             mime="text/markdown",
@@ -1585,7 +1680,7 @@ def main():
                 if bt_csv.exists():
                     with open(bt_csv, "rb") as f:
                         st.download_button(
-                            label="📈 Strategy Backtest Equity Curve (CSV)",
+                            label="Strategy Backtest Equity Curve (CSV)",
                             data=f,
                             file_name="strategy_backtest_equity_curve.csv",
                             mime="text/csv",

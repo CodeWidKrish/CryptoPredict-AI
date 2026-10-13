@@ -49,6 +49,15 @@ class CryptoPredictor:
         self.clf_scaler = self.clf_bundle.get("scaler")
         self.clf_scaled = self.clf_bundle.get("requires_scaling", False)
 
+        self.interval_path = EXPERIMENTS_DIR / "prediction_intervals.json"
+        self.pi_info = None
+        if self.interval_path.exists():
+            try:
+                with open(self.interval_path, "r", encoding="utf-8") as f:
+                    self.pi_info = json.load(f)
+            except Exception:
+                self.pi_info = None
+
     def _prepare_features(self, df_row: pd.DataFrame, feature_cols: list, scaler: Optional[Any], requires_scaling: bool) -> pd.DataFrame:
         """Validates feature alignment and applies scaler if required."""
         missing = set(feature_cols) - set(df_row.columns)
@@ -88,19 +97,16 @@ class CryptoPredictor:
 
         # Conformal prediction interval & uncertainty quantification
         interval_data = {}
-        interval_path = EXPERIMENTS_DIR / "prediction_intervals.json"
-        if interval_path.exists():
+        if self.pi_info is not None:
             try:
-                with open(interval_path, "r", encoding="utf-8") as f:
-                    pi_info = json.load(f)
-                q90 = pi_info["quantiles_usd"]["q90_usd"]
-                q95 = pi_info["quantiles_usd"]["q95_usd"]
+                q90 = self.pi_info["quantiles_usd"]["q90_usd"]
+                q95 = self.pi_info["quantiles_usd"]["q95_usd"]
                 interval_data = {
                     "interval_90_usd": [round(pred_close - q90, 2), round(pred_close + q90, 2)],
                     "interval_95_usd": [round(pred_close - q95, 2), round(pred_close + q95, 2)],
                     "margin_90_usd": q90,
                     "margin_95_usd": q95,
-                    "volatility_regime": pi_info.get("volatility_regime", {}).get("current_status", "Normal Volatility")
+                    "volatility_regime": self.pi_info.get("volatility_regime", {}).get("current_status", "Normal Volatility")
                 }
             except Exception:
                 pass

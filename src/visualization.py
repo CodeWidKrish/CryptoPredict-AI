@@ -119,6 +119,7 @@ def plot_interactive_candlestick(df: pd.DataFrame, days: int = 180) -> go.Figure
 
     fig.update_layout(
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, Inter, sans-serif"),
@@ -192,6 +193,7 @@ def plot_interactive_actual_vs_predicted(
             font=dict(size=14, color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif")
         ),
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT),
@@ -261,6 +263,7 @@ def plot_interactive_confusion_matrix(cm_dict: dict, model_name: str) -> go.Figu
         ),
         annotations=annotations,
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT),
@@ -294,6 +297,7 @@ def plot_interactive_feature_importance(importances: pd.DataFrame, top_n: int = 
             font=dict(size=14, color=COLOR_TEXT)
         ),
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT),
@@ -352,6 +356,7 @@ def plot_interactive_probability_gauge(prob: float, direction: int) -> go.Figure
     fig.update_layout(
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
+        uirevision="constant",
         font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
         margin=dict(l=20, r=20, t=20, b=20),
         height=240
@@ -520,6 +525,7 @@ def plot_interactive_walk_forward(wf_df: pd.DataFrame) -> go.Figure:
 
     fig.update_layout(
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         barmode="group",
@@ -562,6 +568,7 @@ def plot_interactive_threshold_curve(curve_df: pd.DataFrame) -> go.Figure:
     fig.update_layout(
         title=dict(text="Classification Threshold Optimization Curve (tau in [0.30, 0.70])", font=dict(size=14, color=COLOR_TEXT)),
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
@@ -597,6 +604,7 @@ def plot_interactive_backtest_equity(equity_df: pd.DataFrame) -> go.Figure:
     fig.update_layout(
         title=dict(text="Portfolio Growth vs Buy & Hold Benchmark (Starting Capital: $10,000 USD)", font=dict(size=14, color=COLOR_TEXT)),
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),
@@ -644,6 +652,7 @@ def plot_interactive_shap_summary(shap_df: pd.DataFrame, top_n: int = 15) -> go.
     fig.update_layout(
         title=dict(text=f"SHAP Global Feature Importance (Top {top_n} Predictors)", font=dict(size=14, color=COLOR_TEXT)),
         template="plotly_dark",
+        uirevision="constant",
         plot_bgcolor="rgba(17, 26, 46, 0.8)",
         paper_bgcolor=COLOR_BG,
         font=dict(color=COLOR_TEXT, family="Plus Jakarta Sans, sans-serif"),

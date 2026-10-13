@@ -1,4 +1,4 @@
-# 🎓 CryptoPredict AI — College Viva Voce Cheatsheet, Defense Guide & Presentation Outline
+# CryptoPredict AI — College Viva Voce Cheatsheet, Defense Guide & Presentation Outline
 
 > **Prepared for Faculty Examination, External Viva Voce Defense, and 5–7 Minute Live Terminal Demonstration.**  
 > Project: **CryptoPredict AI — Bitcoin Price Prediction & Market Direction Intelligence Terminal**  
@@ -6,17 +6,17 @@
 
 ---
 
-## ⏱️ PART 1: The 5–7 Minute Unforgettable Live Demonstration Script
+## PART 1: The 5–7 Minute Live Demonstration Script
 
 *Follow this 5-stage script during your in-person or screen-share project evaluation to demonstrate scientific rigor, working software, and deep understanding.*
 
 ### Demo 1 — Genuine Data Ingestion & Causal Feature Pipeline (60 seconds)
-1. **Action:** Open Tab 1: `📊 Trading Terminal`. Point to the top status bar.
+1. **Action:** Open Tab 1: `Trading Terminal`. Point to the top status bar.
 2. **Narration:**
    > *"Respected Examiners, our system operates strictly on authentic market data without synthetic substitutions. As shown here, we ingest 4,410 daily candles directly from Yahoo Finance (`yfinance`) covering September 2014 through today. From these raw candles, we generate 58 causal technical features—including RSI-14, MACD, Bollinger Bands, and rolling volatilities—strictly using data up to timestamp $t$ to forecast day $t+1$. We have formally tested this zero-lookahead invariance in our automated test suite."*
 
 ### Demo 2 — Multi-Model Leaderboards & The Tree Extrapolation Discovery (90 seconds)
-1. **Action:** Switch to Tab 2: `🎯 Model Leaderboard & Baseline Audit`.
+1. **Action:** Switch to Tab 2: `Model Leaderboard & Baseline Audit`.
 2. **Narration:**
    > *"In Tab 2, we display our multi-model benchmarks across regression and classification. Notice a critical machine learning finding: raw-price Decision Trees and Random Forests completely fail on unseen test data, producing negative $R^2$ (-2.09) and $30,000+ RMSE. Why? Because decision trees partition feature space into orthogonal leaves and assign the mean training target—they cannot extrapolate above the training period's all-time-high of $69,000 when Bitcoin rallies to $80,000+ in 2025–2026! We solved this by developing our **Residual Delta XGBoost** model, which predicts $\Delta y_{t+1}$, achieving an out-of-sample $R^2$ of 0.9783."*
 
@@ -26,18 +26,18 @@
    > *"Here is the most intellectually honest finding of our research: our Naive Previous-Close Baseline achieves a test RMSE of $1,968.94, outperforming Linear Regression ($2,030.43) and Residual XGBoost ($2,589.59). In quantitative finance, asset prices follow a near-Martingale random walk where $P_{t+1} = P_t + \epsilon_t$. Because daily returns average ~0% with 2% variance, yesterday's price naturally accounts for 98.7% of tomorrow's variance. Parameterized models add estimation variance and lag. In Experiment 1, we prove that predicting stationary daily returns ($R_{t+1}$) eliminates this deceptive $R^2 \approx 0.98$ illusion and delivers 51.70% directional sign accuracy."*
 
 ### Demo 4 — Walk-Forward Regimes & Threshold Tuning (90 seconds)
-1. **Action:** Switch to Tab 3: `🔬 Walk-Forward & Ablation Lab`. Show the 5-regime walk-forward chart and the decision threshold slider.
+1. **Action:** Switch to Tab 3: `Walk-Forward & Ablation Lab`. Show the 5-regime walk-forward chart and the decision threshold slider.
 2. **Narration:**
    > *"Rather than relying on a single test period, we implemented a 5-fold walk-forward validation across major market regimes: the 2017 bubble/crash, the 2020 COVID shock, the 2021 bull run, the 2022 crypto winter, and the 2025 ETF era. The baseline beats Linear Regression in all 5 regimes, while MAPE remains stable at 1.74%–3.91%. Next, look at our LightGBM classifier: at the default threshold $\tau=0.50$, it achieves 82.73% specificity but only 16.35% recall. By calibrating the decision threshold to $\tau=0.42$, we balance the model to 45.28% recall and 55.76% specificity, doubling F1 from 24.36% to 47.37%."*
 
 ### Demo 5 — Backtest Friction, Historical Date Replay & 1-Click Export (60 seconds)
-1. **Action:** Switch to Tab 6: `📜 Strategy Backtest & Evidence Export`. Show the friction equity curve, pick a past date in the date replay box, and click download.
+1. **Action:** Switch to Tab 6: `Strategy Backtest & Evidence Export`. Show the friction equity curve, pick a past date in the date replay box, and click download.
 2. **Narration:**
    > *"In Tab 6, we simulate a realistic trading strategy with 0.10% Binance fees and 0.05% slippage across 648 out-of-sample days. Over 124 trades, fee drag eroded 18.63% of capital, proving why directional accuracy alone does not equal profitability without conviction filtering. Finally, our Historical Prediction Replay allows you to select any historical date and inspect point-in-time forecasts using only data available on that day. All experiment tables, predictions, and model artifacts are downloadable with 1 click."*
 
 ---
 
-## 📽️ PART 2: 10-Slide Project Presentation Deck Outline
+## PART 2: 10-Slide Project Presentation Deck Outline
 
 ### Slide 1: Title & Abstract
 - **Title:** CryptoPredict AI — Bitcoin Price Prediction & Market Direction Intelligence Terminal
@@ -97,7 +97,7 @@
 
 ---
 
-## 💡 PART 3: Top 10 High-Probability Faculty Viva Questions & Answers
+## PART 3: Top 10 High-Probability Faculty Viva Questions & Answers
 
 ### Q1: Why did you use XGBoost, and why might Linear Regression perform better on raw prices?
 **Mathematical & Empirical Answer:**  
@@ -170,7 +170,7 @@ We evaluated across 5 distinct historical regimes:
 - 2021 (All-time high bull run to $69k)
 - 2022 (Bear market & FTX collapse)
 - 2024–2026 (Spot ETF institutional cycle)  
-This proved that model error (MAPE $\approx 1.7\% - 3.9\%$) is robust and bounded across completely different macroeconomic environments.
+This proved that model error (MAPE $\approx 1.7\% - 3.9\%$) is bounded and stable across completely different macroeconomic environments.
 
 ---
 
@@ -195,7 +195,7 @@ This drag reduced net strategy return from an otherwise flat return to -39.38% (
 
 ---
 
-## 📋 PART 4: Project Readiness Checklist (8/8 Verified)
+## PART 4: Project Readiness Checklist (8/8 Verified)
 
 | # | Academic Requirement | Status | Evidence in Codebase / Workspace |
 | :-: | :--- | :---: | :--- |
