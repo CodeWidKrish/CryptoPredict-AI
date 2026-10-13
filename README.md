@@ -1,67 +1,66 @@
 <div align="center">
 
-<!-- HERO SECTION: ANIMATED CAPSULE HEADER -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B0F19,50:0F172A,100:38BDF8&height=220&section=header&text=CryptoPredict%20AI&fontSize=48&fontColor=ffffff&fontAlignY=38&desc=Institutional%20Bitcoin%20Quantitative%20Intelligence%20%26%20ML%20Terminal&descFontSize=17&descAlignY=62&descAlign=50" width="100%" alt="CryptoPredict AI Header Banner" />
+![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,17,23,28&height=250&section=header&text=CryptoPredict%20AI&fontSize=58&fontColor=ffffff&animation=twinkling&fontAlignY=38&desc=Institutional-Grade%20Bitcoin%20Quantitative%20Intelligence%20%7C%2015%20ML%20Models%20%7C%20Zero-Lookahead%20Terminal&descAlignY=58&descAlign=50)
 
-<!-- INSTITUTIONAL HERO CONTAINER -->
-<table width="100%" style="border-collapse: collapse; border: 2px solid #38BDF8; background: #0B0F19; border-radius: 12px; margin-top: -10px; margin-bottom: 24px;">
-  <tr>
-    <td align="center" style="padding: 24px 20px 20px 20px;">
-      <div style="font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 3px; color: #38BDF8; text-transform: uppercase; margin-bottom: 8px;">
-        INSTITUTIONAL QUANTITATIVE INTELLIGENCE TERMINAL
-      </div>
-      <h1 align="center" style="font-size: 36px; font-weight: 800; color: #FFFFFF; letter-spacing: -1px; margin: 0; padding: 0;">
-        CryptoPredict AI
-      </h1>
-      <p align="center" style="font-size: 15px; color: #94A3B8; margin: 8px 0 16px 0; max-width: 740px; line-height: 1.5;">
-        Autonomous Machine Learning Research Pipeline & Interactive Terminal for Bitcoin Spot Price Forecasting, Walk-Forward Econometric Auditing, and Zero-Lookahead Market Intelligence
-      </p>
-      <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
-        <img src="https://img.shields.io/badge/Python-3.11%20%7C%203.14-38BDF8?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-        <img src="https://img.shields.io/badge/ML%20Core-Scikit--Learn%20%7C%20XGBoost%20%7C%20LightGBM-F59E0B?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="ML" />
-        <img src="https://img.shields.io/badge/Pytest-28%2F28%20Passing-10B981?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
-        <img src="https://img.shields.io/badge/Streamlit-6--Screen%20Trading%20Terminal-EF4444?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit" />
-        <img src="https://img.shields.io/badge/Data%20Source-Zero%20Paid%20APIs%20(yfinance)-06B6D4?style=for-the-badge" alt="Data" />
-        <img src="https://img.shields.io/badge/Status-100%25%20Viva%20Ready-8B5CF6?style=for-the-badge" alt="Status" />
-      </div>
-      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
-        <a href="#10-installation--execution-guide"><img src="https://img.shields.io/badge/Action-Launch%20Terminal-38BDF8?style=flat-square&logo=terminal&logoColor=white" alt="Launch Terminal" /></a>
-        <a href="#5-live-benchmark-leaderboard"><img src="https://img.shields.io/badge/Audit-View%20Leaderboard-F59E0B?style=flat-square&logo=googlecloud&logoColor=white" alt="Leaderboard" /></a>
-        <a href="#4-the-seven-academic-research-experiments"><img src="https://img.shields.io/badge/Research-7%20Experiments-10B981?style=flat-square&logo=codeforces&logoColor=white" alt="Experiments" /></a>
-        <a href="#9-college-viva-voce-defense-guide"><img src="https://img.shields.io/badge/Defense-Viva%20Dossier-8B5CF6?style=flat-square&logo=academia&logoColor=white" alt="Viva" /></a>
-        <a href="https://github.com/CodeWidKrish/CryptoPredict-AI"><img src="https://img.shields.io/badge/GitHub-Repository-111827?style=flat-square&logo=github&logoColor=white" alt="GitHub" /></a>
-      </div>
-      <table width="94%" style="background: #111827; border: 1px solid #1E293B; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; color: #E2E8F0; text-align: center;">
-        <tr>
-          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>TARGET:</b> BTC-USD Daily</td>
-          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>FEATURES:</b> 58 Causal Signals</td>
-          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>MODELS:</b> 15 Benchmarked</td>
-          <td style="padding: 10px; border-right: 1px solid #1E293B;"><b>TEST SET:</b> 648 Days</td>
-          <td style="padding: 10px;"><b>LEAKAGE:</b> Formally 0.00%</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+# CryptoPredict AI
+### Institutional Quantitative Intelligence Terminal for Bitcoin Spot Price & Direction Forecasting
 
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-All%20Systems%20Operational-00C853?style=for-the-badge&labelColor=0A0E1A" alt="Status" />
+  <img src="https://img.shields.io/badge/Target-BTC--USD%20Daily-00B0FF?style=for-the-badge&labelColor=0A0E1A" alt="Target" />
+  <img src="https://img.shields.io/badge/Causal%20Signals-58%20Features-7C4DFF?style=for-the-badge&labelColor=0A0E1A" alt="Features" />
+  <img src="https://img.shields.io/badge/Pytest%20Suite-28%2F28%20Passed-00E676?style=for-the-badge&labelColor=0A0E1A" alt="Tests" />
+  <img src="https://img.shields.io/badge/Evaluation%20Leakage-Formally%200.00%25-FF6D00?style=for-the-badge&labelColor=0A0E1A" alt="Leakage" />
+  <img src="https://img.shields.io/badge/Data%20Source-Zero%20Paid%20APIs-FFD600?style=for-the-badge&labelColor=0A0E1A" alt="Data" />
+</p>
 
----
+[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.14-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
+[![Scikit-Learn](https://img.shields.io/badge/ML-Scikit--Learn%201.4+-F7931A?style=for-the-badge&logo=scikitlearn&logoColor=white)](https://scikit-learn.org)
+[![XGBoost](https://img.shields.io/badge/Ensemble-XGBoost%20v2.0-FF6600?style=for-the-badge&logo=xgboost&logoColor=white)](https://xgboost.readthedocs.io)
+[![LightGBM](https://img.shields.io/badge/GBDT-LightGBM%20v4.0-2E7D32?style=for-the-badge)](https://lightgbm.readthedocs.io)
+[![Streamlit](https://img.shields.io/badge/Terminal-Streamlit%201.42+-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![License](https://img.shields.io/badge/License-Academic%20Evaluation-8B5CF6?style=for-the-badge)](LICENSE)
 
-<div align="center">
+<br />
+
+**CryptoPredict AI** is an institutional-grade quantitative machine learning research pipeline and 6-screen trading terminal engineered for Bitcoin (`BTC-USD`) market intelligence. It eliminates the fatal flaws of typical student projects by enforcing **strict chronological train/validation/test partitions**, an **honest Martingale baseline audit**, **extrapolating Residual Delta XGBoost**, **decision-threshold calibration ($\tau = 0.42$)**, **split conformal uncertainty intervals**, and **transaction-cost friction backtesting**.
+
+<br />
+
+<p align="center">
+  <a href="https://github.com/CodeWidKrish/CryptoPredict-AI">
+    <img src="https://img.shields.io/badge/Explore%20Codebase-CryptoPredict--AI-00E5FF?style=for-the-badge&labelColor=0A0E1A" alt="Explore Codebase" />
+  </a>
+  <a href="#11-installation--execution-guide">
+    <img src="https://img.shields.io/badge/Quickstart-Launch%20Terminal-76FF03?style=for-the-badge&labelColor=0A0E1A" alt="Launch Terminal" />
+  </a>
+  <a href="#6-live-benchmark-leaderboard">
+    <img src="https://img.shields.io/badge/Audit-Model%20Leaderboard-FFD600?style=for-the-badge&labelColor=0A0E1A" alt="Leaderboard" />
+  </a>
+  <a href="PRESENTATION_SCRIPT.md">
+    <img src="https://img.shields.io/badge/Defense-Viva%20Dossier-E040FB?style=for-the-badge&labelColor=0A0E1A" alt="Viva Dossier" />
+  </a>
+</p>
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  BITCOIN SPOT INTELLIGENCE     │  CLOSE: $83,273.13  │  FORECAST: $83,147.96  │  BAND: ±$2,302   │
+│  7 EXPERIMENTS  •  58 CAUSAL FEATURES  •  5-REGIME WALK-FORWARD  •  ZERO LOOKAHEAD LEAKAGE  │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 [Abstract](#1-project-abstract) •
 [Objectives](#2-aim--key-objectives) •
 [Tech Stack](#3-technology-stack--skills-grid) •
-[System Architecture](#4-system-architecture) •
+[Architecture](#4-system-architecture) •
 [7 Experiments](#5-the-seven-academic-research-experiments) •
-[Leaderboard](#6-live-benchmark-leaderboard) •
+[Benchmarks](#6-live-benchmark-leaderboard) •
 [Terminal UI](#7-institutional-6-screen-trading-terminal) •
 [Zero-API Policy](#8-api-audit--zero-paid-api-architecture) •
-[Test Suite](#9-automated-testing-suite-2828-passing) •
-[Viva Voce Guide](#10-college-viva-voce-defense-guide) •
+[Testing](#9-automated-testing-suite-2828-passing) •
+[Viva Prep](#10-college-viva-voce-defense-guide) •
 [Installation](#11-installation--execution-guide) •
-[Roadmap](#12-project-roadmap--contributions)
+[Contributors](#12-contributors--academic-profile)
 
 </div>
 
@@ -370,66 +369,7 @@ The application ([`app.py`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%
 
 ---
 
-## 8. Deep Technical & Econometric Specifications
-
-<details>
-<summary><b>View Econometric Configuration Parameters (Pipeline Constants)</b></summary>
-
-```json
-{
-  "dataset": {
-    "symbol": "BTC-USD",
-    "interval": "1d",
-    "start_date": "2014-09-17",
-    "total_bars": 4410
-  },
-  "partitions": {
-    "train_ratio": 0.70,
-    "val_ratio": 0.15,
-    "test_ratio": 0.15,
-    "chronological": true,
-    "shuffle": false
-  },
-  "friction_model": {
-    "exchange_fee_taker": 0.0010,
-    "execution_slippage": 0.0005,
-    "total_friction_per_trade": 0.0015
-  },
-  "decision_threshold": {
-    "default": 0.50,
-    "calibrated_optimal": 0.42,
-    "optimization_target": "macro_f1"
-  },
-  "conformal_prediction": {
-    "method": "split_conformal_residual_quantile",
-    "nominal_levels": [0.80, 0.90, 0.95]
-  }
-}
-```
-
-</details>
-
-<details>
-<summary><b>View 58 Causal Technical Indicator Formulas & Lookbacks</b></summary>
-
-| Signal Family | Feature Names | Mathematical Lookback Formula | Stationarity Status |
-| :--- | :--- | :--- | :--- |
-| **Autoregressive Lags** | `close_lag_1` to `close_lag_30` | $P_{t-k}$ for $k \in \{1, 2, 3, 7, 14, 30\}$ | Non-Stationary |
-| **Percentage Returns** | `return_lag_1` to `return_lag_14` | $R_{t-k} = \frac{P_{t-k} - P_{t-k-1}}{P_{t-k-1}}$ | Stationary $I(0)$ |
-| **Exponential Averages**| `ema_9`, `ema_21`, `ema_50`, `ema_200` | $\text{EMA}_t = \alpha P_t + (1-\alpha) \text{EMA}_{t-1}$ | Non-Stationary |
-| **MACD Oscillator** | `macd`, `macd_signal`, `macd_hist` | $\text{EMA}_{12}(P) - \text{EMA}_{26}(P)$ | Stationary $I(0)$ |
-| **Momentum RSI** | `rsi_14` | $100 - \frac{100}{1 + \text{RS}_{14}}$ | Stationary $I(0) \in [0, 100]$ |
-| **Bollinger Bands** | `bb_upper`, `bb_lower`, `bb_width` | $\mu_{20} \pm 2\sigma_{20}, \quad \text{Width} = \frac{\text{Upper} - \text{Lower}}{\mu_{20}}$ | Width is Stationary |
-| **Volatility Measures**| `volatility_7d`, `volatility_30d` | $\text{StdDev}(R_t, k) \cdot \sqrt{365}$ | Stationary $I(0)$ |
-| **Normalized ATR** | `natr_14` | $\frac{\text{ATR}_{14}}{P_t} \cdot 100$ | Stationary $I(0)$ |
-| **Volume Momentum** | `obv_zscore`, `vol_change_1d` | $\frac{V_t - \mu_V(14)}{\sigma_V(14)}$ | Stationary $I(0)$ |
-| **Calendar Proxies** | `day_of_week`, `month`, `quarter` | Cyclical calendar indices | Stationary |
-
-</details>
-
----
-
-## 9. API Audit & Zero-Paid-API Architecture
+## 8. API Audit & Zero-Paid-API Architecture
 
 Before modifying or running code, a full audit of all network calls and imports was conducted across `src/` and `app.py`:
 - **Current APIs in Use:** Yahoo Finance via `yfinance` (`BTC-USD` daily market data).
@@ -443,7 +383,7 @@ Before modifying or running code, a full audit of all network calls and imports 
 
 ---
 
-## 10. Automated Testing Suite (28/28 Passing)
+## 9. Automated Testing Suite (28/28 Passing)
 
 Execute the full automated test suite using `pytest`:
 ```bash
@@ -489,9 +429,9 @@ tests/test_ui.py::test_app_sidebar_buttons PASSED                        [100%]
 
 ---
 
-## 11. College Viva Voce Defense Guide
+## 10. College Viva Voce Defense Guide
 
-A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/VIVA_QUESTIONS_AND_PRESENTATION.md)) contains the 10-slide presentation deck outline, 5-stage live demo script, and answers to the top 10 external examiner questions:
+A dedicated document ([`PRESENTATION_SCRIPT.md`](file:///c:/Users/Niral%20Hingu/OneDrive/Desktop/MLT%20SLA/PRESENTATION_SCRIPT.md)) contains the complete word-for-word spoken presentation script, tech stack breakdown, algorithm list, exact empirical percentages, and full viva defense Q&A dossier:
 
 1. **Why does the Naive Baseline beat Linear Regression on raw prices?**  
    *Because daily prices follow a near-Martingale: $P_{t+1} = P_t + \epsilon_t$, where $E[\epsilon_t] \approx 0$. Because daily return variance is ~2%, $P_t$ naturally explains 98.7% of $P_{t+1}$ variance. Adding parameters introduces estimation variance and lag.*
@@ -506,7 +446,7 @@ A dedicated document ([`VIVA_QUESTIONS_AND_PRESENTATION.md`](file:///c:/Users/Ni
 
 ---
 
-## 12. Installation & Execution Guide
+## 11. Installation & Execution Guide
 
 ### Prerequisites
 - Python 3.11 or higher (Tested on 3.11 and 3.14)
@@ -544,62 +484,37 @@ Open your browser at: **`http://localhost:8501`**
 
 ---
 
-## 13. Project Roadmap & Contributions
+## 12. Contributors & Academic Profile
 
-### Completed Milestones
-- [x] Zero-lookahead feature engineering with 58 causal technical indicators.
-- [x] Strict chronological train/val/test data partitions (70% / 15% / 15%).
-- [x] Empirical baseline audit documenting the Martingale random walk property.
-- [x] Residual Delta XGBoost formulation recovering tree extrapolation ($R^2 = 0.9783$).
-- [x] Post-hoc validation decision threshold calibration ($\tau = 0.42$).
-- [x] Split conformal uncertainty prediction bands (80%, 90%, 95%).
-- [x] Realistic transaction fee and execution slippage backtester.
-- [x] Decoupled session-state Streamlit terminal with zero widget collision exceptions.
-- [x] 28/28 automated unit and integration tests passing.
-
-### Future Roadmap
-- [ ] Multi-asset cross-sectional momentum modeling (ETH, SOL, Macro Yields).
-- [ ] Intraday hourly bar ingestion with order book depth features.
-- [ ] Conformal quantile regression with asymmetric upside/downside risk bounds.
-- [ ] Reinforcement learning position sizer with dynamic Kelly Criterion constraints.
-
-### Contribution & Academic Contact
-Contributions, issue reports, and academic reviews are welcome:
-1. Fork the Project at `https://github.com/CodeWidKrish/CryptoPredict-AI`.
-2. Create your Feature Branch (`git checkout -b feature/QuantitativeImprovement`).
-3. Commit your Changes (`git commit -m 'feat: Add asymmetric loss function'`).
-4. Push to the Branch (`git push origin feature/QuantitativeImprovement`).
-5. Open a Pull Request.
-
----
-
-<!-- FOOTER BANNER -->
 <div align="center">
 
-<table width="100%" style="border-collapse: collapse; border: 2px solid #1E293B; background: #0B0F19; border-radius: 12px; margin-top: 32px;">
+<table border="0">
   <tr>
-    <td align="center" style="padding: 28px 20px;">
-      <div style="font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 3px; color: #38BDF8; text-transform: uppercase; margin-bottom: 6px;">
-        CRYPTOPREDICT AI RESEARCH PROJECT
-      </div>
-      <div style="font-size: 18px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; margin-bottom: 8px;">
-        Engineered for Academic Defense & Institutional Rigor
-      </div>
-      <p style="font-size: 13px; color: #94A3B8; max-width: 680px; margin: 0 auto 16px auto; line-height: 1.6;">
-        Developed with strict chronological train/validation/test partitions, Martingale random-walk baseline audits, decision threshold calibration, SHAP explainability, and transaction-cost friction modeling.
-      </p>
-      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px;">
-        <img src="https://img.shields.io/badge/Repository-CodeWidKrish%2FCryptoPredict--AI-38BDF8?style=for-the-badge&logo=github&logoColor=white" alt="Repo" />
-        <img src="https://img.shields.io/badge/Branch-main-10B981?style=for-the-badge&logo=git&logoColor=white" alt="Branch" />
-        <img src="https://img.shields.io/badge/Test%20Suite-28%20Passed-10B981?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" />
-        <img src="https://img.shields.io/badge/License-Academic%20Evaluation-8B5CF6?style=for-the-badge" alt="License" />
-      </div>
-      <div style="font-size: 11px; color: #64748B; border-top: 1px solid #1E293B; padding-top: 14px; margin-top: 12px;">
-        Built strictly for academic demonstration, faculty examination, and Viva Voce defense. Not financial or trading advice.<br/>
-        Copyright (c) 2026 CodeWidKrish. All rights reserved.
-      </div>
+    <td align="center" width="260">
+      <a href="https://github.com/CodeWidKrish">
+        <img src="https://github.com/CodeWidKrish.png" width="100" style="border-radius: 50%;" alt="Krish Hingu"/><br /><br />
+        <b>Krish Hingu</b><br />
+        <code>@CodeWidKrish</code>
+      </a>
     </td>
   </tr>
 </table>
+
+<br />
+
+[![GitHub](https://img.shields.io/badge/GitHub-CodeWidKrish-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/CodeWidKrish)
+[![Repository](https://img.shields.io/badge/Repository-CryptoPredict--AI-00E5FF?style=for-the-badge&logo=git&logoColor=black)](https://github.com/CodeWidKrish/CryptoPredict-AI)
+
+</div>
+
+---
+
+<div align="center">
+
+![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,17,23,28&height=120&section=footer)
+
+### Star us on GitHub if you find CryptoPredict AI inspiring!
+
+*Built with Python, Scikit-Learn, LightGBM, XGBoost, and Streamlit for Institutional Quantitative Intelligence.*
 
 </div>
