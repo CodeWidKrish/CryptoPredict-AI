@@ -1,7 +1,7 @@
 """
-CryptoPredict AI — Bitcoin Price Prediction & Market Direction Intelligence.
-Ultra-Premium UI/UX Streamlit Terminal Dashboard.
-Designed according to UI/UX Pro Max and WCAG 2.1/2.2 AA/AAA Accessibility Guidelines.
+CryptoPredict AI — Institutional Bitcoin Predictive Intelligence & Trading Terminal.
+Engineered for quantitative trading setups with high-contrast OLED dark mode,
+real-time machine learning inference, and interactive market analytics.
 """
 
 import sys
@@ -42,329 +42,330 @@ from scripts.run_all import run_pipeline
 # PAGE CONFIGURATION & METADATA
 # ==========================================
 st.set_page_config(
-    page_title="CryptoPredict AI | Institutional Bitcoin Intelligence",
+    page_title="CryptoPredict AI | Institutional Bitcoin Trading Terminal",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ==========================================
-# ULTRA-PREMIUM DESIGN SYSTEM (CSS TOKENS)
-# High Contrast, Accessible, Institutional Theme
+# ULTRA-PREMIUM PRO TRADING TERMINAL CSS
+# TradingView / Binance Institutional Dark Theme
 # ==========================================
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-    
-    /* Global Reset & Typography */
-    html, body, [class*="css"], [class*="st-"] {
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        color: #F8FAFC;
-    }
-    
-    .stApp {
-        background: radial-gradient(circle at 50% 0%, #0F172A 0%, #080D1A 65%, #050811 100%);
-        color: #F8FAFC;
-    }
-    
-    /* Top Bar Ticker */
-    .top-ticker-bar {
-        background: rgba(17, 26, 46, 0.9);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 14px;
-        padding: 16px 24px;
-        margin-bottom: 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
-    }
-    
-    .live-indicator {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(16, 185, 129, 0.15);
-        color: #10B981;
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        border-radius: 9999px;
-        padding: 5px 14px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        text-transform: uppercase;
-    }
-    
-    .live-dot {
-        width: 8px;
-        height: 8px;
-        background-color: #10B981;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #10B981;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(0.95); opacity: 0.8; }
-        50% { transform: scale(1.2); opacity: 1; }
-        100% { transform: scale(0.95); opacity: 0.8; }
-    }
-    
-    /* Glassmorphic Metric Cards */
-    .glass-card {
-        background: linear-gradient(180deg, rgba(22, 34, 58, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 14px;
-        padding: 20px 22px;
-        box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.35);
-        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-    
-    .glass-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(56, 189, 248, 0.45);
-        box-shadow: 0 14px 32px -4px rgba(56, 189, 248, 0.2);
-    }
-    
-    .card-label {
-        font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.85px;
-        color: #CBD5E1;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    
-    .card-value {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 26px;
-        font-weight: 700;
-        color: #FFFFFF;
-        letter-spacing: -0.5px;
-    }
-    
-    .delta-badge-pos {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        color: #10B981;
-        background: rgba(16, 185, 129, 0.16);
-        border: 1px solid rgba(16, 185, 129, 0.35);
-        padding: 4px 9px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 600;
-        font-family: 'JetBrains Mono', monospace;
-        margin-top: 6px;
-    }
-    
-    .delta-badge-neg {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        color: #F43F5E;
-        background: rgba(244, 63, 94, 0.16);
-        border: 1px solid rgba(244, 63, 94, 0.35);
-        padding: 4px 9px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 600;
-        font-family: 'JetBrains Mono', monospace;
-        margin-top: 6px;
-    }
-    
-    /* Hero Prediction Card */
-    .prediction-hero-card {
-        background: linear-gradient(135deg, rgba(17, 26, 46, 0.95) 0%, rgba(10, 16, 30, 0.98) 100%);
-        border: 1.5px solid rgba(56, 189, 248, 0.4);
-        border-radius: 18px;
-        padding: 28px 32px;
-        margin-bottom: 28px;
-        box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5), 0 0 30px rgba(56, 189, 248, 0.1);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .prediction-hero-card::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #38BDF8 0%, #10B981 50%, #F59E0B 100%);
-    }
-    
-    .badge-bullish {
-        background: rgba(16, 185, 129, 0.18);
-        color: #10B981;
-        border: 1.5px solid #10B981;
-        padding: 8px 18px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 800;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
-    }
-    
-    .badge-bearish {
-        background: rgba(244, 63, 94, 0.18);
-        color: #F43F5E;
-        border: 1.5px solid #F43F5E;
-        padding: 8px 18px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 800;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 0 15px rgba(244, 63, 94, 0.25);
-    }
-    
-    /* Notice and Disclaimer Box */
-    .disclaimer-box {
-        background: rgba(245, 158, 11, 0.1);
-        border: 1px solid rgba(245, 158, 11, 0.4);
-        border-left: 4px solid #F59E0B;
-        border-radius: 8px;
-        padding: 14px 18px;
-        font-size: 13px;
-        line-height: 1.6;
-        color: #FEF08A;
-        margin-top: 20px;
-    }
-    
-    /* High-Performance Custom Button Styling */
-    .stButton > button {
-        background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%) !important;
-        color: #FFFFFF !important;
-        border: 1px solid rgba(56, 189, 248, 0.35) !important;
-        border-radius: 10px !important;
-        padding: 10px 20px !important;
-        font-weight: 600 !important;
-        letter-spacing: 0.3px !important;
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
-    }
-    
-    .stButton > button:hover {
-        border-color: #38BDF8 !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 24px rgba(56, 189, 248, 0.25) !important;
-        color: #38BDF8 !important;
-    }
-    
-    .stDownloadButton > button {
-        background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%) !important;
-        color: #F8FAFC !important;
-        border: 1px solid rgba(16, 185, 129, 0.4) !important;
-        border-radius: 10px !important;
-        padding: 10px 18px !important;
-        font-weight: 600 !important;
-        transition: all 0.25s ease !important;
-    }
-    
-    .stDownloadButton > button:hover {
-        border-color: #10B981 !important;
-        color: #10B981 !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25) !important;
-    }
-    
-    /* Sleek Segmented Control for Tabs */
-    .stTabs [data-baseweb="tab-list"] {
-        background: rgba(15, 23, 42, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        padding: 6px;
-        gap: 6px;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 8px;
-        color: #94A3B8 !important;
-        font-weight: 600 !important;
-        font-size: 13px !important;
-        padding: 8px 18px !important;
-        border: none !important;
-        transition: all 0.2s ease !important;
-    }
-    
-    .stTabs [aria-selected="true"] {
-        background: rgba(56, 189, 248, 0.18) !important;
-        color: #FFFFFF !important;
-        border: 1px solid rgba(56, 189, 248, 0.5) !important;
-        box-shadow: 0 0 15px rgba(56, 189, 248, 0.25) !important;
-    }
-    
-    /* Native Metric Widget Upgrades */
-    [data-testid="stMetric"] {
-        background: linear-gradient(180deg, rgba(22, 34, 58, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 16px 20px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-    }
-    
-    [data-testid="stMetricLabel"] {
-        color: #CBD5E1 !important;
-        font-size: 11px !important;
-        font-weight: 700 !important;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-    }
-    
-    [data-testid="stMetricValue"] {
-        color: #FFFFFF !important;
-        font-family: 'JetBrains Mono', monospace !important;
-        font-size: 24px !important;
-        font-weight: 700 !important;
-    }
-    
-    /* Clean Table Styling */
-    .dataframe {
-        font-family: 'JetBrains Mono', monospace !important;
-        font-size: 13px !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 10px !important;
-    }
-    
-    /* Sidebar Styling */
-    [data-testid="stSidebar"] {
-        background-color: #080D1A !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    
-    /* Sidebar Navigation Radio Styling */
-    [data-testid="stSidebar"] .stRadio label {
-        color: #CBD5E1 !important;
-        font-weight: 500 !important;
-        font-size: 13.5px !important;
-        padding: 6px 10px;
-        border-radius: 8px;
-        transition: all 0.15s ease;
-    }
-    
-    [data-testid="stSidebar"] .stRadio label:hover {
-        background: rgba(56, 189, 248, 0.1);
-        color: #FFFFFF !important;
-    }
-    
-    /* Q&A Accordion Expander */
-    [data-testid="stExpander"] {
-        background: rgba(17, 26, 46, 0.65) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        border-radius: 12px !important;
-        margin-bottom: 12px;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* Global Reset & Typography */
+html, body, [class*="css"], [class*="st-"] {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #FFFFFF;
+}
+
+/* Hide Streamlit Default Chrome for Native App Look */
+#MainMenu {visibility: hidden;}
+header {visibility: hidden;}
+footer {visibility: hidden;}
+.stDeployButton {display: none;}
+[data-testid="stToolbar"] {visibility: hidden;}
+
+/* Main Canvas Background */
+.stApp {
+    background: #080B11;
+    color: #FFFFFF;
+}
+
+/* Clean Micro-Animations */
+@keyframes livePulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(14, 203, 129, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(14, 203, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(14, 203, 129, 0); }
+}
+
+@keyframes slideFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+    animation: slideFadeIn 0.35s ease-out forwards;
+}
+
+/* Institutional Ticker Tape Top Bar */
+.ticker-tape-container {
+    background: #0F141F;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    padding: 14px 22px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(14, 203, 129, 0.12);
+    color: #0ECB81;
+    border: 1px solid rgba(14, 203, 129, 0.35);
+    border-radius: 9999px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #0ECB81;
+    border-radius: 50%;
+    animation: livePulse 2s infinite;
+}
+
+/* Trading Metric Cards */
+.trade-metric-card {
+    background: #0F141F;
+    border: 1px solid #1E293B;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trade-metric-card:hover {
+    transform: translateY(-2px);
+    border-color: #38BDF8;
+    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.15);
+}
+
+.trade-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #94A3B8;
+    margin-bottom: 6px;
+}
+
+.trade-card-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.5px;
+}
+
+.badge-up {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #0ECB81;
+    background: rgba(14, 203, 129, 0.15);
+    border: 1px solid rgba(14, 203, 129, 0.35);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.badge-down {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #F6465D;
+    background: rgba(246, 70, 93, 0.15);
+    border: 1px solid rgba(246, 70, 93, 0.35);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Hero Order/Prediction Terminal */
+.hero-trading-terminal {
+    background: #0F141F;
+    border: 1.5px solid #232E42;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-trading-terminal::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #38BDF8 0%, #0ECB81 50%, #F59E0B 100%);
+}
+
+.signal-pill-bullish {
+    background: rgba(14, 203, 129, 0.2);
+    color: #0ECB81;
+    border: 1.5px solid #0ECB81;
+    padding: 7px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 0 16px rgba(14, 203, 129, 0.25);
+}
+
+.signal-pill-bearish {
+    background: rgba(246, 70, 93, 0.2);
+    color: #F6465D;
+    border: 1.5px solid #F6465D;
+    padding: 7px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 0 16px rgba(246, 70, 93, 0.25);
+}
+
+/* Executive Metrics Ribbon */
+.metrics-ribbon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.metric-pill-box {
+    background: #141B29;
+    border: 1px solid #1E293B;
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.metric-pill-box:hover {
+    border-color: #38BDF8;
+    transform: translateY(-2px);
+}
+
+.metric-pill-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 4px;
+}
+
+.metric-pill-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.metric-pill-sub {
+    font-size: 11px;
+    color: #64748B;
+    margin-top: 3px;
+}
+
+/* Buttons */
+.stButton > button {
+    background: #141B29 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #2A3850 !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    transition: all 0.2s ease !important;
+}
+
+.stButton > button:hover {
+    border-color: #38BDF8 !important;
+    color: #38BDF8 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2) !important;
+}
+
+.stDownloadButton > button {
+    background: #141B29 !important;
+    color: #0ECB81 !important;
+    border: 1px solid rgba(14, 203, 129, 0.4) !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+
+.stDownloadButton > button:hover {
+    border-color: #0ECB81 !important;
+    background: rgba(14, 203, 129, 0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    background: #0F141F;
+    border: 1px solid #1E293B;
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px;
+    color: #94A3B8 !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+    border: none !important;
+}
+
+.stTabs [aria-selected="true"] {
+    background: #1E293B !important;
+    color: #FFFFFF !important;
+    border: 1px solid #38BDF8 !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25) !important;
+}
+
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+    background-color: #0B0E14 !important;
+    border-right: 1px solid #1E293B !important;
+}
+
+[data-testid="stSidebar"] .stRadio label {
+    color: #CBD5E1 !important;
+    font-weight: 500 !important;
+    font-size: 13.5px !important;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+[data-testid="stSidebar"] .stRadio label:hover {
+    background: #141B29;
+    color: #FFFFFF !important;
+}
+
+/* Sliders */
+.stSlider {
+    padding: 10px 0;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -417,7 +418,7 @@ def get_predictor():
 
 
 # ==========================================
-# MAIN INTERACTION CONTROLLER
+# MAIN TRADING TERMINAL CONTROLLER
 # ==========================================
 def main():
     processed_df, raw_df = load_datasets()
@@ -425,7 +426,7 @@ def main():
     predictor = get_predictor()
 
     if processed_df is None or predictor is None:
-        st.error("⚠️ Model artifacts or historical dataset not detected. Click 'Automated Pipeline Training' in the sidebar to initialize the project.")
+        st.error("Model artifacts or historical dataset not detected. Click 'Automated Pipeline Training' to initialize.")
         return
 
     latest_row = processed_df.iloc[[-1]]
@@ -439,301 +440,396 @@ def main():
     pred_delta = forecast["predicted_delta_usd"]
     pred_pct = forecast["predicted_pct_change"]
     direction = forecast["predicted_direction"]
-    conf = forecast["direction_confidence"]
+    conf = forecast["direction_confidence"] if forecast["direction_confidence"] is not None else 0.50
 
-    # --- TOP TICKER STATUS BAR ---
-    st.markdown(f"""
-    <div class="top-ticker-bar">
-        <div style="display: flex; align-items: center; gap: 14px;">
-            <span class="live-indicator"><span class="live-dot"></span> LIVE BTC/USD</span>
-            <span style="font-size: 24px; font-weight: 800; font-family: 'JetBrains Mono'; color: #FFFFFF;">
-                ${latest_close:,.2f}
-            </span>
-            <span class="{'delta-badge-pos' if pct_change_24h >= 0 else 'delta-badge-neg'}">
-                {'▲' if pct_change_24h >= 0 else '▼'} {pct_change_24h:+.2f}% (24h)
-            </span>
+    # Extract clean percentages from classification test metrics
+    acc_pct = clf_metrics.get("test_metrics", {}).get("percentages", {}).get("accuracy_pct", 50.15)
+    prec_pct = clf_metrics.get("test_metrics", {}).get("percentages", {}).get("precision_pct", 47.71)
+    err_pct = clf_metrics.get("test_metrics", {}).get("percentages", {}).get("error_rate_pct", 49.85)
+    spec_pct = clf_metrics.get("test_metrics", {}).get("percentages", {}).get("specificity_pct", 82.73)
+    rec_pct = clf_metrics.get("test_metrics", {}).get("percentages", {}).get("sensitivity_pct", 16.35)
+    f1_pct = clf_metrics.get("test_metrics", {}).get("percentages", {}).get("f1_score_pct", 24.36)
+    reg_mape = reg_metrics.get("test_metrics", {}).get("mape_pct", 1.67)
+    reg_r2 = reg_metrics.get("test_metrics", {}).get("r2_score", 0.9867) * 100.0
+
+    # --- TOP INSTITUTIONAL TICKER RIBBON ---
+    st.markdown(
+        f"""
+<div class="ticker-tape-container animate-fade">
+    <div style="display: flex; align-items: center; gap: 14px;">
+        <span class="live-badge"><span class="live-dot"></span> LIVE BTC/USDT</span>
+        <span style="font-size: 26px; font-weight: 800; font-family: 'JetBrains Mono'; color: #FFFFFF;">
+            ${latest_close:,.2f}
+        </span>
+        <span class="{'badge-up' if pct_change_24h >= 0 else 'badge-down'}">
+            {'▲' if pct_change_24h >= 0 else '▼'} {pct_change_24h:+.2f}% 24h
+        </span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px; font-size: 13px;">
+        <div>
+            <span style="color: #64748B;">Latest Candle:</span>
+            <strong style="color: #E2E8F0; font-family: 'JetBrains Mono';">{latest_date}</strong>
         </div>
-        <div style="display: flex; align-items: center; gap: 24px; font-size: 13px;">
-            <div>
-                <span style="color: #94A3B8;">Observation Candle:</span> <strong style="color: #FFFFFF;">{latest_date}</strong>
-            </div>
-            <div>
-                <span style="color: #94A3B8;">AI Conviction:</span> 
-                <strong style="color: {'#10B981' if direction == 1 else '#F43F5E'};">
-                    {'BULLISH ▲' if direction == 1 else 'BEARISH ▼'} ({conf * 100:.1f}%)
-                </strong>
-            </div>
-            <div>
-                <span style="color: #94A3B8;">Active Classifier:</span> <strong style="color: #38BDF8;">{meta.get('winning_classification_model', 'LightGBM')}</strong>
-            </div>
+        <div>
+            <span style="color: #64748B;">AI Forecast:</span>
+            <strong style="color: {'#0ECB81' if direction == 1 else '#F6465D'};">
+                {'BULLISH ▲' if direction == 1 else 'BEARISH ▼'} ({conf * 100:.1f}%)
+            </strong>
+        </div>
+        <div>
+            <span style="color: #64748B;">Accuracy / Prec:</span>
+            <span style="color: #38BDF8; font-family: 'JetBrains Mono'; font-weight: 700;">{acc_pct:.2f}% / {prec_pct:.2f}%</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+</div>
+""",
+        unsafe_allow_html=True
+    )
 
-    # --- SIDEBAR NAVIGATION ---
+    # --- CONCISE & USER-FRIENDLY SIDEBAR NAVIGATION ---
     with st.sidebar:
-        st.markdown("""
-        <div style="margin-bottom: 22px;">
-            <div style="font-size: 20px; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
-                ⚡ CryptoPredict AI
-            </div>
-            <div style="font-size: 12px; color: #94A3B8; margin-top: 2px;">
-                Institutional Quantitative Terminal
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+<div style="margin-bottom: 20px;">
+    <div style="font-size: 20px; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+        ⚡ CryptoPredict AI
+    </div>
+    <div style="font-size: 12px; color: #94A3B8; margin-top: 2px;">
+        Institutional Trading & ML Intelligence
+    </div>
+</div>
+""",
+            unsafe_allow_html=True
+        )
 
         app_page = st.radio(
             "Terminal Navigation",
             [
-                "📊 Market Overview & Indicators",
-                "🎯 Next-Day Price Prediction",
-                "🏆 Multi-Model Leaderboards",
-                "🔍 Historical Date Backtester",
-                "🧪 Live What-If Scenario Lab",
-                "🎓 College Viva & Defense Guide",
-                "⚙️ Automated Pipeline Training",
-                "📥 Data & Academic Downloads"
+                "📊 Trading Terminal",
+                "🎯 Model Performance & Metrics",
+                "🧪 What-If Market Lab",
+                "📜 Historical Backtest & Export"
             ],
             label_visibility="collapsed"
         )
 
         st.markdown("---")
-        st.markdown("#### 🛡️ Rigorous ML Audit")
-        st.caption(f"**Asset:** Bitcoin (`BTC-USD`) Daily")
-        st.caption(f"**Dataset:** {meta.get('dataset_rows', 4320):,} Daily Candles")
-        st.caption(f"**Causal Features:** {meta.get('features', {}).get('count', 58)} Engineered")
-        st.caption(f"**Split Strategy:** Chronological 70% / 15% / 15%")
-        st.caption(f"**Lookahead Leakage:** 0.00% (Formally Tested)")
-        st.caption(f"**Test Set:** {meta.get('test_rows', 648)} Days Out-of-Sample")
+        st.markdown("#### 🛡️ Active Machine Learning Setup")
+        st.caption(f"**Asset:** Bitcoin (`BTC-USD`) Daily Candles")
+        st.caption(f"**Regression Model:** `{forecast['regression_model_used']}`")
+        st.caption(f"**Direction Classifier:** `{forecast['classification_model_used']}`")
+        st.caption(f"**Dataset Horizon:** 2014 to Present ({meta.get('dataset_rows', 4320):,} Rows)")
+        st.caption(f"**Causal Features:** 58 Technical Oscillators")
+        st.caption(f"**Out-of-Sample Test Set:** 648 Days Chronological")
 
         st.markdown("---")
-        st.caption("Developed for Academic Machine Learning Techniques (MLT) Project Defense.")
+        st.caption("Engineered for Final Year Machine Learning Academic Project Defense.")
 
     # ========================================================
-    # 1. MARKET OVERVIEW & TECHNICAL INDICATORS
+    # 1. LIVE TRADING TERMINAL
     # ========================================================
-    if app_page == "📊 Market Overview & Indicators":
-        st.subheader("📊 Bitcoin Market Dynamics & Technical Oscillators")
-        st.caption("Historical price action, institutional liquidity volume, and zero-lookahead technical indicators.")
+    if app_page == "📊 Trading Terminal":
+        st.subheader("📊 Bitcoin Spot Terminal & Predictive Intelligence")
+        st.caption("Real-time technical candle charts, algorithmic oscillators, and forward target predictions.")
 
-        # Metric Ribbon
+        # Key Trading Metrics Ribbon
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">Last Observed Close</div>
-                <div class="card-value">${latest_close:,.2f}</div>
-                <div class="{'delta-badge-pos' if pct_change_24h >= 0 else 'delta-badge-neg'}">
-                    {'▲' if pct_change_24h >= 0 else '▼'} {pct_change_24h:+.2f}% 24h Delta
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">Last Observed Close</div>
+    <div class="trade-card-value">${latest_close:,.2f}</div>
+    <div class="{'badge-up' if pct_change_24h >= 0 else 'badge-down'}" style="margin-top: 6px;">
+        {'▲' if pct_change_24h >= 0 else '▼'} {pct_change_24h:+.2f}% 24h Delta
+    </div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         with col2:
             high_24h = float(latest_row["High"].values[0])
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">24h Candle High</div>
-                <div class="card-value">${high_24h:,.2f}</div>
-                <div style="font-size: 12px; color: #94A3B8; margin-top: 6px;">Intraday Ceiling Resistance</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">24h Candle High</div>
+    <div class="trade-card-value">${high_24h:,.2f}</div>
+    <div style="font-size: 11px; color: #94A3B8; margin-top: 6px;">Intraday Ceiling Resistance</div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         with col3:
             low_24h = float(latest_row["Low"].values[0])
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">24h Candle Low</div>
-                <div class="card-value">${low_24h:,.2f}</div>
-                <div style="font-size: 12px; color: #94A3B8; margin-top: 6px;">Intraday Support Level</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">24h Candle Low</div>
+    <div class="trade-card-value">${low_24h:,.2f}</div>
+    <div style="font-size: 11px; color: #94A3B8; margin-top: 6px;">Intraday Floor Support</div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         with col4:
             vol_24h = float(latest_row["Volume"].values[0]) / 1e9
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">24h Trading Volume</div>
-                <div class="card-value">${vol_24h:.2f}B</div>
-                <div style="font-size: 12px; color: #38BDF8; margin-top: 6px;">Aggregate Spot & Exchange Flow</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">24h Volume Flow</div>
+    <div class="trade-card-value">${vol_24h:.2f}B</div>
+    <div style="font-size: 11px; color: #38BDF8; margin-top: 6px;">Spot & Derivatives Liquidity</div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # Interactive Candlestick Chart with Horizon Filter
-        ch_col1, ch_col2 = st.columns([3, 1])
-        with ch_col2:
+        # AI Forecast Hero Card
+        badge_cls = "signal-pill-bullish" if direction == 1 else "signal-pill-bearish"
+        badge_str = "▲ BULLISH FORECAST (Upward Target)" if direction == 1 else "▼ BEARISH FORECAST (Downward / Consolidation)"
+
+        st.markdown(
+            f"""
+<div class="hero-trading-terminal animate-fade">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 16px;">
+        <div>
+            <div style="font-size: 11px; font-weight: 700; color: #38BDF8; letter-spacing: 1px; text-transform: uppercase;">
+                ALGORITHMIC TARGET HORIZON
+            </div>
+            <div style="font-size: 22px; font-weight: 800; color: #FFFFFF; margin-top: 2px;">
+                Next Completed Daily Trading Candle
+            </div>
+        </div>
+        <div>
+            <span class="{badge_cls}">{badge_str}</span>
+        </div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True
+        )
+
+        h_left, h_right = st.columns([3, 2])
+        with h_left:
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade" style="margin-bottom: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+        <div>
+            <div class="trade-card-label">Observation Base Close ({latest_date})</div>
+            <div class="trade-card-value" style="color: #CBD5E1;">${forecast['current_close_usd']:,.2f}</div>
+        </div>
+        <div>
+            <div class="trade-card-label">Predicted Next Close</div>
+            <div class="trade-card-value" style="color: #38BDF8;">${pred_price:,.2f}</div>
+        </div>
+        <div>
+            <div class="trade-card-label">Predicted Net Delta</div>
+            <div class="trade-card-value" style="color: {'#0ECB81' if pred_delta >= 0 else '#F6465D'};">
+                {pred_delta:+,.2f} ({pred_pct:+.2f}%)
+            </div>
+        </div>
+        <div>
+            <div class="trade-card-label">Model Upward Probability</div>
+            <div class="trade-card-value" style="color: #FFFFFF;">
+                {conf * 100:.1f}%
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid #1E293B; display: flex; justify-content: space-between; font-size: 12px; color: #94A3B8; flex-wrap: wrap; gap: 8px;">
+        <div>
+            Regression: <strong style="color: #E2E8F0;">{forecast['regression_model_used']}</strong> &nbsp;|&nbsp;
+            Classifier: <strong style="color: #E2E8F0;">{forecast['classification_model_used']}</strong>
+        </div>
+        <div style="color: #0ECB81; font-weight: 600;">
+            ✓ 0.00% Lookahead Leakage
+        </div>
+    </div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
+
+        with h_right:
+            st.markdown("##### 🧭 Directional Conviction Gauge")
+            gauge_fig = plot_interactive_probability_gauge(conf, direction)
+            st.plotly_chart(gauge_fig, use_container_width=True, config={"displayModeBar": False})
+
+        # Candlestick Chart with Horizon Control
+        c_head, c_filt = st.columns([3, 1])
+        with c_head:
+            st.markdown("### 📈 Live Candlestick & Volume Chart")
+        with c_filt:
             days_slider = st.select_slider(
-                "History Horizon",
+                "Timeframe",
                 options=[30, 60, 90, 180, 365, 730],
                 value=180,
                 format_func=lambda x: f"{x} Days"
             )
 
         candlestick_fig = plot_interactive_candlestick(raw_df, days=days_slider)
-        st.plotly_chart(candlestick_fig, use_container_width=True)
+        st.plotly_chart(candlestick_fig, use_container_width=True, config={"displayModeBar": False})
 
         # Technical Indicators Grid
-        st.markdown("### 📐 Institutional Indicator Readings")
+        st.markdown("### 📐 Technical Indicators & Oscillators")
         t1, t2, t3, t4 = st.columns(4)
 
         with t1:
             rsi_val = float(latest_row["RSI_14"].values[0]) if "RSI_14" in latest_row else 50.0
             rsi_zone = "Overbought (>70)" if rsi_val > 70 else ("Oversold (<30)" if rsi_val < 30 else "Neutral Zone")
-            rsi_color = "#F43F5E" if rsi_val > 70 else ("#10B981" if rsi_val < 30 else "#38BDF8")
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">14-Day Wilder RSI</div>
-                <div class="card-value" style="color: {rsi_color};">{rsi_val:.1f}</div>
-                <div style="font-size: 12px; font-weight: 600; color: {rsi_color}; margin-top: 6px;">{rsi_zone}</div>
-            </div>
-            """, unsafe_allow_html=True)
+            rsi_color = "#F6465D" if rsi_val > 70 else ("#0ECB81" if rsi_val < 30 else "#38BDF8")
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">14-Day Wilder RSI</div>
+    <div class="trade-card-value" style="color: {rsi_color};">{rsi_val:.1f}</div>
+    <div style="font-size: 11px; font-weight: 600; color: {rsi_color}; margin-top: 6px;">{rsi_zone}</div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         with t2:
             macd_val = float(latest_row["MACD"].values[0]) if "MACD" in latest_row else 0.0
             sig_val = float(latest_row["MACD_Signal"].values[0]) if "MACD_Signal" in latest_row else 0.0
-            is_bullish = macd_val > sig_val
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">MACD (12, 26, 9)</div>
-                <div class="card-value">{macd_val:,.1f}</div>
-                <div style="font-size: 12px; font-weight: 600; color: {'#10B981' if is_bullish else '#F43F5E'}; margin-top: 6px;">
-                    {'Bullish Momentum (Above Signal)' if is_bullish else 'Bearish Divergence (Below Signal)'}
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+            is_bull = macd_val > sig_val
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">MACD (12, 26, 9)</div>
+    <div class="trade-card-value">{macd_val:,.1f}</div>
+    <div style="font-size: 11px; font-weight: 600; color: {'#0ECB81' if is_bull else '#F6465D'}; margin-top: 6px;">
+        {'Bullish Momentum (Above Signal)' if is_bull else 'Bearish Divergence (Below Signal)'}
+    </div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         with t3:
             bb_width = float(latest_row["Bollinger_Bandwidth"].values[0]) * 100 if "Bollinger_Bandwidth" in latest_row else 0.0
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">Bollinger Bandwidth</div>
-                <div class="card-value">{bb_width:.2f}%</div>
-                <div style="font-size: 12px; color: #CBD5E1; margin-top: 6px;">Channel Volatility Spread</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">Bollinger Bandwidth</div>
+    <div class="trade-card-value">{bb_width:.2f}%</div>
+    <div style="font-size: 11px; color: #94A3B8; margin-top: 6px;">Volatility Channel Spread</div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
 
         with t4:
             vol_30 = float(latest_row["Volatility_30"].values[0]) * 100 if "Volatility_30" in latest_row else 0.0
-            st.markdown(f"""
-            <div class="glass-card">
-                <div class="card-label">30-Day Volatility</div>
-                <div class="card-value">{vol_30:.2f}%</div>
-                <div style="font-size: 12px; color: #CBD5E1; margin-top: 6px;">Rolling Daily Return Std Dev</div>
-            </div>
-            """, unsafe_allow_html=True)
-
-    # ========================================================
-    # 2. NEXT-DAY PRICE PREDICTION
-    # ========================================================
-    elif app_page == "🎯 Next-Day Price Prediction":
-        st.subheader("🎯 Machine Learning Predictive Intelligence")
-        st.caption("Forecasting next completed daily candle using strictly causal historical features.")
-
-        badge_class = "badge-bullish" if direction == 1 else "badge-bearish"
-        badge_text = "▲ BULLISH (Upward Trend Anticipated)" if direction == 1 else "▼ BEARISH (Downward / Consolidation Anticipated)"
-
-        st.markdown(f"""
-        <div class="prediction-hero-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
-                <div>
-                    <span style="font-size: 12px; font-weight: 700; color: #38BDF8; letter-spacing: 1px; text-transform: uppercase;">
-                        TARGET FORECAST HORIZON
-                    </span>
-                    <h2 style="font-size: 24px; font-weight: 800; color: #FFFFFF; margin: 4px 0 0 0;">
-                        Next Completed Daily Trading Candle
-                    </h2>
-                </div>
-                <div>
-                    <span class="{badge_class}">{badge_text}</span>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        pred_left, pred_right = st.columns([3, 2])
-
-        with pred_left:
-            st.markdown(f"""
-            <div class="glass-card" style="margin-bottom: 20px;">
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
-                    <div>
-                        <div class="card-label">Observation Base Close ({latest_date})</div>
-                        <div class="card-value" style="color: #CBD5E1;">${forecast['current_close_usd']:,.2f}</div>
-                    </div>
-                    <div>
-                        <div class="card-label">Predicted Next Close</div>
-                        <div class="card-value" style="color: #38BDF8;">${pred_price:,.2f}</div>
-                    </div>
-                    <div>
-                        <div class="card-label">Predicted Net Delta</div>
-                        <div class="card-value" style="color: {'#10B981' if pred_delta >= 0 else '#F43F5E'};">
-                            {pred_delta:+,.2f} ({pred_pct:+.2f}%)
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card-label">Model Up-Move Probability</div>
-                        <div class="card-value" style="color: #FFFFFF;">
-                            {conf * 100:.1f}%
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 22px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 13px; color: #94A3B8; flex-wrap: wrap; gap: 10px;">
-                    <div>
-                        <span><strong>Regression:</strong> <span style="color: #E2E8F0;">{forecast['regression_model_used']}</span></span>
-                        &nbsp;•&nbsp;
-                        <span><strong>Classification:</strong> <span style="color: #E2E8F0;">{forecast['classification_model_used']}</span></span>
-                    </div>
-                    <div style="font-size: 12px; color: #10B981; font-weight: 600;">
-                        ✓ Zero Target Leakage Enforced
-                    </div>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-        with pred_right:
-            st.markdown("##### 🧭 Model Directional Conviction Meter")
-            gauge_fig = plot_interactive_probability_gauge(conf, direction)
-            st.plotly_chart(gauge_fig, use_container_width=True)
-
-        st.markdown(f"""
-        <div class="disclaimer-box">
-            {forecast['disclaimer']}
-        </div>
-        """, unsafe_allow_html=True)
-
-        # Out-of-Sample Actual vs Predicted Plot
-        if test_preds_df is not None:
-            st.markdown("<br>", unsafe_allow_html=True)
-            st.markdown("### 📉 Out-of-Sample Evaluation: Actual vs Predicted Prices (Test Set)")
-            st.caption("648 consecutive out-of-sample days evaluated with zero historical shuffling.")
-            fig_test = plot_interactive_actual_vs_predicted(
-                dates=test_preds_df["Date"],
-                actual=test_preds_df["Actual_Next_Close"],
-                predicted=test_preds_df["Predicted_Next_Close"],
-                model_name=meta.get("winning_regression_model", "Selected Model")
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div class="trade-card-label">30-Day Volatility</div>
+    <div class="trade-card-value">{vol_30:.2f}%</div>
+    <div style="font-size: 11px; color: #94A3B8; margin-top: 6px;">Rolling Daily Return Std Dev</div>
+</div>
+""",
+                unsafe_allow_html=True
             )
-            st.plotly_chart(fig_test, use_container_width=True)
 
     # ========================================================
-    # 3. MULTI-MODEL LEADERBOARDS
+    # 2. MODEL PERFORMANCE & ALL % METRICS
     # ========================================================
-    elif app_page == "🏆 Multi-Model Leaderboards":
-        st.subheader("🏆 Multi-Model Benchmark & Scientific Leaderboards")
-        st.caption("Transparent comparative evaluation. Models selected strictly based on validation fold performance.")
+    elif app_page == "🎯 Model Performance & Metrics":
+        st.subheader("🎯 Machine Learning Performance & Validation Metrics")
+        st.markdown(
+            "Rigorous empirical evaluation on **648 out-of-sample trading days** (2025 to 2026). "
+            "All accuracy, precision, error rate, and statistical metrics are presented in clear percentages."
+        )
 
-        tab_reg, tab_clf, tab_feat = st.tabs([
-            "📈 Task A: Price Regression Leaderboard",
-            "🧭 Task B: Direction Classification Leaderboard",
-            "🔥 Feature Importance Weights"
+        # Executive Metrics Ribbon (ALL IN PERCENTAGES)
+        st.markdown(
+            f"""
+<div class="metrics-ribbon-grid animate-fade">
+    <div class="metric-pill-box">
+        <div class="metric-pill-title">Accuracy Rate</div>
+        <div class="metric-pill-val" style="color: #38BDF8;">{acc_pct:.2f}%</div>
+        <div class="metric-pill-sub">Overall Direction Correct</div>
+    </div>
+    <div class="metric-pill-box">
+        <div class="metric-pill-title">Precision Rate</div>
+        <div class="metric-pill-val" style="color: #0ECB81;">{prec_pct:.2f}%</div>
+        <div class="metric-pill-sub">Reliability on Up Calls</div>
+    </div>
+    <div class="metric-pill-box">
+        <div class="metric-pill-title">Prediction Error Rate</div>
+        <div class="metric-pill-val" style="color: #F6465D;">{err_pct:.2f}%</div>
+        <div class="metric-pill-sub">Out-of-Sample Miss Rate</div>
+    </div>
+    <div class="metric-pill-box">
+        <div class="metric-pill-title">Crash Specificity</div>
+        <div class="metric-pill-val" style="color: #10B981;">{spec_pct:.2f}%</div>
+        <div class="metric-pill-sub">Down Days Detected (Safety)</div>
+    </div>
+    <div class="metric-pill-box">
+        <div class="metric-pill-title">Rally Recall</div>
+        <div class="metric-pill-val" style="color: #F59E0B;">{rec_pct:.2f}%</div>
+        <div class="metric-pill-sub">Uptrends Captured</div>
+    </div>
+    <div class="metric-pill-box">
+        <div class="metric-pill-title">Price MAPE Error</div>
+        <div class="metric-pill-val" style="color: #38BDF8;">{reg_mape:.2f}%</div>
+        <div class="metric-pill-sub">Mean % Price Deviation</div>
+    </div>
+</div>
+""",
+            unsafe_allow_html=True
+        )
+
+        tab_clf, tab_reg, tab_fi = st.tabs([
+            "🧭 Task B: Direction Classification Benchmark",
+            "📈 Task A: Continuous Price Regression Benchmark",
+            "🔥 Predictive Feature Importance Weights"
         ])
 
+        with tab_clf:
+            st.markdown("#### Classification Benchmark (Upward vs Downward Day)")
+            st.caption("Evaluated on 648 out-of-sample test candles. Ranked by Validation F1-Score.")
+
+            if clf_metrics and "leaderboard" in clf_metrics:
+                clf_df = pd.DataFrame(clf_metrics["leaderboard"])
+                styled_clf = clf_df.copy()
+                for c in ["Val_F1_Pct", "Val_Accuracy_Pct", "Val_Precision_Pct", "Val_Recall_Pct", "Val_Specificity_Pct", "Val_ErrorRate_Pct",
+                          "Test_F1_Pct", "Test_Accuracy_Pct", "Test_Precision_Pct", "Test_Recall_Pct", "Test_Specificity_Pct", "Test_ErrorRate_Pct"]:
+                    styled_clf[c] = styled_clf[c].apply(lambda x: f"{x:.2f}%" if pd.notnull(x) else "N/A")
+
+                st.dataframe(styled_clf, use_container_width=True)
+
+            if clf_metrics and "test_metrics" in clf_metrics:
+                ctm = clf_metrics["test_metrics"]
+                cm = ctm["confusion_matrix"]
+
+                c1, c2 = st.columns([1, 1])
+                with c1:
+                    st.markdown("##### 🧮 Test Confusion Matrix Heatmap")
+                    cm_fig = plot_interactive_confusion_matrix(cm, clf_metrics.get("winning_model", "Classifier"))
+                    st.plotly_chart(cm_fig, use_container_width=True, config={"displayModeBar": False})
+
+                with c2:
+                    st.markdown("##### 📊 Metric Mathematical Formulas & Percentages")
+                    metrics_table = [
+                        {"Metric Name": "Accuracy (Overall Correctness)", "Formula": "(TP + TN) / Total", "Percentage": f"{acc_pct:.2f}%"},
+                        {"Metric Name": "Precision (Breakout Reliability)", "Formula": "TP / (TP + FP)", "Percentage": f"{prec_pct:.2f}%"},
+                        {"Metric Name": "Error Rate (Prediction Miss Rate)", "Formula": "(FP + FN) / Total", "Percentage": f"{err_pct:.2f}%"},
+                        {"Metric Name": "Specificity (Down Days Detected)", "Formula": "TN / (TN + FP)", "Percentage": f"{spec_pct:.2f}%"},
+                        {"Metric Name": "Recall / Sensitivity (Rallies Captured)", "Formula": "TP / (TP + FN)", "Percentage": f"{rec_pct:.2f}%"},
+                        {"Metric Name": "F1-Score (Harmonic Mean)", "Formula": "2 * (P * R) / (P + R)", "Percentage": f"{f1_pct:.2f}%"}
+                    ]
+                    st.table(pd.DataFrame(metrics_table))
+
         with tab_reg:
-            st.markdown("#### Regression Model Evaluation (Chronological Validation & Test Sets)")
-            st.caption("Ranked by Validation RMSE to guarantee unbiased selection.")
+            st.markdown("#### Regression Benchmark (Next-Day Dollar Close)")
+            st.caption("Evaluated on 648 out-of-sample test candles. Ranked by Validation RMSE.")
 
             if reg_metrics and "leaderboard" in reg_metrics:
                 reg_df = pd.DataFrame(reg_metrics["leaderboard"])
@@ -749,88 +845,115 @@ def main():
 
                 st.dataframe(styled_df, use_container_width=True)
 
-            if reg_metrics and "test_metrics" in reg_metrics:
-                tm = reg_metrics["test_metrics"]
-                st.markdown("##### 🎖️ Selected Regression Architecture: `" + reg_metrics.get("winning_model", "") + "`")
-                r1, r2, r3, r4 = st.columns(4)
-                r1.metric("Out-of-Sample MAE", f"${tm['mae']:,.2f}")
-                r2.metric("Out-of-Sample RMSE", f"${tm['rmse']:,.2f}")
-                r3.metric("Out-of-Sample MAPE", f"{tm['mape_pct']:.2f}%")
-                r4.metric("Out-of-Sample R²", f"{tm['r2_score']:.4f}")
+            # Test Set Out-of-Sample Actual vs Predicted Curves
+            if test_preds_df is not None:
+                st.markdown("##### 📉 Out-of-Sample Actual vs Predicted Price Curves (648 Days)")
+                fig_test = plot_interactive_actual_vs_predicted(
+                    dates=test_preds_df["Date"],
+                    actual=test_preds_df["Actual_Next_Close"],
+                    predicted=test_preds_df["Predicted_Next_Close"],
+                    model_name=meta.get("winning_regression_model", "Selected Model")
+                )
+                st.plotly_chart(fig_test, use_container_width=True, config={"displayModeBar": False})
 
-        with tab_clf:
-            st.markdown("#### Classification Model Evaluation (Next-Day Market Direction)")
-            st.caption("Positive Class: Next Day Close > Today Close. Negative Class: Next Day Close <= Today Close.")
-
-            if clf_metrics and "leaderboard" in clf_metrics:
-                clf_df = pd.DataFrame(clf_metrics["leaderboard"])
-                styled_clf = clf_df.copy()
-                for c in ["Val_F1_Pct", "Val_Accuracy_Pct", "Val_Precision_Pct", "Val_Recall_Pct", "Val_Specificity_Pct", "Val_ErrorRate_Pct",
-                          "Test_F1_Pct", "Test_Accuracy_Pct", "Test_Precision_Pct", "Test_Recall_Pct", "Test_Specificity_Pct", "Test_ErrorRate_Pct"]:
-                    styled_clf[c] = styled_clf[c].apply(lambda x: f"{x:.2f}%" if pd.notnull(x) else "N/A")
-
-                st.dataframe(styled_clf, use_container_width=True)
-
-            if clf_metrics and "test_metrics" in clf_metrics:
-                ctm = clf_metrics["test_metrics"]
-                cm = ctm["confusion_matrix"]
-                
-                c1, c2 = st.columns([1, 1])
-                with c1:
-                    st.markdown("##### 🧮 Test Confusion Matrix Heatmap")
-                    cm_fig = plot_interactive_confusion_matrix(cm, clf_metrics.get("winning_model", "Classifier"))
-                    st.plotly_chart(cm_fig, use_container_width=True)
-
-                with c2:
-                    st.markdown("##### 📊 Exact Test Performance Metrics")
-                    metrics_table = [
-                        {"Metric": "Accuracy (Overall Correctness)", "Formula": "(TP + TN) / Total", "Score": ctm["formatted"]["Accuracy"]},
-                        {"Metric": "Specificity (Down Days Detected)", "Formula": "TN / (TN + FP)", "Score": ctm["formatted"]["Specificity"]},
-                        {"Metric": "Precision (Breakout Reliability)", "Formula": "TP / (TP + FP)", "Score": ctm["formatted"]["Precision"]},
-                        {"Metric": "Sensitivity / Recall (Rallies Captured)", "Formula": "TP / (TP + FN)", "Score": ctm["formatted"]["Recall / Sensitivity"]},
-                        {"Metric": "F1-Score (Harmonic Mean)", "Formula": "2 * (Precision * Recall) / (Precision + Recall)", "Score": ctm["formatted"]["F1-Score"]},
-                        {"Metric": "Error Rate", "Formula": "(FP + FN) / Total", "Score": ctm["formatted"]["Error Rate"]},
-                    ]
-                    st.table(pd.DataFrame(metrics_table))
-
-        with tab_feat:
-            st.markdown("#### 🔥 Feature Importance Weights (Gradient Boosted Trees)")
-            st.caption("Identifies which engineered technical indicators contributed the highest predictive split gain.")
+        with tab_fi:
+            st.markdown("#### 🔥 Feature Importance Weights")
+            st.caption("Top engineered technical indicators that contributed the highest predictive split gain.")
             if meta and "top_features" in meta and len(meta["top_features"]) > 0:
                 top_fi_df = pd.DataFrame(meta["top_features"])
                 fi_fig = plot_interactive_feature_importance(top_fi_df, top_n=15)
-                st.plotly_chart(fi_fig, use_container_width=True)
+                st.plotly_chart(fi_fig, use_container_width=True, config={"displayModeBar": False})
             else:
-                st.info("Feature weights are computed for tree-based models.")
+                st.info("Feature importance weights are computed for tree-based models.")
 
     # ========================================================
-    # 4. HISTORICAL DATE BACKTESTER
+    # 3. WHAT-IF MARKET LAB
     # ========================================================
-    elif app_page == "🔍 Historical Date Backtester":
-        st.subheader("🔍 Historical Point-in-Time Prediction Backtester")
+    elif app_page == "🧪 What-If Market Lab":
+        st.subheader("🧪 Live What-If Market Sensitivity Lab")
         st.markdown(
-            "Select any historical observation date. The model executes inference using **strictly** the features "
-            "available on that chosen date, without any lookahead bias, and compares the forecast "
-            "with the actual ground truth observed on the following day."
+            "Test hypothetical market scenarios. Adjust sliders for Bitcoin's price, 24h return, RSI, "
+            "and volatility to see how the trained machine learning models dynamically update their target and direction."
+        )
+
+        sim_col1, sim_col2 = st.columns([1, 1])
+
+        with sim_col1:
+            st.markdown("##### 🎛️ Simulation Parameters")
+            sim_close = st.slider("Today's BTC Price ($)", min_value=10000, max_value=150000, value=int(latest_close), step=500)
+            sim_return = st.slider("Today's 24h Change (%)", min_value=-15.0, max_value=15.0, value=float(round(pct_change_24h, 2)), step=0.25)
+            sim_rsi = st.slider("14-Day RSI Oscillator", min_value=10.0, max_value=90.0, value=50.0, step=1.0)
+            sim_vol = st.slider("30-Day Volatility (%)", min_value=0.5, max_value=10.0, value=2.8, step=0.1)
+
+        # Build simulated sample
+        sim_row = latest_row.copy()
+        sim_row["Close"] = float(sim_close)
+        sim_row["Daily_Return"] = float(sim_return / 100.0)
+        sim_row["RSI_14"] = float(sim_rsi)
+        sim_row["Volatility_30"] = float(sim_vol / 100.0)
+        if "Close_Lag_1" in sim_row.columns:
+            sim_row["Close_Lag_1"] = float(sim_close / (1.0 + (sim_return / 100.0)))
+
+        sim_forecast = predictor.predict_next_day(sim_row)
+        sim_pred_price = sim_forecast["predicted_close_usd"]
+        sim_pred_delta = sim_forecast["predicted_delta_usd"]
+        sim_pred_pct = sim_forecast["predicted_pct_change"]
+        sim_direction = sim_forecast["predicted_direction"]
+        sim_conf = sim_forecast["direction_confidence"] if sim_forecast["direction_confidence"] is not None else 0.50
+
+        with sim_col2:
+            st.markdown("##### ⚡ Simulated Model Target")
+            st.markdown(
+                f"""
+<div class="trade-metric-card animate-fade">
+    <div style="margin-bottom: 16px;">
+        <span class="{'signal-pill-bullish' if sim_direction == 1 else 'signal-pill-bearish'}">
+            {'▲ BULLISH SIGNAL' if sim_direction == 1 else '▼ BEARISH SIGNAL'}
+        </span>
+    </div>
+    <div class="trade-card-label">Hypothetical Base Price</div>
+    <div class="trade-card-value">${sim_close:,.2f}</div>
+    <br>
+    <div class="trade-card-label">Model Predicted Next Price</div>
+    <div class="trade-card-value" style="color: #38BDF8;">${sim_pred_price:,.2f}</div>
+    <div style="font-size: 13px; font-weight: 700; color: {'#0ECB81' if sim_pred_delta >= 0 else '#F6465D'}; margin-top: 6px;">
+        Expected Delta: {sim_pred_delta:+,.2f} ({sim_pred_pct:+.2f}%)
+    </div>
+    <br>
+    <div class="trade-card-label">Upward Probability</div>
+    <div class="trade-card-value" style="color: #FFFFFF;">{sim_conf * 100:.1f}%</div>
+</div>
+""",
+                unsafe_allow_html=True
+            )
+
+    # ========================================================
+    # 4. HISTORICAL BACKTEST & EXPORT
+    # ========================================================
+    elif app_page == "📜 Historical Backtest & Export":
+        st.subheader("📜 Historical Point-in-Time Backtester & Data Exports")
+        st.markdown(
+            "Select any past observation date. The model executes point-in-time inference strictly using data "
+            "available on that day and compares its prediction against the actual next day's price."
         )
 
         all_dates = pd.to_datetime(processed_df["Date"]).dt.date.tolist()
         min_date = all_dates[90]
         max_date = all_dates[-1]
 
-        # Preset selection buttons
-        p_col1, p_col2, p_col3, p_col4 = st.columns(4)
+        # Quick preset buttons
+        b1, b2, b3, b4 = st.columns(4)
         preset_date = all_dates[-5]
-        with p_col1:
+        with b1:
             if st.button("📅 5 Days Ago", use_container_width=True):
                 preset_date = all_dates[-5]
-        with p_col2:
+        with b2:
             if st.button("📅 30 Days Ago", use_container_width=True):
                 preset_date = all_dates[-30]
-        with p_col3:
+        with b3:
             if st.button("📅 90 Days Ago", use_container_width=True):
                 preset_date = all_dates[-90]
-        with p_col4:
+        with b4:
             if st.button("📅 1 Year Ago", use_container_width=True):
                 preset_date = all_dates[-365]
 
@@ -847,234 +970,81 @@ def main():
 
             h1, h2, h3 = st.columns(3)
             with h1:
-                st.markdown(f"""
-                <div class="glass-card">
-                    <div class="card-label">Observation Date Close ({date_str})</div>
-                    <div class="card-value">${hist_result['current_close_usd']:,.2f}</div>
-                    <div style="font-size: 12px; color: #94A3B8; margin-top: 6px;">Known Feature Baseline</div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(
+                    f"""
+<div class="trade-metric-card">
+    <div class="trade-card-label">Observation Date Close ({date_str})</div>
+    <div class="trade-card-value">${hist_result['current_close_usd']:,.2f}</div>
+    <div style="font-size: 11px; color: #94A3B8; margin-top: 6px;">Known Feature Baseline</div>
+</div>
+""",
+                    unsafe_allow_html=True
+                )
 
             with h2:
-                st.markdown(f"""
-                <div class="glass-card">
-                    <div class="card-label">AI Forecast Next Close</div>
-                    <div class="card-value" style="color: #38BDF8;">${hist_result['predicted_close_usd']:,.2f}</div>
-                    <div style="font-size: 12px; color: #38BDF8; margin-top: 6px;">
-                        Expected Delta: {hist_result['predicted_delta_usd']:+,.2f} ({hist_result['predicted_pct_change']:+.2f}%)
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown(
+                    f"""
+<div class="trade-metric-card">
+    <div class="trade-card-label">AI Forecast Next Close</div>
+    <div class="trade-card-value" style="color: #38BDF8;">${hist_result['predicted_close_usd']:,.2f}</div>
+    <div style="font-size: 11px; color: #38BDF8; margin-top: 6px;">
+        Expected Delta: {hist_result['predicted_delta_usd']:+,.2f} ({hist_result['predicted_pct_change']:+.2f}%)
+    </div>
+</div>
+""",
+                    unsafe_allow_html=True
+                )
 
             with h3:
                 actual_close = hist_result.get("actual_next_close_usd")
                 if actual_close is not None:
                     error_usd = hist_result["prediction_error_usd"]
                     abs_pct = hist_result["absolute_pct_error"]
-                    st.markdown(f"""
-                    <div class="glass-card">
-                        <div class="card-label">Actual Ground Truth ({hist_result.get('actual_next_date')})</div>
-                        <div class="card-value">${actual_close:,.2f}</div>
-                        <div style="font-size: 12px; color: {'#10B981' if abs_pct < 2.0 else '#F59E0B'}; margin-top: 6px;">
-                            Error: ${abs(error_usd):,.2f} ({abs_pct:.2f}%)
-                        </div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown(
+                        f"""
+<div class="trade-metric-card">
+    <div class="trade-card-label">Actual Ground Truth ({hist_result.get('actual_next_date')})</div>
+    <div class="trade-card-value">${actual_close:,.2f}</div>
+    <div style="font-size: 11px; color: {'#0ECB81' if abs_pct < 2.0 else '#F59E0B'}; margin-top: 6px;">
+        Error: ${abs(error_usd):,.2f} ({abs_pct:.2f}%)
+    </div>
+</div>
+""",
+                        unsafe_allow_html=True
+                    )
                 else:
-                    st.markdown("""
-                    <div class="glass-card">
-                        <div class="card-label">Actual Ground Truth</div>
-                        <div class="card-value" style="color: #F59E0B;">Pending</div>
-                        <div style="font-size: 12px; color: #94A3B8; margin-top: 6px;">Future candle not completed</div>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown(
+                        """
+<div class="trade-metric-card">
+    <div class="trade-card-label">Actual Ground Truth</div>
+    <div class="trade-card-value" style="color: #F59E0B;">Pending</div>
+    <div style="font-size: 11px; color: #94A3B8; margin-top: 6px;">Future candle not completed</div>
+</div>
+""",
+                        unsafe_allow_html=True
+                    )
 
             if hist_result.get("actual_next_close_usd") is not None:
                 dir_correct = hist_result["direction_correct"]
-                status_color = "#10B981" if dir_correct else "#F43F5E"
-                st.markdown(f"""
-                <div style="margin-top: 20px; padding: 18px 22px; border-radius: 12px; background-color: rgba({'16, 185, 129, 0.12' if dir_correct else '244, 63, 94, 0.12'}); border: 1.5px solid {status_color};">
-                    <strong style="color: {status_color}; font-size: 15px;">Historical Backtest Validation:</strong><br>
-                    Model Predicted: <strong>{hist_result['direction_label']}</strong> &nbsp;|&nbsp;
-                    Actual Outcome: <strong>{hist_result['actual_direction_label']}</strong> &nbsp;|&nbsp;
-                    Result Status: <strong style="color: {status_color}; font-size: 14px;">{'SUCCESSFUL DIRECTION CALL' if dir_correct else 'DIRECTIONAL MISMATCH'}</strong>
-                </div>
-                """, unsafe_allow_html=True)
+                status_color = "#0ECB81" if dir_correct else "#F6465D"
+                st.markdown(
+                    f"""
+<div style="margin-top: 18px; padding: 16px 20px; border-radius: 10px; background-color: rgba({'14, 203, 129, 0.12' if dir_correct else '246, 70, 93, 0.12'}); border: 1.5px solid {status_color};">
+    <strong style="color: {status_color}; font-size: 14px;">Historical Backtest Result:</strong><br>
+    Model Predicted: <strong>{hist_result['direction_label']}</strong> &nbsp;|&nbsp;
+    Actual Market Move: <strong>{hist_result['actual_direction_label']}</strong> &nbsp;|&nbsp;
+    Status: <strong style="color: {status_color};">{'SUCCESSFUL CALL ✓' if dir_correct else 'MISMATCH ✗'}</strong>
+</div>
+""",
+                    unsafe_allow_html=True
+                )
 
         except Exception as e:
             st.error(f"Inference error for {date_str}: {e}")
 
-    # ========================================================
-    # 5. LIVE WHAT-IF SCENARIO LAB
-    # ========================================================
-    elif app_page == "🧪 Live What-If Scenario Lab":
-        st.subheader("🧪 Live What-If Scenario Lab (Interactive Sensitivity Simulation)")
-        st.markdown(
-            "Perform real-time sensitivity analysis. Adjust hypothetical market variables to observe how "
-            "the trained **Residual Delta XGBoost** and **LightGBM Direction Classifier** adjust their predictions dynamically."
-        )
-
-        sim_col1, sim_col2 = st.columns([1, 1])
-
-        with sim_col1:
-            st.markdown("##### 🎛️ Simulation Parameters")
-            sim_close = st.slider("Simulated Today's Close ($)", min_value=10000, max_value=150000, value=int(latest_close), step=500)
-            sim_return = st.slider("Simulated 24h Return (%)", min_value=-15.0, max_value=15.0, value=float(round(pct_change_24h, 2)), step=0.25)
-            sim_rsi = st.slider("Simulated 14-Day RSI", min_value=10.0, max_value=90.0, value=50.0, step=1.0)
-            sim_vol = st.slider("Simulated 30-Day Volatility (%)", min_value=0.5, max_value=10.0, value=2.8, step=0.1)
-
-        # Build simulated row
-        sim_row = latest_row.copy()
-        sim_row["Close"] = float(sim_close)
-        sim_row["Daily_Return"] = float(sim_return / 100.0)
-        sim_row["RSI_14"] = float(sim_rsi)
-        sim_row["Volatility_30"] = float(sim_vol / 100.0)
-        if "Close_Lag_1" in sim_row.columns:
-            sim_row["Close_Lag_1"] = float(sim_close / (1.0 + (sim_return / 100.0)))
-
-        sim_forecast = predictor.predict_next_day(sim_row)
-        sim_pred_price = sim_forecast["predicted_close_usd"]
-        sim_pred_delta = sim_forecast["predicted_delta_usd"]
-        sim_pred_pct = sim_forecast["predicted_pct_change"]
-        sim_direction = sim_forecast["predicted_direction"]
-        sim_conf = sim_forecast["direction_confidence"]
-
-        with sim_col2:
-            st.markdown("##### ⚡ Live Simulated Prediction Output")
-            st.markdown(f"""
-            <div class="glass-card">
-                <div style="margin-bottom: 16px;">
-                    <span class="{'badge-bullish' if sim_direction == 1 else 'badge-bearish'}">
-                        {'▲ BULLISH SIMULATION' if sim_direction == 1 else '▼ BEARISH SIMULATION'}
-                    </span>
-                </div>
-                <div class="card-label">Hypothetical Base Close</div>
-                <div class="card-value">${sim_close:,.2f}</div>
-                <br>
-                <div class="card-label">Model Predicted Next Close</div>
-                <div class="card-value" style="color: #38BDF8;">${sim_pred_price:,.2f}</div>
-                <div style="font-size: 13px; font-weight: 600; color: {'#10B981' if sim_pred_delta >= 0 else '#F43F5E'}; margin-top: 6px;">
-                    Simulated Delta: {sim_pred_delta:+,.2f} ({sim_pred_pct:+.2f}%)
-                </div>
-                <br>
-                <div class="card-label">Simulated Up-Move Probability</div>
-                <div class="card-value" style="color: #FFFFFF;">{sim_conf * 100:.1f}%</div>
-            </div>
-            """, unsafe_allow_html=True)
-
-        st.caption("Notice how RSI extremes (overbought >70 or oversold <30) and high volatility shift the classification confidence.")
-
-    # ========================================================
-    # 6. COLLEGE VIVA & DEFENSE GUIDE
-    # ========================================================
-    elif app_page == "🎓 College Viva & Defense Guide":
-        st.subheader("🎓 College Viva Defense & Oral Examination Guide")
-        st.markdown(
-            "Comprehensive, mathematically sound answers to the most frequent technical questions asked by professors, "
-            "evaluators, and industry reviewers regarding financial machine learning systems."
-        )
-
-        with st.expander("Q1: Why can't standard Random Forest or XGBoost directly predict high Bitcoin prices? (The Tree Extrapolation Trap)"):
-            st.markdown("""
-            **The Core Theoretical Insight:**
-            Decision trees and tree-based ensembles (Random Forest, Extra Trees, vanilla XGBoost) make predictions by recursively 
-            partitioning feature space into orthogonal bounding boxes. Each terminal leaf node computes a constant prediction 
-            (or local average of training samples within that partition).
-            
-            Therefore, a decision tree **cannot extrapolate values outside the interval of its training targets**:
-            $$\\hat{y} \\in [\\min(y_{\\text{train}}), \\max(y_{\\text{train}})]$$
-            
-            When Bitcoin rallies from $30,000 to $80,000+ during the out-of-sample test period, standard trees output 
-            a flat horizontal ceiling at $30,000, resulting in catastrophic failure ($R^2 < 0$, RMSE > $40,000).
-            
-            **Our Architectural Solution:**
-            We implemented **Residual Delta Regression**:
-            $$\\Delta y_{t+1} = y_{t+1} - y_t$$
-            The trees are trained strictly to predict daily dollar differentials (which are stationary and bounded, typically $\\pm \\$3,000$), 
-            and inference reconstructs $\\hat{y}_{t+1} = y_t + \\Delta \\hat{y}_{t+1}$, achieving an out-of-sample $R^2$ of **0.9783**.
-            """)
-
-        with st.expander("Q2: Why is standard K-Fold Cross-Validation invalid for this project?"):
-            st.markdown("""
-            **Temporal Lookahead Leakage:**
-            Standard $k$-fold cross-validation shuffles data randomly across time. If day $t$ is in the test fold 
-            while day $t-1$ and day $t+1$ are in the training fold, the model learns future patterns to predict the past.
-            
-            In financial time series, this causes massive overfitting and unrealistic performance that collapses in live deployment.
-            
-            **Our Methodology:**
-            We enforced strictly chronological splitting:
-            - **70% Training:** Earliest historical regimes (2014 to 2023).
-            - **15% Validation:** Middle regime for hyperparameter optimization and model selection via `TimeSeriesSplit`.
-            - **15% Test:** Pure out-of-sample test set (recent 648 days) strictly isolated until final evaluation.
-            """)
-
-        with st.expander("Q3: Why does a Dummy Classifier show 65% F1-score but fails in practice?"):
-            st.markdown("""
-            **The Class Imbalance Trap:**
-            Because Bitcoin has historically experienced more up days than down days (~53% up, 47% down), a naive dummy 
-            model predicting 'UP' (1) on every single trading day gets 100% Recall.
-            
-            By the standard harmonic mean:
-            $$F_1 = 2 \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}} = 2 \\cdot \\frac{0.53 \\cdot 1.0}{0.53 + 1.0} \\approx 69\\%$$
-            
-            However, its **Specificity is 0.00%** (it never once predicts a market crash or down day). In quantitative finance, 
-            capital preservation during drawdowns is vital. Our chosen **LightGBM** classifier achieves **82.73% Specificity**, 
-            successfully protecting capital during downturns.
-            """)
-
-        with st.expander("Q4: How do you guarantee zero data leakage during feature engineering and scaling?"):
-            st.markdown("""
-            **Causal Indicators Only:**
-            Every technical indicator uses strictly backward-looking windows ($t, t-1, \\dots, t-k$):
-            - Lags: $Close_{t-1}, Close_{t-2}, Close_{t-3}$
-            - Moving Averages: Rolling means computed with closed right endpoints.
-            - Wilder's Exponential RSI, MACD, and Bollinger Bands computed without forward peeking.
-            
-            **Isolated Preprocessing:**
-            `StandardScaler` or `MinMaxScaler` is fit **strictly on the training fold**, and subsequently transforms 
-            validation and test sets without computing target statistics on future data.
-            """)
-
-    # ========================================================
-    # 7. AUTOMATED PIPELINE TRAINING
-    # ========================================================
-    elif app_page == "⚙️ Automated Pipeline Training":
-        st.subheader("⚙️ Automated Machine Learning Pipeline Orchestration")
-        st.markdown(
-            "Trigger the complete machine learning lifecycle autonomously. "
-            "Ingests authentic daily candles from Yahoo Finance, computes all 58 technical indicators, "
-            "partitions data strictly chronologically (70/15/15), optimizes hyperparameters via `TimeSeriesSplit`, "
-            "benchmarks 15 candidate architectures, and serializes production models to disk."
-        )
-
-        col_act1, col_act2 = st.columns([1, 2])
-        with col_act1:
-            if st.button("🚀 Execute Complete ML Pipeline", type="primary", use_container_width=True):
-                progress_bar = st.progress(0)
-                status_text = st.empty()
-
-                try:
-                    status_text.info("Downloading historical market data & generating features...")
-                    progress_bar.progress(20)
-                    run_pipeline()
-                    progress_bar.progress(100)
-                    status_text.success("Pipeline executed successfully! Fresh models and reports generated.")
-                    st.cache_data.clear()
-                    st.cache_resource.clear()
-                    st.rerun()
-                except Exception as e:
-                    status_text.error(f"Execution error: {e}")
-
-        with col_act2:
-            st.info("Pipeline runs fully CPU-optimized in under 30 seconds on standard hardware without requiring GPU.")
-
-    # ========================================================
-    # 8. DATA & ACADEMIC DOWNLOADS
-    # ========================================================
-    elif app_page == "📥 Data & Academic Downloads":
-        st.subheader("📥 Academic Deliverables & Exportable Datasets")
-        st.caption("Export clean datasets, model comparison tables, and full markdown documentation for your college submission.")
+        # Exportable CSV Files
+        st.markdown("---")
+        st.markdown("### 📥 1-Click Project Dataset & Leaderboard Downloads")
 
         d1, d2 = st.columns(2)
         with d1:
@@ -1119,12 +1089,6 @@ def main():
                         mime="text/markdown",
                         use_container_width=True
                     )
-
-        if EXPERIMENT_SUMMARY_FILE.exists():
-            st.markdown("---")
-            st.markdown("### 📑 Full Official Experiment Report")
-            with open(EXPERIMENT_SUMMARY_FILE, "r", encoding="utf-8") as f:
-                st.markdown(f.read())
 
 
 if __name__ == "__main__":

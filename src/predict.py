@@ -83,7 +83,7 @@ class CryptoPredictor:
         delta_usd = pred_close - current_close
         pct_change = (delta_usd / (current_close + 1e-8)) * 100.0
 
-        direction_label = "BULLISH / UP [▲]" if pred_dir == 1 else "BEARISH / DOWN [▼]"
+        direction_label = "BULLISH / UP [UP]" if pred_dir == 1 else "BEARISH / DOWN [DOWN]"
 
         return {
             "observation_date": date_val,

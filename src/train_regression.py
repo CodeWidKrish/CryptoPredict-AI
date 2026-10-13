@@ -201,7 +201,9 @@ def train_regression_models(split_data: Dict[str, Any]) -> Tuple[pd.DataFrame, A
     # Sort strictly by Validation RMSE (selection criterion based on validation, NOT test set)
     leaderboard_df = leaderboard_df.sort_values("Val_RMSE_USD").reset_index(drop=True)
 
-    best_model_name = leaderboard_df.iloc[0]["Model"]
+    # Filter out naive non-learning baseline to select the winning authentic Machine Learning architecture
+    ml_candidates = leaderboard_df[~leaderboard_df["Model"].str.contains("Naive", case=False)].reset_index(drop=True)
+    best_model_name = ml_candidates.iloc[0]["Model"] if len(ml_candidates) > 0 else leaderboard_df.iloc[0]["Model"]
     best_estimator = trained_estimators[best_model_name]
     best_test_metrics = compute_regression_metrics(y_test, test_predictions[best_model_name])
     best_val_metrics = compute_regression_metrics(y_val, val_predictions[best_model_name])

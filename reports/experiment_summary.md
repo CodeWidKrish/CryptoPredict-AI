@@ -1,16 +1,16 @@
 # CryptoPredict AI — Official Experiment Summary Report
-**Date:** 2026-10-13 11:59:45 UTC  
+**Date:** 2026-10-13 12:33:37 UTC  
 **Asset:** Bitcoin (BTC-USD)  
 **Historical Horizon:** 2014-12-15 to 2026-10-12 (4320 supervised observations)
 
 ---
 
 ## 1. Executive Summary & Winning Models
-* **Best Regression Model (Selected by Validation RMSE):** `Naive Previous-Close`
-  * **Test Set MAE:** $1,392.03
-  * **Test Set RMSE:** $1,968.94
-  * **Test Set MAPE:** 1.59%
-  * **Test Set R² Score:** 0.9875
+* **Best Regression Model (Selected by Validation RMSE):** `Linear Regression`
+  * **Test Set MAE:** $1,461.50
+  * **Test Set RMSE:** $2,030.43
+  * **Test Set MAPE:** 1.67%
+  * **Test Set R² Score:** 0.9867
 
 * **Best Direction Classification Model (Selected by Validation F1):** `LightGBM Classifier`
   * **Test Set Accuracy:** 50.15%

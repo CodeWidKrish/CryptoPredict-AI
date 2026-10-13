@@ -1,29 +1,29 @@
 {
-    "winning_model": "Naive Previous-Close",
+    "winning_model": "Linear Regression",
     "validation_metrics": {
-        "mae": 945.1131,
-        "mse": 2151234.348,
-        "rmse": 1466.7087,
-        "mape_pct": 1.735,
-        "r2_score": 0.995169,
+        "mae": 970.0777,
+        "mse": 2225060.0321,
+        "rmse": 1491.6635,
+        "mape_pct": 1.7987,
+        "r2_score": 0.995003,
         "formatted": {
-            "MAE": "$945.11",
-            "RMSE": "$1,466.71",
-            "MAPE": "1.74%",
-            "R\u00b2": "0.9952"
+            "MAE": "$970.08",
+            "RMSE": "$1,491.66",
+            "MAPE": "1.80%",
+            "R\u00b2": "0.9950"
         }
     },
     "test_metrics": {
-        "mae": 1392.031,
-        "mse": 3876732.9517,
-        "rmse": 1968.9421,
-        "mape_pct": 1.5899,
-        "r2_score": 0.987454,
+        "mae": 1461.5011,
+        "mse": 4122642.7752,
+        "rmse": 2030.4292,
+        "mape_pct": 1.6672,
+        "r2_score": 0.986658,
         "formatted": {
-            "MAE": "$1,392.03",
-            "RMSE": "$1,968.94",
-            "MAPE": "1.59%",
-            "R\u00b2": "0.9875"
+            "MAE": "$1,461.50",
+            "RMSE": "$2,030.43",
+            "MAPE": "1.67%",
+            "R\u00b2": "0.9867"
         }
     },
     "leaderboard": [

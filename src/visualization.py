@@ -23,16 +23,16 @@ if str(PROJECT_ROOT) not in sys.path:
 from config.config import FIGURES_DIR
 
 
-# Premium Terminal Color Tokens
-COLOR_BG = "#080D1A"
-COLOR_CARD = "#111A2E"
-COLOR_BORDER = "#1E293B"
-COLOR_TEXT = "#F8FAFC"
+# Pro Trading Terminal Color Tokens (Binance & TradingView Standard)
+COLOR_BG = "#0B0E14"
+COLOR_CARD = "#121722"
+COLOR_BORDER = "#1F293D"
+COLOR_TEXT = "#FFFFFF"
 COLOR_MUTED = "#94A3B8"
-COLOR_GREEN = "#10B981"
-COLOR_RED = "#F43F5E"
-COLOR_BLUE = "#38BDF8"
-COLOR_AMBER = "#F59E0B"
+COLOR_GREEN = "#0ECB81"   # Pro Binance Bullish Green
+COLOR_RED = "#F6465D"     # Pro Binance Bearish Red
+COLOR_BLUE = "#38BDF8"    # Cyan Highlight
+COLOR_AMBER = "#F59E0B"   # Bitcoin Gold
 COLOR_PURPLE = "#8B5CF6"
 
 
